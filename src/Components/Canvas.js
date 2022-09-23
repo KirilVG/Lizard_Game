@@ -6,6 +6,12 @@ const heigthOffset = 0.99;
 const playerHeightScale = 1.5;
 const playerWidthScale = 0.75;
 const heightScale = 10;
+const directions = {
+  "ArrowDown":"down",
+  "ArrowUp":"up",
+  "ArrowLeft":"left",
+  "ArrowRight":"right",
+};
 
 class Canvas extends React.Component {
   componentDidMount() {
@@ -18,20 +24,35 @@ class Canvas extends React.Component {
     console.log(scale);
 
     let renderableObjects=[];
+
     for(let i=0;i<=this.props.lanesNum;i++) {
       let laneSep=new LaneSeparator(scale.laneOriginX+i*scale.laneWidth,scale.laneOriginY,scale.laneHeight);
       renderableObjects.push(laneSep);
     }
 
-    const player = new Player(scale.playerOriginX,scale.playerOriginY,scale.playerWidth,scale.laneHeight);
+    const player = new Player(scale.playerOriginX,scale.playerOriginY,scale.playerWidth,scale.laneHeight,scale.playerStartingLane,this.props.lanesNum,scale.laneWidth);
+    renderableObjects.push(player);
 
-    player.draw(ctx);
     for(let i=0;i<renderableObjects.length;i++) {
       renderableObjects[i].draw(ctx);
     }
 
+    this.animate(ctx,renderableObjects);
 
-    setTimeout(this.tr, 2000);
+    window.addEventListener("keydown",(e) => {
+      player.handleMovement(directions[e.key]);
+    })
+  }
+
+  animate(ctx,renderableObjects) {
+    requestAnimationFrame(()=>this.animate(ctx,renderableObjects));
+
+    ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+
+    for (let i=0;i<renderableObjects.length;i++){
+      renderableObjects[i].update(ctx);
+    }
+    //console.log("go");
   }
 
   claculateParameters() {
@@ -61,6 +82,7 @@ class Canvas extends React.Component {
     let playerOriginY = Math.floor(laneOriginY + Math.floor(laneHeight - playerHeight));
 
     return {
+      playerStartingLane: playerLaneNum,
       laneOriginX: laneOriginX,
       laneOriginY: laneOriginY,
       laneWidth: laneWidth,

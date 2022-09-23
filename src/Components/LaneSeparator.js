@@ -14,6 +14,10 @@ class LaneSeparator{
         c.lineTo(this.position.x2, this.position.y2);
         c.stroke();
     }
+
+    update(c) {
+        this.draw(c)
+    }
 }
 
 export default LaneSeparator;
