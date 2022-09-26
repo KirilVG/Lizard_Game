@@ -1,0 +1,27 @@
+export const heigthOffset = 0.99;
+export const playerHeightScale = 1.5;
+export const playerWidthScale = 0.75;
+export const cactusHeightScale = 1.6;
+export const cactusWidthScale = 0.6;
+export const laneHeightScale = 10;
+export const lineSepaRatorWidthScale = 0.05;
+export const initialValueMultiplier = 1;
+export const valueMultiplier = 1.2;
+export const maxfuel = 100;
+export const fuelLos = 0.1;
+export const speedScale = 0.1;
+export const initialObstacleSpawnTime = 2000;
+export const initialConsumableSpawnTime = 3333;
+export const undergroundAnimationTime = 1500;
+export const inAirAnimationTime = 1500;
+export const jumpHeigthScale=1.2;
+export const undergroundAnimationOpacity=0.5;
+export const initialScore=0;
+export const levelUnder="underground";
+export const levelGround="ground";
+export const levelAir="air";
+export const dirUp="up";
+export const dirDown="down";
+export const dirLeft="left";
+export const dirRight="right";
+

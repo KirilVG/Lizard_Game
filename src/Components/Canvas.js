@@ -1,58 +1,162 @@
 import React from "react";
 import Player from "./Player";
 import LaneSeparator from "./LaneSeparator";
+import Cactus from "./Cactus";
+import * as myConstants from "./Constants";
 
-const heigthOffset = 0.99;
-const playerHeightScale = 1.5;
-const playerWidthScale = 0.75;
-const heightScale = 10;
 const directions = {
-  "ArrowDown":"down",
-  "ArrowUp":"up",
-  "ArrowLeft":"left",
-  "ArrowRight":"right",
+  ArrowDown: myConstants.dirDown,
+  ArrowUp: myConstants.dirUp,
+  ArrowLeft: myConstants.dirLeft,
+  ArrowRight: myConstants.dirRight,
 };
 
 class Canvas extends React.Component {
   componentDidMount() {
+    this.gameIsOver = false;
+
     this.canvas.width = window.innerWidth;
-    this.canvas.height = Math.floor(window.innerHeight * heigthOffset);
 
-    const ctx = this.canvas.getContext("2d");
+    this.canvas.height = Math.floor(
+      window.innerHeight * myConstants.heigthOffset
+    );
 
-    let scale = this.claculateParameters();
-    console.log(scale);
+    this.valueM = myConstants.initialValueMultiplier;
 
-    let renderableObjects=[];
+    this.ctx = this.canvas.getContext("2d");
 
-    for(let i=0;i<=this.props.lanesNum;i++) {
-      let laneSep=new LaneSeparator(scale.laneOriginX+i*scale.laneWidth,scale.laneOriginY,scale.laneHeight);
-      renderableObjects.push(laneSep);
+    this.fuel = myConstants.maxfuel;
+
+    this.scale = this.claculateParameters();
+
+    this.speed = this.scale.initialSpeed;
+
+    this.obstacleSpawnTime = myConstants.initialObstacleSpawnTime;
+
+    this.consumableSpawnTime = myConstants.initialConsumableSpawnTime;
+
+    this.backgroundObjects = [];
+
+    this.groundObstacleObjects = [];
+
+    this.aerialObstacleObjects = [];
+
+    this.player = new Player(
+      this.scale.playerOriginX,
+      this.scale.playerOriginY,
+      this.scale.playerWidth,
+      this.scale.playerHeight,
+      this.scale.playerStartingLane,
+      this.props.lanesNum,
+      this.scale.laneWidth,
+      myConstants.undergroundAnimationTime,
+      myConstants.inAirAnimationTime,
+      myConstants.jumpHeigthScale,
+      this.props.gameEndHandler
+    );
+
+    for (let i = 0; i <= this.props.lanesNum; i++) {
+      let laneSep = new LaneSeparator(
+        this.scale.laneOriginX + i * this.scale.laneWidth,
+        this.scale.laneOriginY,
+        this.scale.laneHeight
+      );
+      this.backgroundObjects.push(laneSep);
     }
 
-    const player = new Player(scale.playerOriginX,scale.playerOriginY,scale.playerWidth,scale.laneHeight,scale.playerStartingLane,this.props.lanesNum,scale.laneWidth);
-    renderableObjects.push(player);
+    this.consumableObjects = [];
 
-    for(let i=0;i<renderableObjects.length;i++) {
-      renderableObjects[i].draw(ctx);
-    }
+    this.colidableObjectCreator = setInterval(
+      () => this.createApproachingObstacleObject(),
+      this.obstacleSpawnTime
+    );
+    this.animate();
 
-    this.animate(ctx,renderableObjects);
+    this.consumableObjectCreator = setInterval(
+      () => this.createConsumableObject(),
+      this.consumableSpawnTime
+    );
 
-    window.addEventListener("keydown",(e) => {
-      player.handleMovement(directions[e.key]);
-    })
+    this.animate();
+
+    window.addEventListener("keydown", (e) => {
+      this.player.handleMovement(directions[e.key]);
+    });
   }
 
-  animate(ctx,renderableObjects) {
-    requestAnimationFrame(()=>this.animate(ctx,renderableObjects));
+  animate() {
+    if (!this.gameIsOver) {
+      requestAnimationFrame(() => this.animate());
 
-    ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+      this.fuel -= myConstants.fuelLos * this.valueM;
+      if (this.fuel <= 0) {
+        this.player.handleDeath("Fuel ended");
+      }
 
-    for (let i=0;i<renderableObjects.length;i++){
-      renderableObjects[i].update(ctx);
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+      for (let i = 0; i < this.backgroundObjects.length; i++) {
+        this.backgroundObjects[i].update(this.ctx);
+      }
+
+      for (let i = 0; i < this.groundObstacleObjects.length; i++) {
+        this.groundObstacleObjects[i].update(this.ctx, this.speed);
+
+        this.groundObstacleObjects[i].detectCollision(this.player);
+
+        if (this.groundObstacleObjects[i].terminate()) {
+          this.groundObstacleObjects.splice(i, 1);
+          i--;
+        }
+      }
+
+      this.player.update(this.ctx);
+
+      for (let i = 0; i < this.consumableObjects.length; i++) {
+        if (this.consumableObjects[i].terminate) {
+          this.consumableObjects.splice(i, 1);
+          i--;
+        }
+      }
+
+      this.gameIsOver = this.player.isDead;
+    } else {
+      clearInterval(this.colidableObjectCreator);
+      clearInterval(this.consumableObjectCreator);
     }
-    //console.log("go");
+  }
+
+  createApproachingObstacleObject() {
+    let res = Math.floor(Math.random() * 3);
+
+    if (res == 0) {
+      console.log("created a bird");
+    } else if (res > 0 && res <= 2) {
+      this.createCactus();
+    }
+  }
+
+  createCactus() {
+    console.log("created  cactus");
+    let col = Math.floor(Math.random() * this.props.lanesNum);
+    let originX =
+      this.scale.laneOriginX +
+      col * this.scale.laneWidth +
+      Math.floor(this.scale.laneWidth - this.scale.cactusWidth) / 2;
+    let originY = this.scale.laneOriginY;
+    let cact = new Cactus(
+      originX,
+      originY,
+      this.scale.cactusWidth,
+      this.scale.cactusHeight,
+      col,
+      this.scale.laneHeight - this.scale.cactusHeight
+    );
+    this.groundObstacleObjects.push(cact);
+  }
+
+  createConsumableObject() {
+    console.log("created a consumable");
   }
 
   claculateParameters() {
@@ -62,24 +166,39 @@ class Canvas extends React.Component {
 
     let widthScale = lanes;
 
-    let hUnit = cHeigth / heightScale;
+    let hUnit = cHeigth / myConstants.laneHeightScale;
     let wUnit = cWidth / widthScale;
 
     let unit = Math.floor(Math.min(hUnit, wUnit));
 
     let laneWidth = unit;
-    let laneHeight = unit * heightScale;
+    let laneHeight = unit * myConstants.laneHeightScale;
 
-    let playerHeight = Math.floor(playerHeightScale * unit);
-    let playerWidth = Math.floor(playerWidthScale * unit);
+    let playerHeight = Math.floor(myConstants.playerHeightScale * unit);
+    let playerWidth = Math.floor(myConstants.playerWidthScale * unit);
+
+    let cactusHeight = Math.floor(myConstants.cactusHeightScale * unit);
+    let cactusWidth = Math.floor(myConstants.cactusWidthScale * unit);
 
     let laneOriginX = Math.floor((cWidth - lanes * unit) / 2);
     let laneOriginY = Math.floor((cHeigth - laneHeight) / 2);
 
     let playerLaneNum = Math.floor(lanes / 2);
 
-    let playerOriginX = Math.floor(laneOriginX + playerLaneNum * laneWidth + Math.floor(laneWidth - playerWidth) / 2);
-    let playerOriginY = Math.floor(laneOriginY + Math.floor(laneHeight - playerHeight));
+    let playerOriginX = Math.floor(
+      laneOriginX +
+        playerLaneNum * laneWidth +
+        Math.floor(laneWidth - playerWidth) / 2
+    );
+    let playerOriginY = Math.floor(
+      laneOriginY + Math.floor(laneHeight - playerHeight)
+    );
+
+    let lineSeparatorWidth = Math.floor(
+      unit * myConstants.lineSepaRatorWidthScale
+    );
+
+    let speed = unit * myConstants.speedScale;
 
     return {
       playerStartingLane: playerLaneNum,
@@ -91,11 +210,11 @@ class Canvas extends React.Component {
       playerOriginY: playerOriginY,
       playerWidth: playerWidth,
       playerHeight: playerHeight,
+      lineSepaRatorWidth: lineSeparatorWidth,
+      initialSpeed: speed,
+      cactusHeight: cactusHeight,
+      cactusWidth: cactusWidth,
     };
-  }
-
-  tr() {
-    console.log("tr");
   }
 
   render() {
