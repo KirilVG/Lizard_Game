@@ -4,6 +4,7 @@ import LaneSeparator from "./LaneSeparator";
 import Cactus from "./Cactus";
 import Worm from "./Worm";
 import * as myConstants from "./Constants";
+import Bird from "./Bird";
 
 const directions = {
   ArrowDown: myConstants.dirDown,
@@ -122,6 +123,17 @@ class Canvas extends React.Component {
         }
       }
 
+      for (let i = 0; i < this.aerialObstacleObjects.length; i++) {
+        this.aerialObstacleObjects[i].update(this.ctx, this.speed);
+
+        this.aerialObstacleObjects[i].detectCollision(this.player);
+
+        if (this.aerialObstacleObjects[i].terminate()) {
+          this.aerialObstacleObjects.splice(i, 1);
+          i--;
+        }
+      }
+
       this.gameIsOver = this.player.isDead;
     } else {
       clearInterval(this.colidableObjectCreator);
@@ -133,10 +145,28 @@ class Canvas extends React.Component {
     let res = Math.floor(Math.random() * 3);
 
     if (res == 0) {
-      console.log("created a bird");
+      this.createBird();
     } else if (res > 0 && res <= 2) {
       this.createCactus();
     }
+  }
+
+  createBird() {
+    let col = Math.floor(Math.random() * (this.props.lanesNum-2))+1;
+    let originX =
+      this.scale.laneOriginX +
+      col * this.scale.laneWidth -
+      Math.floor((this.scale.birdWidth - this.scale.laneWidth) / 2);
+    let originY = this.scale.laneOriginY;
+    let bird = new Bird(
+      originX,
+      originY,
+      this.scale.birdWidth,
+      this.scale.birdHeight,
+      col,
+      this.scale.laneHeight
+    );
+    this.aerialObstacleObjects.push(bird);
   }
 
   createCactus() {
@@ -203,6 +233,9 @@ class Canvas extends React.Component {
     let wormHeight = Math.floor(myConstants.wormHeightScale * unit);
     let wormWidth = Math.floor(myConstants.wormWidthScale * unit);
 
+    let birdHeight = Math.floor(myConstants.birdHeightScale * unit);
+    let birdWidth = Math.floor(myConstants.birdWidthScale * unit);
+
     let laneOriginX = Math.floor((cWidth - lanes * unit) / 2);
     let laneOriginY = Math.floor((cHeigth - laneHeight) / 2);
 
@@ -224,6 +257,8 @@ class Canvas extends React.Component {
     let speed = unit * myConstants.speedScale;
 
     return {
+      birdHeight: birdHeight,
+      birdWidth:  birdWidth,
       wormHeight: wormHeight,
       wormWidth: wormWidth,
       playerStartingLane: playerLaneNum,
