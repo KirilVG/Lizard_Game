@@ -32,6 +32,7 @@ class Player {
     this.score=myConstants.initialScore;
     this.isDead = false;
     this.gameOverHook=gameOverHook;
+    this.fuel=myConstants.maxfuel;
   }
 
   draw(c) {

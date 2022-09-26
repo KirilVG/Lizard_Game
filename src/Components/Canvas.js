@@ -2,6 +2,7 @@ import React from "react";
 import Player from "./Player";
 import LaneSeparator from "./LaneSeparator";
 import Cactus from "./Cactus";
+import Worm from "./Worm";
 import * as myConstants from "./Constants";
 
 const directions = {
@@ -25,8 +26,6 @@ class Canvas extends React.Component {
 
     this.ctx = this.canvas.getContext("2d");
 
-    this.fuel = myConstants.maxfuel;
-
     this.scale = this.claculateParameters();
 
     this.speed = this.scale.initialSpeed;
@@ -40,6 +39,8 @@ class Canvas extends React.Component {
     this.groundObstacleObjects = [];
 
     this.aerialObstacleObjects = [];
+
+    this.consumableObjects = [];
 
     this.player = new Player(
       this.scale.playerOriginX,
@@ -64,8 +65,6 @@ class Canvas extends React.Component {
       this.backgroundObjects.push(laneSep);
     }
 
-    this.consumableObjects = [];
-
     this.colidableObjectCreator = setInterval(
       () => this.createApproachingObstacleObject(),
       this.obstacleSpawnTime
@@ -88,8 +87,8 @@ class Canvas extends React.Component {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
 
-      this.fuel -= myConstants.fuelLos * this.valueM;
-      if (this.fuel <= 0) {
+      this.player.fuel -= myConstants.fuelLos * this.valueM;
+      if (this.player.fuel <= 0) {
         this.player.handleDeath("Fuel ended");
       }
 
@@ -113,7 +112,11 @@ class Canvas extends React.Component {
       this.player.update(this.ctx);
 
       for (let i = 0; i < this.consumableObjects.length; i++) {
-        if (this.consumableObjects[i].terminate) {
+        this.consumableObjects[i].update(this.ctx, this.speed);
+
+        this.consumableObjects[i].detectCollision(this.player);
+
+        if (this.consumableObjects[i].terminate()) {
           this.consumableObjects.splice(i, 1);
           i--;
         }
@@ -137,7 +140,6 @@ class Canvas extends React.Component {
   }
 
   createCactus() {
-    console.log("created  cactus");
     let col = Math.floor(Math.random() * this.props.lanesNum);
     let originX =
       this.scale.laneOriginX +
@@ -150,13 +152,31 @@ class Canvas extends React.Component {
       this.scale.cactusWidth,
       this.scale.cactusHeight,
       col,
-      this.scale.laneHeight - this.scale.cactusHeight
+      this.scale.laneHeight
     );
     this.groundObstacleObjects.push(cact);
   }
 
   createConsumableObject() {
-    console.log("created a consumable");
+    this.createWorm();
+  }
+
+  createWorm() {
+    let col = Math.floor(Math.random() * this.props.lanesNum);
+    let originX =
+      this.scale.laneOriginX +
+      col * this.scale.laneWidth +
+      Math.floor(this.scale.laneWidth - this.scale.wormWidth) / 2;
+    let originY = this.scale.laneOriginY;
+    let worm = new Worm(
+      originX,
+      originY,
+      this.scale.wormWidth,
+      this.scale.wormHeight,
+      col,
+      this.scale.laneHeight
+    );
+    this.consumableObjects.push(worm);
   }
 
   claculateParameters() {
@@ -180,6 +200,9 @@ class Canvas extends React.Component {
     let cactusHeight = Math.floor(myConstants.cactusHeightScale * unit);
     let cactusWidth = Math.floor(myConstants.cactusWidthScale * unit);
 
+    let wormHeight = Math.floor(myConstants.wormHeightScale * unit);
+    let wormWidth = Math.floor(myConstants.wormWidthScale * unit);
+
     let laneOriginX = Math.floor((cWidth - lanes * unit) / 2);
     let laneOriginY = Math.floor((cHeigth - laneHeight) / 2);
 
@@ -201,6 +224,8 @@ class Canvas extends React.Component {
     let speed = unit * myConstants.speedScale;
 
     return {
+      wormHeight: wormHeight,
+      wormWidth: wormWidth,
       playerStartingLane: playerLaneNum,
       laneOriginX: laneOriginX,
       laneOriginY: laneOriginY,

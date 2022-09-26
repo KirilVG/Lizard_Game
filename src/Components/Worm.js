@@ -1,12 +1,11 @@
 import * as myConstants from "./Constants";
 
-class Cactus {
+class Worm {
     constructor(xPos,yPos,width,height,currentLane,distancetotravel) {
         this.position = {
             x:xPos,
             y:yPos-height,
         }
-        this.gameOverCauseMessage="Killed by cactus";
         this.width=width;
         this.height=height;
         this.currentLane = currentLane;
@@ -15,7 +14,7 @@ class Cactus {
     }
 
     draw(c) {
-        c.fillStyle="green";
+        c.fillStyle="red";
         c.fillRect(this.position.x, this.position.y, this.width, this.height);
         c.fillStyle="black";
     }
@@ -23,19 +22,17 @@ class Cactus {
     update(c, currentSpeed) {
         
         if(this.distancetotravel>0) {
-            let calculatedSpeed = currentSpeed*myConstants.cactusSpeedMultiplier;
+            let calculatedSpeed = currentSpeed*myConstants.wormSpeedMultiplier;
             this.position.y+=calculatedSpeed;
             this.distancetotravel-=calculatedSpeed;
             this.draw(c);
         }
-
-        if(this.distancetotravel<=0) return true;
     }
 
     detectCollision(player) {
         if(player.position.y<=(this.position.y+this.height) && player.currentLane==this.currentLane && player.level==myConstants.levelGround) {
             this.colided=true;
-            player.handleDeath(this.gameOverCauseMessage);
+            player.fuel=myConstants.maxfuel;
         }
         
     }
@@ -45,4 +42,4 @@ class Cactus {
     }
 }
 
-export default Cactus;
+export default Worm;
