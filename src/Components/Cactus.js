@@ -5,7 +5,7 @@ class Cactus {
     constructor(xPos,yPos,width,height,currentLane,distancetotravel) {
         this.position = {
             x:xPos,
-            y:yPos-height,
+            y:yPos,
         }
         this.gameOverCauseMessage="Killed by cactus";
         this.width=width;

@@ -134,6 +134,14 @@ class Canvas extends React.Component {
         }
       }
 
+      this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
+      let fontSize=this.scale.laneWidth*myConstants.fontscale
+      this.ctx.font =`${fontSize}px serif`;
+      this.ctx.fillStyle="white";
+      this.ctx.fillText(`score:${Math.round(this.player.score)}`,this.scale.laneOriginX,this.scale.laneOriginY+fontSize);
+      this.ctx.fillRect(this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,0.9*this.scale.laneWidth,this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),this.scale.laneOriginY+this.scale.laneWidth);
+      this.ctx.fillStyle="black";
+
       this.gameIsOver = this.player.isDead;
     } else {
       clearInterval(this.colidableObjectCreator);

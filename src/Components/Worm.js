@@ -5,7 +5,7 @@ class Worm {
     constructor(xPos,yPos,width,height,currentLane,distancetotravel) {
         this.position = {
             x:xPos,
-            y:yPos-height,
+            y:yPos,
         }
         this.width=width;
         this.height=height;
