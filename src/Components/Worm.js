@@ -1,4 +1,5 @@
 import * as myConstants from "./Constants";
+import WormIcon from "../Images/WormIcon.svg";
 
 class Worm {
     constructor(xPos,yPos,width,height,currentLane,distancetotravel) {
@@ -11,12 +12,12 @@ class Worm {
         this.currentLane = currentLane;
         this.distancetotravel = distancetotravel;
         this.colided=false;
+        this.image=new Image();
+        this.image.src=WormIcon;
     }
 
     draw(c) {
-        c.fillStyle="red";
-        c.fillRect(this.position.x, this.position.y, this.width, this.height);
-        c.fillStyle="black";
+        c.drawImage(this.image,this.position.x, this.position.y, this.width, this.height);
     }
 
     update(c, currentSpeed) {

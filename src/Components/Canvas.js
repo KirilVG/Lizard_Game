@@ -31,9 +31,9 @@ class Canvas extends React.Component {
 
     this.speed = this.scale.initialSpeed;
 
-    this.obstacleSpawnTime = myConstants.initialObstacleSpawnTime;
+    this.obstacleSpawnTime = myConstants.initialObstacleSpawnTime/this.props.lanesNum;
 
-    this.consumableSpawnTime = myConstants.initialConsumableSpawnTime;
+    this.consumableSpawnTime = myConstants.initialConsumableSpawnTime/this.props.lanesNum;
 
     this.backgroundObjects = [];
 
@@ -164,7 +164,7 @@ class Canvas extends React.Component {
       this.scale.birdWidth,
       this.scale.birdHeight,
       col,
-      this.scale.laneHeight
+      this.scale.laneHeight+this.scale.birdHeight
     );
     this.aerialObstacleObjects.push(bird);
   }
@@ -182,7 +182,7 @@ class Canvas extends React.Component {
       this.scale.cactusWidth,
       this.scale.cactusHeight,
       col,
-      this.scale.laneHeight
+      this.scale.laneHeight+this.scale.cactusHeight
     );
     this.groundObstacleObjects.push(cact);
   }
@@ -204,7 +204,7 @@ class Canvas extends React.Component {
       this.scale.wormWidth,
       this.scale.wormHeight,
       col,
-      this.scale.laneHeight
+      this.scale.laneHeight+this.scale.wormHeight
     );
     this.consumableObjects.push(worm);
   }

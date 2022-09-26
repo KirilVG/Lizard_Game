@@ -1,4 +1,5 @@
 import * as myConstants from "./Constants";
+import LizardIcon from "../Images/LizardIcon.svg"
 
 class Player {
   constructor(
@@ -33,19 +34,24 @@ class Player {
     this.isDead = false;
     this.gameOverHook=gameOverHook;
     this.fuel=myConstants.maxfuel;
+    this.image=new Image();
+    this.image.src=LizardIcon;
   }
 
   draw(c) {
     if (this.level == myConstants.levelGround) {
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      //c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      c.drawImage(this.image,this.position.x, this.position.y, this.width, this.height);
     } else if (this.level == myConstants.levelUnder) {
       c.globalAlpha = myConstants.undergroundAnimationOpacity;
-      c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      //c.fillRect(this.position.x, this.position.y, this.width, this.height);
+      c.drawImage(this.image,this.position.x, this.position.y, this.width, this.height);
       c.globalAlpha = 1;
     } else if (this.level == myConstants.levelAir) {
       let newOriginX=this.position.x-(Math.round((this.width*this.jumpHeightScale-this.width))/2);
       let newOriginY=this.position.y-(this.height*this.jumpHeightScale-this.height);
-      c.fillRect(newOriginX, newOriginY, this.width*this.jumpHeightScale, this.height*this.jumpHeightScale);
+      //c.fillRect(newOriginX, newOriginY, this.width*this.jumpHeightScale, this.height*this.jumpHeightScale);
+      c.drawImage(this.image, newOriginX, newOriginY, this.width*this.jumpHeightScale, this.height*this.jumpHeightScale);
     }
   }
 

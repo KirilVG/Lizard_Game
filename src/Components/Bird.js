@@ -1,4 +1,5 @@
 import * as myConstants from "./Constants";
+import BirdIcon from "../Images/BirdIcon.svg";
 
 class Bird {
   constructor(xPos, yPos, width, height, currentLane, distancetotravel) {
@@ -12,12 +13,12 @@ class Bird {
     this.currentLane = currentLane;
     this.distancetotravel = distancetotravel;
     this.colided = false;
+    this.image=new Image();
+    this.image.src=BirdIcon;
   }
 
   draw(c) {
-    c.fillStyle = "brown";
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
-    c.fillStyle = "black";
+    c.drawImage(this.image,this.position.x, this.position.y, this.width, this.height);
   }
 
   update(c, currentSpeed) {
