@@ -8,7 +8,7 @@ function GameOverMenu (props) {
         return (
         <div>
             <h1>Game over</h1>
-            <label>{props.cause.message}</label>
+            <label>{`${props.end.message}, score: ${props.end.score}`}</label>
             <button onClick={clickContinue}>PLay Again</button>
         </div>
         );

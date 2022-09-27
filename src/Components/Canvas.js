@@ -6,6 +6,8 @@ import SmallCactus from "./SmallCactus";
 import Worm from "./Worm";
 import * as myConstants from "./Constants";
 import Bird from "./Bird";
+import ScaleCalculator from "./ScaleCalculator";
+import CollidableObjectFactory from "./CollidableObjectFactory";
 
 const directions = {
   ArrowDown: myConstants.dirDown,
@@ -28,7 +30,7 @@ class Canvas extends React.Component {
 
     this.ctx = this.canvas.getContext("2d");
 
-    this.scale = this.claculateParameters();
+    this.scale = ScaleCalculator(this.canvas.width, this.canvas.height, this.props.lanesNum);
 
     this.speed = this.scale.initialSpeed;
 
@@ -190,194 +192,21 @@ class Canvas extends React.Component {
 
     switch(res) {
       case 0:
-        this.createBird();
+        this.aerialObstacleObjects.push(CollidableObjectFactory.createBird(this.scale,this.props.lanesNum));
         break;
       case 1: 
-        this.createCactus();
+        this.groundObstacleObjects.push(CollidableObjectFactory.createCactus(this.scale,this.props.lanesNum))
         break;
       case 2:
-        this.createSmallCactus();
+        this.groundObstacleObjects.push(CollidableObjectFactory.createSmallCactus(this.scale,this.props.lanesNum));
         break;
       default:
         break;
     }
   }
 
-  createBird() {
-    let col = Math.floor(Math.random() * (this.props.lanesNum-2))+1;
-    let originX =
-      this.scale.laneOriginX +
-      col * this.scale.laneWidth +
-      this.scale.laneWidth  / 2;
-    let originY = this.scale.laneOriginY;
-    let bird = new Bird(
-      originX,
-      originY,
-      this.scale.birdIMGWidth,
-      this.scale.birdIMGHeight,
-      this.scale.birdHitboxWidth,
-      this.scale.birdHitboxHeight,
-      col,
-      this.scale.laneHeight
-    );
-    this.aerialObstacleObjects.push(bird);
-  }
-
-  createCactus() {
-    let col = Math.floor(Math.random() * this.props.lanesNum);
-    let originX =
-      this.scale.laneOriginX +
-      col * this.scale.laneWidth +
-      this.scale.laneWidth  / 2;
-    let originY = this.scale.laneOriginY;
-    let cact = new Cactus(
-      originX,
-      originY,
-      this.scale.cactusIMGWidth,
-      this.scale.cactusIMGHeight,
-      this.scale.cactusHitboxWidth,
-      this.scale.cactusHitboxHeight,
-      col,
-      this.scale.laneHeight
-    );
-    this.groundObstacleObjects.push(cact);
-  }
-
-  createSmallCactus() {
-    let col = Math.floor(Math.random() * this.props.lanesNum);
-    let originX =
-      this.scale.laneOriginX +
-      col * this.scale.laneWidth +
-      this.scale.laneWidth  / 2;
-    let originY = this.scale.laneOriginY;
-    let cact = new SmallCactus(
-      originX,
-      originY,
-      this.scale.smallCactusIMGWidth,
-      this.scale.smallCactusIMGHeight,
-      this.scale.smallCactusHitboxWidth,
-      this.scale.smallCactusHitboxHeight,
-      col,
-      this.scale.laneHeight
-    );
-    this.groundObstacleObjects.push(cact);
-  }
-
   createConsumableObject() {
-    this.createWorm();
-  }
-
-  createWorm() {
-    let col = Math.floor(Math.random() * this.props.lanesNum);
-    let originX =
-      this.scale.laneOriginX +
-      col * this.scale.laneWidth +
-      this.scale.laneWidth  / 2;
-    let originY = this.scale.laneOriginY;
-    let worm = new Worm(
-      originX,
-      originY,
-      this.scale.wormIMGWidth,
-      this.scale.wormIMGHeight,
-      this.scale.wormHitboxWidth,
-      this.scale.wormHitboxHeight,
-      col,
-      this.scale.laneHeight
-    );
-    this.consumableObjects.push(worm);
-  }
-
-  claculateParameters() {
-    let cWidth = this.canvas.width;
-    let cHeigth = this.canvas.height;
-    let lanes = this.props.lanesNum;
-
-    let widthScale = lanes;
-
-    let hUnit = cHeigth / myConstants.laneHeightScale;
-    let wUnit = cWidth / widthScale;
-
-    let unit = Math.floor(Math.min(hUnit, wUnit));
-
-    let laneWidth = unit;
-    let laneHeight = unit * myConstants.laneHeightScale;
-
-    let playerHitboxHeight = Math.floor(myConstants.playerHitboxHeightScale * unit);
-    let playerHitboxWidth = Math.floor(myConstants.playerHitboxWidthScale * unit);
-    let playerIMGHeight = Math.floor(myConstants.playerIMGHeightScale * unit);
-    let playerIMGWidth = Math.floor(myConstants.playerIMGWidthScale * unit);
-
-    let cactusHitboxHeight = Math.floor(myConstants.cactusHitboxHeightScale * unit);
-    let cactusHitboxWidth = Math.floor(myConstants.cactusHitboxWidthScale * unit);
-    let cactusIMGHeight = Math.floor(myConstants.cactusIMGHeightScale * unit);
-    let cactusIMGWidth = Math.floor(myConstants.cactusIMGWidthScale * unit);
-
-    let smallCactusHitboxHeight = Math.floor(myConstants.smallCactusHitboxHeightScale * unit);
-    let smallCactusHitboxWidth = Math.floor(myConstants.smallCactusHitboxWidthScale * unit);
-    let smallCactusIMGHeight = Math.floor(myConstants.smallCactusIMGHeightScale * unit);
-    let smallCactusIMGWidth = Math.floor(myConstants.smallCactusIMGWidthScale * unit);
-
-    let wormHitboxHeight = Math.floor(myConstants.wormHitboxHeightScale * unit);
-    let wormHitboxWidth = Math.floor(myConstants.wormHitboxWidthScale * unit);
-    let wormIMGHeight = Math.floor(myConstants.wormIMGHeightScale * unit);
-    let wormIMGWidth = Math.floor(myConstants.wormIMGWidthScale * unit);
-
-    let birdHitboxHeight = Math.floor(myConstants.birdHitboxHeightScale * unit);
-    let birdHitboxWidth = Math.floor(myConstants.birdHitboxWidthScale * unit);
-    let birdIMGHeight = Math.floor(myConstants.birdIMGHeightScale * unit);
-    let birdIMGWidth = Math.floor(myConstants.birdIMGWidthScale * unit);
-
-    let laneOriginX = Math.floor((cWidth - lanes * unit) / 2);
-    let laneOriginY = Math.floor((cHeigth - laneHeight) / 2);
-
-    let playerLaneNum = Math.floor(lanes / 2);
-
-    let playerOriginX = Math.floor(
-      laneOriginX +
-        playerLaneNum * laneWidth +
-        laneWidth / 2
-    );
-    let playerOriginY = Math.floor(
-      laneOriginY + Math.floor(laneHeight - playerIMGHeight)
-    );
-
-    let lineSeparatorWidth = Math.floor(
-      unit * myConstants.lineSepaRatorWidthScale
-    );
-
-    let speed = unit * myConstants.speedScale;
-
-    return {
-      playerHitboxHeight: playerHitboxHeight,
-      playerHitboxWidth: playerHitboxWidth,
-      playerIMGHeight: playerIMGHeight,
-      playerIMGWidth: playerIMGWidth,
-      cactusHitboxHeight: cactusHitboxHeight,
-      cactusHitboxWidth: cactusHitboxWidth,
-      cactusIMGHeight: cactusIMGHeight,
-      cactusIMGWidth: cactusIMGWidth,
-      smallCactusHitboxHeight: smallCactusHitboxHeight,
-      smallCactusHitboxWidth: smallCactusHitboxWidth,
-      smallCactusIMGHeight: smallCactusIMGHeight,
-      smallCactusIMGWidth: smallCactusIMGWidth,
-      birdHitboxHeight: birdHitboxHeight,
-      birdHitboxWidth: birdHitboxWidth,
-      birdIMGHeight: birdIMGHeight,
-      birdIMGWidth: birdIMGWidth,
-      wormHitboxHeight: wormHitboxHeight,
-      wormHitboxWidth: wormHitboxWidth,
-      wormIMGHeight: wormIMGHeight,
-      wormIMGWidth: wormIMGWidth,
-      playerStartingLane: playerLaneNum,
-      laneOriginX: laneOriginX,
-      laneOriginY: laneOriginY,
-      laneWidth: laneWidth,
-      laneHeight: laneHeight,
-      playerOriginX: playerOriginX,
-      playerOriginY: playerOriginY,
-      lineSepaRatorWidth: lineSeparatorWidth,
-      initialSpeed: speed,
-    };
+    this.consumableObjects.push(CollidableObjectFactory.createWorm(this.scale,this.props.lanesNum));
   }
 
   render() {

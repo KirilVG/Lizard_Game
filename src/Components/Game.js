@@ -8,7 +8,8 @@ const Game = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [lanesNum, setLanesNum] = useState(3);
   const [inGameOverScreen, setinGameOverScreen] = useState(false);
-  const [gameOverCause,setGameOverCause] = useState({message:"no cause"})
+  const [gameOverInf,setGameOverInf] = useState({message:"no cause", score:0})
+
   const handleStart = (inpVal) => {
     setLanesNum(inpVal);
     setGameStarted(true);
@@ -17,7 +18,7 @@ const Game = () => {
   const handleGameEnd = (gameEnd) => {
     setGameStarted(false);
     setinGameOverScreen(true);
-    setGameOverCause(gameEnd)
+    setGameOverInf(gameEnd);
   }
 
   const resetGame=() => {
@@ -29,7 +30,7 @@ const Game = () => {
 
   return (
     <div>
-        {inGameOverScreen ? <GameOverMenu onClick={resetGame} cause={gameOverCause}/> : gameStarted ? <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd}/> : <StartMenu onClick={handleStart}/>}
+        {inGameOverScreen ? <GameOverMenu onClick={resetGame} end={gameOverInf}/> : gameStarted ? <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd}/> : <StartMenu onClick={handleStart}/>}
     </div>);
 };
 

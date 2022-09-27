@@ -92,7 +92,7 @@ class Player {
 
   handleDeath(cause) {
     this.isDead = true;
-    this.gameOverHook({ message: cause });
+    this.gameOverHook({ message: cause, score: Math.round(this.score)});
   }
 
   handleMovement(direction) {
