@@ -1,7 +1,7 @@
 import * as myConstants from "./Constants";
-import WormIcon from "../Images/WormIcon.svg";
+import SmallCactusIcon from "../Images/SmallCactusIcon.svg";
 
-class Worm {
+class SmallCactus {
   constructor(
     xPos,
     yPos,
@@ -16,6 +16,7 @@ class Worm {
       x: xPos,
       y: yPos,
     };
+    this.gameOverCauseMessage = "Killed by a small cactus";
     this.IMGWidth = IMGWidth;
     this.IMGHeight = IMGHeight;
     this.hitboxWidth = hitboxWidth;
@@ -24,7 +25,7 @@ class Worm {
     this.distancetotravel = distancetotravel;
     this.colided = false;
     this.image = new Image();
-    this.image.src = WormIcon;
+    this.image.src = SmallCactusIcon;
   }
 
   draw(c) {
@@ -36,39 +37,36 @@ class Worm {
       this.IMGHeight
     );
 
-    if (myConstants.displayHitboxes) {
-      c.fillStyle = "green";
-      c.globalAlpha = myConstants.hitboxOpacity;
-      c.fillRect(
-        this.position.x - this.hitboxWidth / 2,
-        this.position.y + (this.IMGHeight - this.hitboxHeight),
-        this.hitboxWidth,
-        this.hitboxHeight
-      ); //displays hitbox
-      c.globalAlpha = 1
-      c.fillStyle = "black";
+    if(myConstants.displayHitboxes) {
+        c.globalAlpha = myConstants.hitboxOpacity;
+        c.fillStyle="red";
+        c.fillRect(this.position.x-this.hitboxWidth/2,this.position.y + (this.IMGHeight - this.hitboxHeight),this.hitboxWidth,this.hitboxHeight)//displays hitbox
+        c.globalAlpha = 1;
+        c.fillStyle="black";
     }
   }
 
   update(c, currentSpeed) {
     if (this.distancetotravel > 0) {
-      let calculatedSpeed = currentSpeed * myConstants.wormSpeedMultiplier;
+      let calculatedSpeed = currentSpeed * myConstants.cactusSpeedMultiplier;
       this.position.y += calculatedSpeed;
       this.distancetotravel -= calculatedSpeed;
       this.draw(c);
     }
+
+    if (this.distancetotravel <= 0) return true;
   }
 
   detectCollision(player) {
     if (
       player.position.y <= this.position.y + this.IMGHeight &&
-      player.position.y + player.hitboxHeight >=
-        this.position.y + (this.IMGHeight - this.hitboxHeight) &&
+      player.position.y + player.hitboxHeight >= this.position.y + (this.IMGHeight - this.hitboxHeight) &&
       player.currentLane == this.currentLane &&
-      player.level == myConstants.levelGround
+      (player.level == myConstants.levelGround ||
+        player.level == myConstants.levelUnder)
     ) {
       this.colided = true;
-      player.fuel = myConstants.maxfuel;
+      player.handleDeath(this.gameOverCauseMessage);
     }
   }
 
@@ -77,4 +75,4 @@ class Worm {
   }
 }
 
-export default Worm;
+export default SmallCactus;

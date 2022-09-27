@@ -10,7 +10,7 @@ const Game = () => {
   const [inGameOverScreen, setinGameOverScreen] = useState(false);
   const [gameOverCause,setGameOverCause] = useState({message:"no cause"})
   const handleStart = (inpVal) => {
-    setLanesNum(inpVal)
+    setLanesNum(inpVal);
     setGameStarted(true);
   };
 

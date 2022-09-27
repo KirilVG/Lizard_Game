@@ -2,6 +2,7 @@ import React from "react";
 import Player from "./Player";
 import LaneSeparator from "./LaneSeparator";
 import Cactus from "./Cactus";
+import SmallCactus from "./SmallCactus";
 import Worm from "./Worm";
 import * as myConstants from "./Constants";
 import Bird from "./Bird";
@@ -31,6 +32,8 @@ class Canvas extends React.Component {
 
     this.speed = this.scale.initialSpeed;
 
+    this.speedUps=0;
+
     this.obstacleSpawnTime = myConstants.initialObstacleSpawnTime/this.props.lanesNum;
 
     this.consumableSpawnTime = myConstants.initialConsumableSpawnTime/this.props.lanesNum;
@@ -46,8 +49,10 @@ class Canvas extends React.Component {
     this.player = new Player(
       this.scale.playerOriginX,
       this.scale.playerOriginY,
-      this.scale.playerWidth,
-      this.scale.playerHeight,
+      this.scale.playerIMGWidth,
+      this.scale.playerIMGHeight,
+      this.scale.playerHitboxWidth,
+      this.scale.playerHitboxHeight,
       this.scale.playerStartingLane,
       this.props.lanesNum,
       this.scale.laneWidth,
@@ -88,7 +93,6 @@ class Canvas extends React.Component {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
 
-      this.player.fuel -= myConstants.fuelLos * this.valueM;
       if (this.player.fuel <= 0) {
         this.player.handleDeath("Fuel ended");
       }
@@ -134,6 +138,7 @@ class Canvas extends React.Component {
         }
       }
 
+      //displayscore
       this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
       let fontSize=this.scale.laneWidth*myConstants.fontscale
       this.ctx.font =`${fontSize}px serif`;
@@ -142,6 +147,8 @@ class Canvas extends React.Component {
       this.ctx.fillRect(this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,0.9*this.scale.laneWidth,this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),this.scale.laneOriginY+this.scale.laneWidth);
       this.ctx.fillStyle="black";
 
+      if(Math.floor(this.player.score/myConstants.pointsNeededToIncreaseScore)>this.speedUps) this.speedUp();
+
       this.gameIsOver = this.player.isDead;
     } else {
       clearInterval(this.colidableObjectCreator);
@@ -149,13 +156,50 @@ class Canvas extends React.Component {
     }
   }
 
+  speedUp() {
+    let prevSpeed=this.speed;
+    this.speed*=myConstants.valueMultiplier;
+    this.player.valuemultiplier*=myConstants.valueMultiplier;
+
+    let diff=prevSpeed/this.speed;
+
+    this.player.inAirAnimationTime*=diff;
+    this.player.underGroundAnimationTime*=diff;
+
+    this.obstacleSpawnTime*=diff;
+    this.consumableSpawnTime*=diff;
+
+    clearInterval(this.colidableObjectCreator);
+    clearInterval(this.consumableObjectCreator);
+
+    this.colidableObjectCreator = setInterval(
+      () => this.createApproachingObstacleObject(),
+      this.obstacleSpawnTime
+    );
+
+    this.consumableObjectCreator = setInterval(
+      () => this.createConsumableObject(),
+      this.consumableSpawnTime
+    );
+
+    this.speedUps++;
+  }
+
   createApproachingObstacleObject() {
     let res = Math.floor(Math.random() * 3);
 
-    if (res == 0) {
-      this.createBird();
-    } else if (res > 0 && res <= 2) {
-      this.createCactus();
+    switch(res) {
+      case 0:
+        this.createBird();
+        break;
+      case 1: 
+        this.createCactus();
+        break;
+      case 2:
+        this.createSmallCactus();
+        break;
+      default:
+        break;
     }
   }
 
@@ -163,16 +207,18 @@ class Canvas extends React.Component {
     let col = Math.floor(Math.random() * (this.props.lanesNum-2))+1;
     let originX =
       this.scale.laneOriginX +
-      col * this.scale.laneWidth -
-      Math.floor((this.scale.birdWidth - this.scale.laneWidth) / 2);
+      col * this.scale.laneWidth +
+      this.scale.laneWidth  / 2;
     let originY = this.scale.laneOriginY;
     let bird = new Bird(
       originX,
       originY,
-      this.scale.birdWidth,
-      this.scale.birdHeight,
+      this.scale.birdIMGWidth,
+      this.scale.birdIMGHeight,
+      this.scale.birdHitboxWidth,
+      this.scale.birdHitboxHeight,
       col,
-      this.scale.laneHeight+this.scale.birdHeight
+      this.scale.laneHeight
     );
     this.aerialObstacleObjects.push(bird);
   }
@@ -182,15 +228,37 @@ class Canvas extends React.Component {
     let originX =
       this.scale.laneOriginX +
       col * this.scale.laneWidth +
-      Math.floor(this.scale.laneWidth - this.scale.cactusWidth) / 2;
+      this.scale.laneWidth  / 2;
     let originY = this.scale.laneOriginY;
     let cact = new Cactus(
       originX,
       originY,
-      this.scale.cactusWidth,
-      this.scale.cactusHeight,
+      this.scale.cactusIMGWidth,
+      this.scale.cactusIMGHeight,
+      this.scale.cactusHitboxWidth,
+      this.scale.cactusHitboxHeight,
       col,
-      this.scale.laneHeight+this.scale.cactusHeight
+      this.scale.laneHeight
+    );
+    this.groundObstacleObjects.push(cact);
+  }
+
+  createSmallCactus() {
+    let col = Math.floor(Math.random() * this.props.lanesNum);
+    let originX =
+      this.scale.laneOriginX +
+      col * this.scale.laneWidth +
+      this.scale.laneWidth  / 2;
+    let originY = this.scale.laneOriginY;
+    let cact = new SmallCactus(
+      originX,
+      originY,
+      this.scale.smallCactusIMGWidth,
+      this.scale.smallCactusIMGHeight,
+      this.scale.smallCactusHitboxWidth,
+      this.scale.smallCactusHitboxHeight,
+      col,
+      this.scale.laneHeight
     );
     this.groundObstacleObjects.push(cact);
   }
@@ -204,15 +272,17 @@ class Canvas extends React.Component {
     let originX =
       this.scale.laneOriginX +
       col * this.scale.laneWidth +
-      Math.floor(this.scale.laneWidth - this.scale.wormWidth) / 2;
+      this.scale.laneWidth  / 2;
     let originY = this.scale.laneOriginY;
     let worm = new Worm(
       originX,
       originY,
-      this.scale.wormWidth,
-      this.scale.wormHeight,
+      this.scale.wormIMGWidth,
+      this.scale.wormIMGHeight,
+      this.scale.wormHitboxWidth,
+      this.scale.wormHitboxHeight,
       col,
-      this.scale.laneHeight+this.scale.wormHeight
+      this.scale.laneHeight
     );
     this.consumableObjects.push(worm);
   }
@@ -232,17 +302,30 @@ class Canvas extends React.Component {
     let laneWidth = unit;
     let laneHeight = unit * myConstants.laneHeightScale;
 
-    let playerHeight = Math.floor(myConstants.playerHeightScale * unit);
-    let playerWidth = Math.floor(myConstants.playerWidthScale * unit);
+    let playerHitboxHeight = Math.floor(myConstants.playerHitboxHeightScale * unit);
+    let playerHitboxWidth = Math.floor(myConstants.playerHitboxWidthScale * unit);
+    let playerIMGHeight = Math.floor(myConstants.playerIMGHeightScale * unit);
+    let playerIMGWidth = Math.floor(myConstants.playerIMGWidthScale * unit);
 
-    let cactusHeight = Math.floor(myConstants.cactusHeightScale * unit);
-    let cactusWidth = Math.floor(myConstants.cactusWidthScale * unit);
+    let cactusHitboxHeight = Math.floor(myConstants.cactusHitboxHeightScale * unit);
+    let cactusHitboxWidth = Math.floor(myConstants.cactusHitboxWidthScale * unit);
+    let cactusIMGHeight = Math.floor(myConstants.cactusIMGHeightScale * unit);
+    let cactusIMGWidth = Math.floor(myConstants.cactusIMGWidthScale * unit);
 
-    let wormHeight = Math.floor(myConstants.wormHeightScale * unit);
-    let wormWidth = Math.floor(myConstants.wormWidthScale * unit);
+    let smallCactusHitboxHeight = Math.floor(myConstants.smallCactusHitboxHeightScale * unit);
+    let smallCactusHitboxWidth = Math.floor(myConstants.smallCactusHitboxWidthScale * unit);
+    let smallCactusIMGHeight = Math.floor(myConstants.smallCactusIMGHeightScale * unit);
+    let smallCactusIMGWidth = Math.floor(myConstants.smallCactusIMGWidthScale * unit);
 
-    let birdHeight = Math.floor(myConstants.birdHeightScale * unit);
-    let birdWidth = Math.floor(myConstants.birdWidthScale * unit);
+    let wormHitboxHeight = Math.floor(myConstants.wormHitboxHeightScale * unit);
+    let wormHitboxWidth = Math.floor(myConstants.wormHitboxWidthScale * unit);
+    let wormIMGHeight = Math.floor(myConstants.wormIMGHeightScale * unit);
+    let wormIMGWidth = Math.floor(myConstants.wormIMGWidthScale * unit);
+
+    let birdHitboxHeight = Math.floor(myConstants.birdHitboxHeightScale * unit);
+    let birdHitboxWidth = Math.floor(myConstants.birdHitboxWidthScale * unit);
+    let birdIMGHeight = Math.floor(myConstants.birdIMGHeightScale * unit);
+    let birdIMGWidth = Math.floor(myConstants.birdIMGWidthScale * unit);
 
     let laneOriginX = Math.floor((cWidth - lanes * unit) / 2);
     let laneOriginY = Math.floor((cHeigth - laneHeight) / 2);
@@ -252,10 +335,10 @@ class Canvas extends React.Component {
     let playerOriginX = Math.floor(
       laneOriginX +
         playerLaneNum * laneWidth +
-        Math.floor(laneWidth - playerWidth) / 2
+        laneWidth / 2
     );
     let playerOriginY = Math.floor(
-      laneOriginY + Math.floor(laneHeight - playerHeight)
+      laneOriginY + Math.floor(laneHeight - playerIMGHeight)
     );
 
     let lineSeparatorWidth = Math.floor(
@@ -265,10 +348,26 @@ class Canvas extends React.Component {
     let speed = unit * myConstants.speedScale;
 
     return {
-      birdHeight: birdHeight,
-      birdWidth:  birdWidth,
-      wormHeight: wormHeight,
-      wormWidth: wormWidth,
+      playerHitboxHeight: playerHitboxHeight,
+      playerHitboxWidth: playerHitboxWidth,
+      playerIMGHeight: playerIMGHeight,
+      playerIMGWidth: playerIMGWidth,
+      cactusHitboxHeight: cactusHitboxHeight,
+      cactusHitboxWidth: cactusHitboxWidth,
+      cactusIMGHeight: cactusIMGHeight,
+      cactusIMGWidth: cactusIMGWidth,
+      smallCactusHitboxHeight: smallCactusHitboxHeight,
+      smallCactusHitboxWidth: smallCactusHitboxWidth,
+      smallCactusIMGHeight: smallCactusIMGHeight,
+      smallCactusIMGWidth: smallCactusIMGWidth,
+      birdHitboxHeight: birdHitboxHeight,
+      birdHitboxWidth: birdHitboxWidth,
+      birdIMGHeight: birdIMGHeight,
+      birdIMGWidth: birdIMGWidth,
+      wormHitboxHeight: wormHitboxHeight,
+      wormHitboxWidth: wormHitboxWidth,
+      wormIMGHeight: wormIMGHeight,
+      wormIMGWidth: wormIMGWidth,
       playerStartingLane: playerLaneNum,
       laneOriginX: laneOriginX,
       laneOriginY: laneOriginY,
@@ -276,12 +375,8 @@ class Canvas extends React.Component {
       laneHeight: laneHeight,
       playerOriginX: playerOriginX,
       playerOriginY: playerOriginY,
-      playerWidth: playerWidth,
-      playerHeight: playerHeight,
       lineSepaRatorWidth: lineSeparatorWidth,
       initialSpeed: speed,
-      cactusHeight: cactusHeight,
-      cactusWidth: cactusWidth,
     };
   }
 
