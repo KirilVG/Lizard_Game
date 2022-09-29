@@ -30,7 +30,11 @@ const Game = () => {
 
   return (
     <div>
-        {inGameOverScreen ? <GameOverMenu onClick={resetGame} end={gameOverInf}/> : gameStarted ? <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd}/> : <StartMenu onClick={handleStart}/>}
+        {inGameOverScreen
+        ? <GameOverMenu onClick={resetGame} end={gameOverInf}/>
+        : gameStarted 
+          ? <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd}/>
+          : <StartMenu onClick={handleStart}/>}
     </div>);
 };
 

@@ -1,3 +1,5 @@
+import * as myConstants from "./Constants";
+
 class LaneSeparator{
     constructor(xPos,yPos,length,width) {
         this.position = {
@@ -10,6 +12,12 @@ class LaneSeparator{
     }
 
     draw(c) {
+        if (myConstants.useDiscoMode) {
+            let ind = Math.round(Math.random() * myConstants.colors.length);
+            c.strokeStyle = myConstants.colors[ind];
+          } else {
+            c.fillStyle = "black";
+          }
         c.beginPath();
         c.lineWidth = this.width;
         c.moveTo(this.position.x1, this.position.y1);

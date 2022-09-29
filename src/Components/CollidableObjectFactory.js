@@ -5,7 +5,7 @@ import * as myConstants from "./Constants";
 import Bird from "./Bird";
 
 const CollidableObjectFactory = {
-    "createBird" : function(scale, lanesNum) {
+    "createBird" : (scale, lanesNum) => {
       let col = Math.floor(Math.random() * (lanesNum - 2)) + 1;
       let originX =
         scale.laneOriginX +

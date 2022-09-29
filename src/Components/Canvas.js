@@ -1,13 +1,11 @@
 import React from "react";
 import Player from "./Player";
 import LaneSeparator from "./LaneSeparator";
-import Cactus from "./Cactus";
-import SmallCactus from "./SmallCactus";
-import Worm from "./Worm";
 import * as myConstants from "./Constants";
-import Bird from "./Bird";
 import ScaleCalculator from "./ScaleCalculator";
 import CollidableObjectFactory from "./CollidableObjectFactory";
+import Lane from "./Lane";
+
 
 const directions = {
   ArrowDown: myConstants.dirDown,
@@ -25,6 +23,9 @@ class Canvas extends React.Component {
     this.canvas.height = Math.floor(
       window.innerHeight * myConstants.heigthOffset
     );
+
+    
+    this.canvas.fillStyle = "#CC00CC";
 
     this.valueM = myConstants.initialValueMultiplier;
 
@@ -64,6 +65,16 @@ class Canvas extends React.Component {
       this.props.gameEndHandler
     );
 
+    for (let i = 0; i < this.props.lanesNum; i++) {
+      let lane = new Lane(
+        this.scale.laneOriginX + i * this.scale.laneWidth,
+        this.scale.laneOriginY,
+        this.scale.laneWidth,
+        this.scale.laneHeight
+      );
+      this.backgroundObjects.push(lane);
+    }
+
     for (let i = 0; i <= this.props.lanesNum; i++) {
       let laneSep = new LaneSeparator(
         this.scale.laneOriginX + i * this.scale.laneWidth,
@@ -91,6 +102,15 @@ class Canvas extends React.Component {
     });
   }
 
+  DiscoFill(color) {
+    if (myConstants.useDiscoMode) {
+      let ind = Math.round(Math.random() * myConstants.colors.length);
+      this.ctx.fillStyle = myConstants.colors[ind];
+    } else {
+      this.ctx.fillStyle = color;
+    }
+  }
+
   animate() {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
@@ -99,7 +119,9 @@ class Canvas extends React.Component {
         this.player.handleDeath("Fuel ended");
       }
 
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.DiscoFill("white");
+      this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+      //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
       for (let i = 0; i < this.backgroundObjects.length; i++) {
         this.backgroundObjects[i].update(this.ctx);
@@ -141,13 +163,22 @@ class Canvas extends React.Component {
       }
 
       //displayscore
+      this.DiscoFill("black");
+
       this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
       let fontSize=this.scale.laneWidth*myConstants.fontscale
       this.ctx.font =`${fontSize}px serif`;
-      this.ctx.fillStyle="white";
+
+      this.DiscoFill("white");
+
       this.ctx.fillText(`score:${Math.round(this.player.score)}`,this.scale.laneOriginX,this.scale.laneOriginY+fontSize);
-      this.ctx.fillRect(this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,0.9*this.scale.laneWidth,this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),this.scale.laneOriginY+this.scale.laneWidth);
-      this.ctx.fillStyle="black";
+      this.ctx.fillRect(
+        this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,
+        this.scale.laneOriginY+0.9*this.scale.laneWidth,
+        this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
+        this.scale.laneWidth
+        );
+      
 
       if(Math.floor(this.player.score/myConstants.pointsNeededToIncreaseScore)>this.speedUps) this.speedUp();
 

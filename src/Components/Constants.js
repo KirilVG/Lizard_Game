@@ -4,30 +4,40 @@ export const playerHitboxHeightScale = 1;
 export const playerHitboxWidthScale = 0.75;
 export const playerIMGHeightScale = 1.5;
 export const playerIMGWidthScale = 0.75;
+export const playerPathHeight =430;
+export const playerPathWidth = 157;
 //cactus
 export const cactusHitboxHeightScale = 0.6;
 export const cactusHitboxWidthScale = 0.6;
 export const cactusIMGHeightScale = 1.6;
 export const cactusIMGWidthScale = 0.6;
 export const cactusSpeedMultiplier = 1;
+export const cactusPathHeight =12800;
+export const cactusPathWidth = 5800;
 //small cactus
 export const smallCactusHitboxHeightScale = 0.6;
 export const smallCactusHitboxWidthScale = 0.6;
 export const smallCactusIMGHeightScale = 0.6;
 export const smallCactusIMGWidthScale = 0.6;
 export const smallCactusSpeedMultiplier = 1;
+export const smallCactusPathHeight =8900;
+export const smallCactusPathWidth = 12500;
 //worm
 export const wormHitboxHeightScale = 0.8;
 export const wormHitboxWidthScale = 0.8;
 export const wormIMGHeightScale = 0.8;
 export const wormIMGWidthScale = 0.8;
 export const wormSpeedMultiplier = 1;
+export const wormPathHeight =12900;
+export const wormPathWidth = 9600;
 //bird
 export const birdHitboxHeightScale = 1.2;
 export const birdHitboxWidthScale = 2.7;
 export const birdIMGHeightScale = 1.2;
 export const birdIMGWidthScale = 2.7;
 export const birdSpeedMultiplier = 1.2;
+export const birdPathHeight =7200;
+export const birdPathWidth = 12750;
 //lane
 export const laneHeightScale = 12;
 export const lineSepaRatorWidthScale = 0.05;
@@ -67,3 +77,15 @@ export const displayHitboxes = false;
 export const hitboxOpacity = 0.5;
 export const minLanesNum = 3;
 export const maxLanesNum = 100;
+export const useDiscoMode = true;
+export const colors = [
+  "white",
+  "red",
+  "blue",
+  "green",
+  "pink",
+  "yellow",
+  "gray",
+  "orange",
+  "violet",
+];
