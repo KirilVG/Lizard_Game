@@ -3,9 +3,14 @@ import * as myConstants from "./Constants";
 
 function StartMenu(props) {
   const [inputText, setInputText] = React.useState("3");
+  const [inputUsername, setInputUsername] = React.useState("Noname");
 
   const handleInput = (event) => {
     setInputText(event.target.value);
+  };
+
+  const handleUsernameInput = (event) => {
+    setInputUsername(event.target.value);
   };
 
   const clickStart = () => {
@@ -19,7 +24,7 @@ function StartMenu(props) {
     } else if (lanesNum > myConstants.maxLanesNum) {
       alert(`lanes should not be more than ${myConstants.maxLanesNum}`);
     } else {
-      props.onClick(lanesNum);
+      props.onClick({lanesNum: lanesNum, username:inputUsername});
     }
   };
 
@@ -29,6 +34,10 @@ function StartMenu(props) {
       <label>
         Lanes:
         <input onChange={handleInput} placeholder="3" />
+      </label>
+      <label>
+        Username:
+        <input onChange={handleUsernameInput} placeholder="Noname" />
       </label>
       <button onClick={clickStart}>Start</button>
     </div>

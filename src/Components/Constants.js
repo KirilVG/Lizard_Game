@@ -77,7 +77,7 @@ export const displayHitboxes = false;
 export const hitboxOpacity = 0.5;
 export const minLanesNum = 3;
 export const maxLanesNum = 100;
-export const useDiscoMode = true;
+export const useDiscoMode = false;
 export const colors = [
   "white",
   "red",

@@ -97,9 +97,11 @@ class Canvas extends React.Component {
 
     this.animate();
 
-    window.addEventListener("keydown", (e) => {
-      this.player.handleMovement(directions[e.key]);
-    });
+    window.addEventListener("keydown", (e)=> this.WindowKeyDown(e));
+  }
+
+  WindowKeyDown(e) {
+    this.player.handleMovement(directions[e.key]);
   }
 
   DiscoFill(color) {

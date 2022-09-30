@@ -156,7 +156,6 @@ class Player {
         }
         break;
       default:
-        console.log("wrongDirection");
         break;
     }
   }

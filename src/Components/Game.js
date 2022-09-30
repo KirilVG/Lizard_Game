@@ -7,22 +7,26 @@ import { useState } from "react";
 const Game = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [lanesNum, setLanesNum] = useState(3);
-  const [inGameOverScreen, setinGameOverScreen] = useState(false);
+  const [username, setUsername] = useState("Noname");
+  const [inGameOverScreen, setInGameOverScreen] = useState(false);
   const [gameOverInf,setGameOverInf] = useState({message:"no cause", score:0})
 
   const handleStart = (inpVal) => {
-    setLanesNum(inpVal);
+    setLanesNum(inpVal.lanesNum);
+    setUsername(inpVal.username)
     setGameStarted(true);
   };
 
   const handleGameEnd = (gameEnd) => {
+    gameEnd.username=username;
+    gameEnd.lanesNum=lanesNum;
     setGameStarted(false);
-    setinGameOverScreen(true);
+    setInGameOverScreen(true);
     setGameOverInf(gameEnd);
   }
 
   const resetGame=() => {
-    setinGameOverScreen(false);
+    setInGameOverScreen(false);
     setGameStarted(false);
     setLanesNum(3);
   }
