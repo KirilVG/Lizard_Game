@@ -23,7 +23,6 @@ class Canvas extends React.Component {
     this.canvas.height = Math.floor(
       window.innerHeight * myConstants.heigthOffset
     );
-
     
     this.canvas.fillStyle = "#CC00CC";
 
@@ -132,7 +131,7 @@ class Canvas extends React.Component {
       for (let i = 0; i < this.groundObstacleObjects.length; i++) {
         this.groundObstacleObjects[i].update(this.ctx, this.speed);
 
-        this.groundObstacleObjects[i].detectCollision(this.player);
+        this.groundObstacleObjects[i].handleCollision(this.player);
 
         if (this.groundObstacleObjects[i].terminate()) {
           this.groundObstacleObjects.splice(i, 1);
@@ -145,7 +144,7 @@ class Canvas extends React.Component {
       for (let i = 0; i < this.consumableObjects.length; i++) {
         this.consumableObjects[i].update(this.ctx, this.speed);
 
-        this.consumableObjects[i].detectCollision(this.player);
+        this.consumableObjects[i].handleCollision(this.player);
 
         if (this.consumableObjects[i].terminate()) {
           this.consumableObjects.splice(i, 1);
@@ -156,7 +155,7 @@ class Canvas extends React.Component {
       for (let i = 0; i < this.aerialObstacleObjects.length; i++) {
         this.aerialObstacleObjects[i].update(this.ctx, this.speed);
 
-        this.aerialObstacleObjects[i].detectCollision(this.player);
+        this.aerialObstacleObjects[i].handleCollision(this.player);
 
         if (this.aerialObstacleObjects[i].terminate()) {
           this.aerialObstacleObjects.splice(i, 1);

@@ -33,7 +33,7 @@ function StartMenu(props) {
       <h1>Welcome to Run Kiro the Lizard.</h1>
       <label>
         Lanes:
-        <input onChange={handleInput} placeholder="3" />
+        <input onChange={handleInput} placeholder="3"/>
       </label>
       <label>
         Username:

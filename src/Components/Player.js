@@ -36,12 +36,10 @@ class Player {
     this.isDead = false;
     this.gameOverHook = gameOverHook;
     this.fuel = myConstants.maxfuel;
-    this.image = new Image();
-    this.image.src = LizardIcon;
     this.valuemultiplier = myConstants.initialValueMultiplier;
   }
 
-  draw(c) {
+  drawPlayerIcon(c) {
     if (myConstants.useDiscoMode) {
       let ind = Math.round(Math.random() * myConstants.colors.length);
       c.fillStyle = myConstants.colors[ind];
@@ -49,51 +47,46 @@ class Player {
       c.fillStyle = "black";
     }
 
-    if (this.level == myConstants.levelGround) {
-      let p = this.getPath();
+    let p = this.getPath();
+    let scaleX = this.IMGWidth / myConstants.playerPathWidth;
+    let scaleY = this.IMGHeight / myConstants.playerPathHeight;
+    let translateX = this.position.x - this.IMGWidth / 2;
+    let translateY = this.position.y;
+    const angle = 0;
 
-      const scaleX = this.IMGWidth / myConstants.playerPathWidth;
-      const scaleY = this.IMGHeight / myConstants.playerPathHeight;
-      const translateX = this.position.x - this.IMGWidth / 2;
-      const translateY = this.position.y;
-      const angle = 0;
-      const matrix = new DOMMatrix([
-        Math.cos(angle) * scaleX,
-        Math.sin(angle) * scaleX,
-        -Math.sin(angle) * scaleY,
-        Math.cos(angle) * scaleY,
-        translateX,
-        translateY,
-      ]);
-      c.setTransform(matrix);
-      c.fill(p);
-      c.resetTransform();
-    } else if (this.level == myConstants.levelUnder) {
-      c.globalAlpha = myConstants.undergroundAnimationOpacity;
-
-      c.drawImage(
-        this.image,
-        this.position.x - this.IMGWidth / 2,
-        this.position.y,
-        this.IMGWidth,
-        this.IMGHeight
-      );
-      c.globalAlpha = 1;
-    } else if (this.level == myConstants.levelAir) {
+    if(this.level == myConstants.levelAir) {
       let newIMGWidth = this.IMGWidth * this.jumpHeightScale;
       let newIMGHeight = this.IMGHeight * this.jumpHeightScale;
 
-      c.drawImage(
-        this.image,
-        this.position.x - newIMGWidth / 2,
-        this.position.y - (newIMGHeight - this.IMGHeight),
-        newIMGWidth,
-        newIMGHeight
-      );
+      scaleX = newIMGWidth / myConstants.playerPathWidth;
+      scaleY = newIMGHeight / myConstants.playerPathHeight;
+      translateX = this.position.x - newIMGWidth / 2;
+      translateY = this.position.y - newIMGWidth / 2;
     }
 
-    if (myConstants.displayHitboxes) {
-      c.fillStyle = "green";
+    if(this.level == myConstants.levelUnder) {
+      c.globalAlpha = myConstants.undergroundAnimationOpacity;
+    }
+
+    const matrix = new DOMMatrix([
+      Math.cos(angle) * scaleX,
+      Math.sin(angle) * scaleX,
+      -Math.sin(angle) * scaleY,
+      Math.cos(angle) * scaleY,
+      translateX,
+      translateY,
+    ]);
+
+    c.setTransform(matrix);
+    c.fill(p);
+    c.resetTransform();
+    if(this.level == myConstants.levelUnder) {
+      c.globalAlpha = 1;
+    }
+  }
+
+  drawPlayerHitBox(c) {
+    c.fillStyle = "green";
 
       c.globalAlpha = myConstants.hitboxOpacity;
       c.fillRect(
@@ -104,6 +97,13 @@ class Player {
       ); //displays hitbox
       c.globalAlpha = 1;
       c.fillStyle = "black";
+  }
+
+  draw(c) {
+    this.drawPlayerIcon(c);
+
+    if (myConstants.displayHitboxes) {
+      this.drawPlayerHitBox(c);
     }
   }
 
