@@ -1,4 +1,4 @@
-import * as myConstants from "./Constants";
+/*import * as myConstants from "./Constants";
 import WormIcon from "../Images/WormIcon.svg";
 
 class Worm {
@@ -127,4 +127,4 @@ class Worm {
   }
 }
 
-export default Worm;
+export default Worm;*/

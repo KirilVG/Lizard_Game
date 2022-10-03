@@ -78,7 +78,7 @@ class ApproachingObject {
     let d=this.info.occupiedLevels.includes(player.level);
     if (
         player.position.y <= this.position.y + this.info.IMGHeight &&
-        player.position.y + player.hitboxHeight >= //when you change the name of this variable change this ass well
+        player.position.y + player.hitBoxHeight >= 
           this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight) &&
       (this.info.occupiedLanes.includes(player.currentLane-this.currentLane)) &&
       (this.info.occupiedLevels.includes(player.level))

@@ -21,10 +21,8 @@ class Canvas extends React.Component {
     this.canvas.width = window.innerWidth;
 
     this.canvas.height = Math.floor(
-      window.innerHeight * myConstants.heigthOffset
+      window.innerHeight * myConstants.heightOffset
     );
-    
-    this.canvas.fillStyle = "#CC00CC";
 
     this.valueM = myConstants.initialValueMultiplier;
 
@@ -53,14 +51,14 @@ class Canvas extends React.Component {
       this.scale.playerOriginY,
       this.scale.playerIMGWidth,
       this.scale.playerIMGHeight,
-      this.scale.playerHitboxWidth,
-      this.scale.playerHitboxHeight,
+      this.scale.playerHitBoxWidth,
+      this.scale.playerHitBoxHeight,
       this.scale.playerStartingLane,
       this.props.lanesNum,
       this.scale.laneWidth,
       myConstants.undergroundAnimationTime,
       myConstants.inAirAnimationTime,
-      myConstants.jumpHeigthScale,
+      myConstants.jumpHeightScale,
       this.props.gameEndHandler
     );
 
@@ -83,7 +81,7 @@ class Canvas extends React.Component {
       this.backgroundObjects.push(laneSep);
     }
 
-    this.colidableObjectCreator = setInterval(
+    this.collidableObstacleObjectCreator = setInterval(
       () => this.createApproachingObstacleObject(),
       this.obstacleSpawnTime
     );
@@ -129,7 +127,7 @@ class Canvas extends React.Component {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
 
-      //check if fuel has endeds
+      //check if fuel has ended
       if (this.player.fuel <= 0) {
         this.player.handleDeath("Fuel ended");
       }
@@ -153,12 +151,12 @@ class Canvas extends React.Component {
       this.handleGameObjectsChanges(this.aerialObstacleObjects);
       
 
-      //displayscore
+      //display score
       this.displayScoreAndFuel();
 
       this.gameIsOver = this.player.isDead;
     } else {
-      clearInterval(this.colidableObjectCreator);
+      clearInterval(this.collidableObstacleObjectCreator);
       clearInterval(this.consumableObjectCreator);
     }
   }
@@ -167,7 +165,7 @@ class Canvas extends React.Component {
     this.DiscoFill("black");
 
     this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
-    let fontSize=this.scale.laneWidth*myConstants.fontscale
+    let fontSize=this.scale.laneWidth*myConstants.fontScale
     this.ctx.font =`${fontSize}px serif`;
 
     this.DiscoFill("white");
@@ -176,7 +174,7 @@ class Canvas extends React.Component {
     this.ctx.fillRect(
       this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,
       this.scale.laneOriginY+0.9*this.scale.laneWidth,
-      this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
+      this.player.fuel/myConstants.maxFuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
       this.scale.laneWidth
       );
     
@@ -187,7 +185,7 @@ class Canvas extends React.Component {
   speedUp() {
     let prevSpeed=this.speed;
     this.speed*=myConstants.valueMultiplier;
-    this.player.valuemultiplier*=myConstants.valueMultiplier;
+    this.player.valueMultiplier*=myConstants.valueMultiplier;
 
     let diff=prevSpeed/this.speed;
 
@@ -197,10 +195,10 @@ class Canvas extends React.Component {
     this.obstacleSpawnTime*=diff;
     this.consumableSpawnTime*=diff;
 
-    clearInterval(this.colidableObjectCreator);
+    clearInterval(this.collidableObstacleObjectCreator);
     clearInterval(this.consumableObjectCreator);
 
-    this.colidableObjectCreator = setInterval(
+    this.collidableObstacleObjectCreator = setInterval(
       () => this.createApproachingObstacleObject(),
       this.obstacleSpawnTime
     );

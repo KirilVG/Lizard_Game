@@ -23,7 +23,6 @@ const Game = () => {
     setGameStarted(false);
     setInGameOverScreen(true);
     setGameOverInf(gameEnd);
-    //setLanesNum(3);
   }
 
   const resetGame=() => {
