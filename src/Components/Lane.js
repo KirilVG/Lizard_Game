@@ -16,6 +16,7 @@ class Lane {
     } else {
       c.fillStyle = "white";
     }
+    
     c.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 

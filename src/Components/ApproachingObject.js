@@ -10,8 +10,8 @@ class ApproachingObject {
     this.currentLane = currentLane;
     this.distanceToTravel = distanceToTravel;
     this.collided = false;
-    this.path=this.getPath();
-    this.collisionHandler=info.collisionHandler;
+    this.path = this.getPath();
+    this.collisionHandler = info.collisionHandler;
   }
 
   draw(c) {
@@ -32,9 +32,12 @@ class ApproachingObject {
 
     const scaleX = this.info.IMGWidth / this.info.pathWidth;
     const scaleY = this.info.IMGHeight / this.info.pathHeight;
+
     const translateX = this.position.x + this.info.IMGWidth / 2;
     const translateY = this.position.y + this.info.IMGHeight;
+
     const angle = Math.PI;
+
     const matrix = new DOMMatrix([
       Math.cos(angle) * scaleX,
       Math.sin(angle) * scaleX,
@@ -43,6 +46,7 @@ class ApproachingObject {
       translateX,
       translateY,
     ]);
+
     c.setTransform(matrix);
     c.fill(this.path);
     c.resetTransform();
@@ -51,20 +55,25 @@ class ApproachingObject {
   drawHitBox(c) {
     c.globalAlpha = myConstants.hitBoxOpacity;
     c.fillStyle = "red";
+
     c.fillRect(
       this.position.x - this.info.hitBoxWidth / 2,
       this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight),
       this.info.hitBoxWidth,
       this.info.hitBoxHeight
     );
+
     c.globalAlpha = 1;
   }
 
   update(c, currentSpeed) {
     if (this.distanceToTravel > 0) {
       let calculatedSpeed = currentSpeed * this.info.speedMultiplier;
+
       this.position.y += calculatedSpeed;
+
       this.distanceToTravel -= calculatedSpeed;
+
       this.draw(c);
     }
 
@@ -72,19 +81,14 @@ class ApproachingObject {
   }
 
   handleCollision(player) {
-    let a=player.position.y <= this.position.y + this.info.IMGHeight;
-    let b=player.position.y + player.hitBoxHeight>=this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight);
-    let c=this.info.occupiedLanes.includes(player.currentLane-this.currentLane);
-    let d=this.info.occupiedLevels.includes(player.level);
     if (
-        player.position.y <= this.position.y + this.info.IMGHeight &&
-        player.position.y + player.hitBoxHeight >= 
-          this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight) &&
-      (this.info.occupiedLanes.includes(player.currentLane-this.currentLane)) &&
-      (this.info.occupiedLevels.includes(player.level))
+      player.position.y <= this.position.y + this.info.IMGHeight &&
+      player.position.y + player.hitBoxHeight >=
+        this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight) &&
+      this.info.occupiedLanes.includes(player.currentLane - this.currentLane) &&
+      this.info.occupiedLevels.includes(player.level)
     ) {
-      
-     this.collisionHandler(player);
+      this.collisionHandler(player);
     }
   }
 
@@ -96,7 +100,6 @@ class ApproachingObject {
     let path = new Path2D(this.info.pathAsString);
     return path;
   }
-  
 }
 
 export default ApproachingObject;

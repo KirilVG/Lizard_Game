@@ -6,14 +6,6 @@ import ScaleCalculator from "./ScaleCalculator";
 import CollidableObjectFactory from "./CollidableObjectFactory";
 import Lane from "./Lane";
 
-
-const directions = {
-  ArrowDown: myConstants.dirDown,
-  ArrowUp: myConstants.dirUp,
-  ArrowLeft: myConstants.dirLeft,
-  ArrowRight: myConstants.dirRight,
-};
-
 class Canvas extends React.Component {
   componentDidMount() {
     this.gameIsOver = false;
@@ -28,15 +20,21 @@ class Canvas extends React.Component {
 
     this.ctx = this.canvas.getContext("2d");
 
-    this.scale = ScaleCalculator(this.canvas.width, this.canvas.height, this.props.lanesNum);
+    this.scale = ScaleCalculator(
+      this.canvas.width,
+      this.canvas.height,
+      this.props.lanesNum
+    );
 
     this.speed = this.scale.initialSpeed;
 
-    this.speedUps=0;
+    this.speedUps = 0;
 
-    this.obstacleSpawnTime = myConstants.initialObstacleSpawnTime/this.props.lanesNum;
+    this.obstacleSpawnTime =
+      myConstants.initialObstacleSpawnTime / this.props.lanesNum;
 
-    this.consumableSpawnTime = myConstants.initialConsumableSpawnTime/this.props.lanesNum;
+    this.consumableSpawnTime =
+      myConstants.initialConsumableSpawnTime / this.props.lanesNum;
 
     this.backgroundObjects = [];
 
@@ -94,11 +92,11 @@ class Canvas extends React.Component {
 
     this.animate();
 
-    window.addEventListener("keydown", (e)=> this.WindowKeyDown(e));
+    window.addEventListener("keydown", (e) => this.WindowKeyDown(e));
   }
 
   WindowKeyDown(e) {
-    this.player.handleMovement(directions[e.key]);
+    this.player.handleMovement(myConstants.directions[e.key]);
   }
 
   DiscoFill(color) {
@@ -134,7 +132,8 @@ class Canvas extends React.Component {
 
       //clear canvas
       this.DiscoFill("white");
-      this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
+
+      this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
       //display background objects
       for (let i = 0; i < this.backgroundObjects.length; i++) {
@@ -149,10 +148,17 @@ class Canvas extends React.Component {
       this.handleGameObjectsChanges(this.consumableObjects);
 
       this.handleGameObjectsChanges(this.aerialObstacleObjects);
-      
 
       //display score
       this.displayScoreAndFuel();
+
+      //handle speed increase
+      if (
+        Math.floor(
+          this.player.score / myConstants.pointsNeededToIncreaseScore
+        ) > this.speedUps
+      )
+        this.speedUp();
 
       this.gameIsOver = this.player.isDead;
     } else {
@@ -162,38 +168,50 @@ class Canvas extends React.Component {
   }
 
   displayScoreAndFuel() {
+    //set the background
     this.DiscoFill("black");
 
-    this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
-    let fontSize=this.scale.laneWidth*myConstants.fontScale
-    this.ctx.font =`${fontSize}px serif`;
-
-    this.DiscoFill("white");
-
-    this.ctx.fillText(`score:${Math.round(this.player.score)}`,this.scale.laneOriginX,this.scale.laneOriginY+fontSize);
     this.ctx.fillRect(
-      this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,
-      this.scale.laneOriginY+0.9*this.scale.laneWidth,
-      this.player.fuel/myConstants.maxFuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
-      this.scale.laneWidth
-      );
-    
+      this.scale.laneOriginX,
+      this.scale.laneOriginY,
+      this.props.lanesNum * this.scale.laneWidth,
+      this.scale.laneWidth * 2
+    );
 
-    if(Math.floor(this.player.score/myConstants.pointsNeededToIncreaseScore)>this.speedUps) this.speedUp();
+    //set the score
+    this.DiscoFill("white");
+    let fontSize = this.scale.laneWidth * myConstants.fontScale;
+    this.ctx.font = `${fontSize}px serif`;
+    this.ctx.fillText(
+      `score:${Math.round(this.player.score)}`,
+      this.scale.laneOriginX,
+      this.scale.laneOriginY + fontSize
+    );
+
+    //set the fuel bar
+    this.DiscoFill("white");
+    this.ctx.fillRect(
+      this.scale.laneOriginX + 0.1 * this.props.lanesNum * this.scale.laneWidth,
+      this.scale.laneOriginY + 0.9 * this.scale.laneWidth,
+      (this.player.fuel / myConstants.maxFuel) *
+        (this.props.lanesNum * this.scale.laneWidth * 0.8),
+      this.scale.laneWidth
+    );
   }
 
   speedUp() {
-    let prevSpeed=this.speed;
-    this.speed*=myConstants.valueMultiplier;
-    this.player.valueMultiplier*=myConstants.valueMultiplier;
+    let prevSpeed = this.speed;
+    this.speed *= myConstants.valueMultiplier;
 
-    let diff=prevSpeed/this.speed;
+    this.player.valueMultiplier *= myConstants.valueMultiplier;
 
-    this.player.inAirAnimationTime*=diff;
-    this.player.underGroundAnimationTime*=diff;
+    let diff = prevSpeed / this.speed;
 
-    this.obstacleSpawnTime*=diff;
-    this.consumableSpawnTime*=diff;
+    this.player.inAirAnimationTime *= diff;
+    this.player.underGroundAnimationTime *= diff;
+
+    this.obstacleSpawnTime *= diff;
+    this.consumableSpawnTime *= diff;
 
     clearInterval(this.collidableObstacleObjectCreator);
     clearInterval(this.consumableObjectCreator);
@@ -214,15 +232,24 @@ class Canvas extends React.Component {
   createApproachingObstacleObject() {
     let res = Math.floor(Math.random() * 3);
 
-    switch(res) {
+    switch (res) {
       case 0:
-        this.aerialObstacleObjects.push(CollidableObjectFactory.createBird(this.scale,this.props.lanesNum));
+        this.aerialObstacleObjects.push(
+          CollidableObjectFactory.createBird(this.scale, this.props.lanesNum)
+        );
         break;
-      case 1: 
-        this.groundObstacleObjects.push(CollidableObjectFactory.createCactus(this.scale,this.props.lanesNum))
+      case 1:
+        this.groundObstacleObjects.push(
+          CollidableObjectFactory.createCactus(this.scale, this.props.lanesNum)
+        );
         break;
       case 2:
-        this.groundObstacleObjects.push(CollidableObjectFactory.createSmallCactus(this.scale,this.props.lanesNum));
+        this.groundObstacleObjects.push(
+          CollidableObjectFactory.createSmallCactus(
+            this.scale,
+            this.props.lanesNum
+          )
+        );
         break;
       default:
         break;
@@ -230,7 +257,9 @@ class Canvas extends React.Component {
   }
 
   createConsumableObject() {
-    this.consumableObjects.push(CollidableObjectFactory.createWorm(this.scale,this.props.lanesNum));
+    this.consumableObjects.push(
+      CollidableObjectFactory.createWorm(this.scale, this.props.lanesNum)
+    );
   }
 
   render() {

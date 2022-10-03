@@ -4,7 +4,7 @@ export const playerHitBoxHeightScale = 1;
 export const playerHitBoxWidthScale = 0.75;
 export const playerIMGHeightScale = 1.5;
 export const playerIMGWidthScale = 0.75;
-export const playerPathHeight =430;
+export const playerPathHeight = 430;
 export const playerPathWidth = 157;
 //cactus
 export const cactusHitBoxHeightScale = 0.6;
@@ -12,7 +12,7 @@ export const cactusHitBoxWidthScale = 0.6;
 export const cactusIMGHeightScale = 1.6;
 export const cactusIMGWidthScale = 0.6;
 export const cactusSpeedMultiplier = 1;
-export const cactusPathHeight =12800;
+export const cactusPathHeight = 12800;
 export const cactusPathWidth = 5800;
 //small cactus
 export const smallCactusHitBoxHeightScale = 0.6;
@@ -20,7 +20,7 @@ export const smallCactusHitBoxWidthScale = 0.6;
 export const smallCactusIMGHeightScale = 0.6;
 export const smallCactusIMGWidthScale = 0.6;
 export const smallCactusSpeedMultiplier = 1;
-export const smallCactusPathHeight =8900;
+export const smallCactusPathHeight = 8900;
 export const smallCactusPathWidth = 12500;
 //worm
 export const wormHitBoxHeightScale = 0.8;
@@ -28,7 +28,7 @@ export const wormHitBoxWidthScale = 0.8;
 export const wormIMGHeightScale = 0.8;
 export const wormIMGWidthScale = 0.8;
 export const wormSpeedMultiplier = 1;
-export const wormPathHeight =12900;
+export const wormPathHeight = 12900;
 export const wormPathWidth = 9600;
 //bird
 export const birdHitBoxHeightScale = 1.2;
@@ -36,7 +36,7 @@ export const birdHitBoxWidthScale = 2.7;
 export const birdIMGHeightScale = 1.2;
 export const birdIMGWidthScale = 2.7;
 export const birdSpeedMultiplier = 1.2;
-export const birdPathHeight =7200;
+export const birdPathHeight = 7200;
 export const birdPathWidth = 12750;
 //lane
 export const laneHeightScale = 12;
@@ -72,9 +72,15 @@ export const dirUp = "up";
 export const dirDown = "down";
 export const dirLeft = "left";
 export const dirRight = "right";
+export const directions = {
+  ArrowDown: dirDown,
+  ArrowUp: dirUp,
+  ArrowLeft: dirLeft,
+  ArrowRight: dirRight,
+};
 //settings
 export const displayHitBoxes = false;
-export const maximumNumberOfScores=10;
+export const maximumNumberOfScores = 10;
 export const hitBoxOpacity = 0.5;
 export const minLanesNum = 3;
 export const maxLanesNum = 100;
@@ -91,7 +97,7 @@ export const colors = [
   "violet",
 ];
 //paths
-export const playerPath=`M0.705,270.191
+export const playerPath = `M0.705,270.191
 c0.668-2.699,2.87-4.689,4.807-6.684c1.275-1.312,2.51-2.841,3.14-4.52c-4.316-5.865-6.144-13.627-6.139-21.036
 c0.003-4.808,0.913-9.947,3.426-13.907c0.443-1.87,1.369-3.584,2.869-4.821c2.352-1.937,5.601-2.457,8.636-2.198
 c3.036,0.258,5.963,1.208,8.929,1.905c5.334,1.254,10.858,1.685,16.323,1.298c-4.794-4.323-9.26-8.857-11.566-14.751
@@ -142,7 +148,7 @@ c-0.272,2.027-0.87,4.306-2.69,5.238c-0.478,0.245-1.139,0.34-1.491-0.067c-0.445-0
 c1.376-2.228,1.555-5.082,0.673-7.537c-0.071,0.063-0.137,0.132-0.208,0.194c-2.347,2.031-5.095,3.514-7.89,4.888
 c0.31,1.107,0.71,2.198,1.148,3.232c1.398,3.301,3.08,6.771,2.463,10.302c-3.068-2.824-5.335-6.5-6.532-10.492
 c0.111,1.654-0.519,4.693-0.208,6.325c-1.445-1.642-1.97-4.699-2.982-6.639C0.714,274.59,0.18,272.315,0.705,270.191z`;
-export const cactusPath=`M3335 12366 l-390 -424 -130 0 c-140 1 -242 -16 -350 -57 l-62 -23
+export const cactusPath = `M3335 12366 l-390 -424 -130 0 c-140 1 -242 -16 -350 -57 l-62 -23
 -494 332 c-422 284 -496 331 -509 319 -13 -11 -11 -16 10 -37 14 -12 197 -181
 407 -375 l382 -351 -107 -108 c-59 -59 -127 -137 -151 -174 -24 -38 -48 -68
 -55 -68 -6 0 -256 18 -556 40 -541 39 -559 39 -560 9 0 -4 10 -9 23 -12 1062
@@ -197,7 +203,7 @@ m362 -55 c0 -5 -7 -16 -15 -26 -13 -18 -14 -18 -24 2 -15 28 -14 31 14 31 14
 -174 -12 -197 -15 l-43 -5 0 184 0 183 238 55 c130 31 243 56 250 57 9 1 12
 -49 12 -218z m-2 -432 l-3 -122 -220 -143 c-147 -96 -229 -144 -248 -144 l-27
 0 2 212 3 211 225 53 c124 28 235 53 248 53 22 1 23 0 20 -120z`;
-export const smallCactusPath=`M8443 8565 c-278 -112 -583 -373 -839 -717 -83 -111 -294 -428 -372
+export const smallCactusPath = `M8443 8565 c-278 -112 -583 -373 -839 -717 -83 -111 -294 -428 -372
 -559 -344 -573 -845 -2122 -1041 -3214 -23 -129 -37 -238 -47 -350 -3 -44 -9
 -85 -13 -92 -13 -24 -306 502 -492 882 -173 353 -263 582 -323 820 -39 158
 -93 535 -141 990 -41 382 -97 727 -152 935 -85 321 -196 537 -356 692 -54 53
@@ -224,7 +230,7 @@ c-65 140 -139 287 -165 328 -151 233 -519 494 -1026 727 -415 190 -744 291
 -517 -617 -737 -321 -353 -554 -670 -764 -1040 -24 -43 -47 -78 -50 -78 -4 0
 -15 73 -26 162 -31 267 -25 643 17 1003 49 427 152 952 300 1525 180 699 487
 1654 763 2379 36 96 65 175 64 177 -2 1 -40 -13 -85 -31z`;
-export const birdPath=`M11797 7438 c-89 -125 -162 -212 -356 -430 -382 -427 -810 -798
+export const birdPath = `M11797 7438 c-89 -125 -162 -212 -356 -430 -382 -427 -810 -798
 -1147 -994 -74 -44 -188 -115 -252 -160 -181 -125 -184 -126 -111 -47 76 81
 129 154 129 178 0 12 -7 15 -32 11 -278 -45 -452 -101 -617 -198 -64 -38 -132
 -84 -151 -103 -43 -41 -842 -571 -1040 -689 -80 -48 -244 -137 -365 -197 -121
@@ -285,7 +291,7 @@ c-5 -61 16 -140 42 -157 28 -19 154 -45 215 -45 l48 0 -10 -40 c-9 -33 -8 -43
 -339 -5 -2 8 10 30 29 283 236 406 368 534 570 70 112 226 416 218 425 -3 3
 -52 -33 -109 -79 -158 -130 -434 -321 -549 -378 l-62 -32 54 69 c29 37 80 100
 112 138 142 169 246 370 306 592 27 97 55 262 47 271 -2 1 -33 -39 -69 -90z`;
-export const wormPath=`M1340 12585 c-274 -43 -451 -199 -521 -462 -26 -98 -38 -455 -20
+export const wormPath = `M1340 12585 c-274 -43 -451 -199 -521 -462 -26 -98 -38 -455 -20
 -583 28 -189 103 -339 374 -749 301 -455 376 -619 365 -798 -4 -62 -12 -94
 -40 -155 -80 -172 -183 -299 -307 -379 -76 -49 -176 -86 -411 -150 -304 -83
 -461 -211 -603 -496 -52 -102 -113 -272 -147 -408 -23 -91 -29 -219 -23 -470

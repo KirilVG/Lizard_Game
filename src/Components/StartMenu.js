@@ -15,6 +15,7 @@ function StartMenu(props) {
 
   const clickStart = () => {
     let lanesNum = Number(inputText);
+    
     if (!lanesNum) {
       alert("lanes should be a number");
     } else if (lanesNum % 1 !== 0) {
@@ -24,7 +25,7 @@ function StartMenu(props) {
     } else if (lanesNum > myConstants.maxLanesNum) {
       alert(`lanes should not be more than ${myConstants.maxLanesNum}`);
     } else {
-      props.onClick({lanesNum: lanesNum, username:inputUsername});
+      props.onClick({ lanesNum: lanesNum, username: inputUsername });
     }
   };
 
@@ -33,7 +34,7 @@ function StartMenu(props) {
       <h1>Welcome to Run Kiro the Lizard.</h1>
       <label>
         Lanes:
-        <input onChange={handleInput} placeholder="3"/>
+        <input onChange={handleInput} placeholder="3" />
       </label>
       <label>
         Username:

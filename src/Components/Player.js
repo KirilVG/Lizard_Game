@@ -20,21 +20,37 @@ class Player {
       x: xPos,
       y: yPos,
     };
+
     this.IMGHeight = IMGHeight;
+
     this.IMGWidth = IMGWidth;
+
     this.hitBoxHeight = hitBoxHeight;
+
     this.hitBoxWidth = hitBoxWidth;
+
     this.currentLane = currentLane;
+
     this.LanesNum = LanesNum;
+
     this.stepLength = stepLength;
+
     this.underGroundAnimationTime = underGroundAnimationTime;
+
     this.inAirAnimationTime = inAirAnimationTime;
+
     this.level = myConstants.levelGround;
+
     this.jumpHeightScale = jumpHeightScale;
+
     this.score = myConstants.initialScore;
+
     this.isDead = false;
+
     this.gameOverHook = gameOverHook;
+
     this.fuel = myConstants.maxFuel;
+
     this.valueMultiplier = myConstants.initialValueMultiplier;
   }
 
@@ -47,23 +63,27 @@ class Player {
     }
 
     let p = this.getPath();
+
     let scaleX = this.IMGWidth / myConstants.playerPathWidth;
     let scaleY = this.IMGHeight / myConstants.playerPathHeight;
+
     let translateX = this.position.x - this.IMGWidth / 2;
     let translateY = this.position.y;
+
     const angle = 0;
 
-    if(this.level == myConstants.levelAir) {
+    if (this.level == myConstants.levelAir) {
       let newIMGWidth = this.IMGWidth * this.jumpHeightScale;
       let newIMGHeight = this.IMGHeight * this.jumpHeightScale;
 
       scaleX = newIMGWidth / myConstants.playerPathWidth;
       scaleY = newIMGHeight / myConstants.playerPathHeight;
+
       translateX = this.position.x - newIMGWidth / 2;
       translateY = this.position.y - newIMGWidth / 2;
     }
 
-    if(this.level == myConstants.levelUnder) {
+    if (this.level == myConstants.levelUnder) {
       c.globalAlpha = myConstants.undergroundAnimationOpacity;
     }
 
@@ -79,7 +99,8 @@ class Player {
     c.setTransform(matrix);
     c.fill(p);
     c.resetTransform();
-    if(this.level == myConstants.levelUnder) {
+
+    if (this.level == myConstants.levelUnder) {
       c.globalAlpha = 1;
     }
   }
@@ -87,15 +108,17 @@ class Player {
   drawPlayerHitBox(c) {
     c.fillStyle = "green";
 
-      c.globalAlpha = myConstants.hitBoxOpacity;
-      c.fillRect(
-        this.position.x - this.hitBoxWidth / 2,
-        this.position.y,
-        this.hitBoxWidth,
-        this.hitBoxHeight
-      ); //displays the hitBox
-      c.globalAlpha = 1;
-      c.fillStyle = "black";
+    c.globalAlpha = myConstants.hitBoxOpacity;
+
+    c.fillRect(
+      this.position.x - this.hitBoxWidth / 2,
+      this.position.y,
+      this.hitBoxWidth,
+      this.hitBoxHeight
+    ); //displays the hitBox
+    
+    c.globalAlpha = 1;
+    c.fillStyle = "black";
   }
 
   draw(c) {

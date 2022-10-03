@@ -1,7 +1,6 @@
 import * as myConstants from "./Constants";
 
 function ScaleCalculator(cWidth, cHeight, lanes) {
-
   function killPlayer(player) {
     this.collided = true;
     player.handleDeath(this.info.deathMessage);
@@ -78,7 +77,7 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
   let speed = unit * myConstants.speedScale;
 
   return {
-    cactus:{
+    cactus: {
       hitBoxHeight: cactusHitBoxHeight,
       hitBoxWidth: cactusHitBoxWidth,
       IMGHeight: cactusIMGHeight,
@@ -88,11 +87,15 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
       pathWidth: myConstants.cactusPathWidth,
       pathHeight: myConstants.cactusPathHeight,
       occupiedLanes: [0],
-      occupiedLevels: [myConstants.levelAir,myConstants.levelGround,myConstants.levelUnder],
+      occupiedLevels: [
+        myConstants.levelAir,
+        myConstants.levelGround,
+        myConstants.levelUnder,
+      ],
       deathMessage: "killed by a cactus",
       collisionHandler: killPlayer,
     },
-    smallCactus:{
+    smallCactus: {
       hitBoxHeight: smallCactusHitBoxHeight,
       hitBoxWidth: smallCactusHitBoxWidth,
       IMGHeight: smallCactusIMGHeight,
@@ -102,11 +105,11 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
       pathWidth: myConstants.smallCactusPathWidth,
       pathHeight: myConstants.smallCactusPathHeight,
       occupiedLanes: [0],
-      occupiedLevels: [myConstants.levelGround,myConstants.levelUnder],
+      occupiedLevels: [myConstants.levelGround, myConstants.levelUnder],
       deathMessage: "killed by a small cactus",
       collisionHandler: killPlayer,
     },
-    bird:{
+    bird: {
       hitBoxHeight: birdHitBoxHeight,
       hitBoxWidth: birdHitBoxWidth,
       IMGHeight: birdIMGHeight,
@@ -115,12 +118,12 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
       speedMultiplier: myConstants.birdSpeedMultiplier,
       pathWidth: myConstants.birdPathWidth,
       pathHeight: myConstants.birdPathHeight,
-      occupiedLanes: [-1,0,1],
-      occupiedLevels: [myConstants.levelAir,myConstants.levelGround],
+      occupiedLanes: [-1, 0, 1],
+      occupiedLevels: [myConstants.levelAir, myConstants.levelGround],
       deathMessage: "killed by a bird",
       collisionHandler: killPlayer,
     },
-    worm:{
+    worm: {
       hitBoxHeight: wormHitBoxHeight,
       hitBoxWidth: wormHitBoxWidth,
       IMGHeight: wormIMGHeight,
