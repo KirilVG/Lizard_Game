@@ -74,13 +74,13 @@ export const dirLeft = "left";
 export const dirRight = "right";
 //settings
 export const displayHitboxes = true;
-export const displayHitBoxes = true;
+export const displayHitBoxes = false;
 export const maximumNumberOfScores=10;
 export const hitboxOpacity = 0.5;
 export const hitBoxOpacity = 0.5;
 export const minLanesNum = 3;
 export const maxLanesNum = 100;
-export const useDiscoMode = false;
+export const useDiscoMode = true;
 export const colors = [
   "white",
   "red",

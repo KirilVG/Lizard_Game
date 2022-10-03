@@ -102,7 +102,7 @@ class Player {
   draw(c) {
     this.drawPlayerIcon(c);
 
-    if (myConstants.displayHitboxes) {
+    if (myConstants.displayHitBoxes) {
       this.drawPlayerHitBox(c);
     }
   }

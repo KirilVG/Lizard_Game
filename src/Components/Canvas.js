@@ -112,82 +112,76 @@ class Canvas extends React.Component {
     }
   }
 
+  handleGameObjectsChanges(gameObjectsArr) {
+    for (let i = 0; i < gameObjectsArr.length; i++) {
+      gameObjectsArr[i].update(this.ctx, this.speed);
+
+      gameObjectsArr[i].handleCollision(this.player);
+
+      if (gameObjectsArr[i].terminate()) {
+        gameObjectsArr.splice(i, 1);
+        i--;
+      }
+    }
+  }
+
   animate() {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
 
+      //check if fuel has endeds
       if (this.player.fuel <= 0) {
         this.player.handleDeath("Fuel ended");
       }
 
+      //clear canvas
       this.DiscoFill("white");
       this.ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
-      //this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
+      //display background objects
       for (let i = 0; i < this.backgroundObjects.length; i++) {
         this.backgroundObjects[i].update(this.ctx);
       }
 
-      for (let i = 0; i < this.groundObstacleObjects.length; i++) {
-        this.groundObstacleObjects[i].update(this.ctx, this.speed);
-
-        this.groundObstacleObjects[i].handleCollision(this.player);
-
-        if (this.groundObstacleObjects[i].terminate()) {
-          this.groundObstacleObjects.splice(i, 1);
-          i--;
-        }
-      }
+      //display game objects
+      this.handleGameObjectsChanges(this.groundObstacleObjects);
 
       this.player.update(this.ctx);
 
-      for (let i = 0; i < this.consumableObjects.length; i++) {
-        this.consumableObjects[i].update(this.ctx, this.speed);
+      this.handleGameObjectsChanges(this.consumableObjects);
 
-        this.consumableObjects[i].handleCollision(this.player);
-
-        if (this.consumableObjects[i].terminate()) {
-          this.consumableObjects.splice(i, 1);
-          i--;
-        }
-      }
-
-      for (let i = 0; i < this.aerialObstacleObjects.length; i++) {
-        this.aerialObstacleObjects[i].update(this.ctx, this.speed);
-
-        this.aerialObstacleObjects[i].handleCollision(this.player);
-
-        if (this.aerialObstacleObjects[i].terminate()) {
-          this.aerialObstacleObjects.splice(i, 1);
-          i--;
-        }
-      }
-
-      //displayscore
-      this.DiscoFill("black");
-
-      this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
-      let fontSize=this.scale.laneWidth*myConstants.fontscale
-      this.ctx.font =`${fontSize}px serif`;
-
-      this.DiscoFill("white");
-
-      this.ctx.fillText(`score:${Math.round(this.player.score)}`,this.scale.laneOriginX,this.scale.laneOriginY+fontSize);
-      this.ctx.fillRect(
-        this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,
-        this.scale.laneOriginY+0.9*this.scale.laneWidth,
-        this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
-        this.scale.laneWidth
-        );
+      this.handleGameObjectsChanges(this.aerialObstacleObjects);
       
 
-      if(Math.floor(this.player.score/myConstants.pointsNeededToIncreaseScore)>this.speedUps) this.speedUp();
+      //displayscore
+      this.displayScoreAndFuel();
 
       this.gameIsOver = this.player.isDead;
     } else {
       clearInterval(this.colidableObjectCreator);
       clearInterval(this.consumableObjectCreator);
     }
+  }
+
+  displayScoreAndFuel() {
+    this.DiscoFill("black");
+
+    this.ctx.fillRect(this.scale.laneOriginX,this.scale.laneOriginY,this.props.lanesNum*this.scale.laneWidth,this.scale.laneWidth*2);
+    let fontSize=this.scale.laneWidth*myConstants.fontscale
+    this.ctx.font =`${fontSize}px serif`;
+
+    this.DiscoFill("white");
+
+    this.ctx.fillText(`score:${Math.round(this.player.score)}`,this.scale.laneOriginX,this.scale.laneOriginY+fontSize);
+    this.ctx.fillRect(
+      this.scale.laneOriginX+0.1*this.props.lanesNum*this.scale.laneWidth,
+      this.scale.laneOriginY+0.9*this.scale.laneWidth,
+      this.player.fuel/myConstants.maxfuel*(this.props.lanesNum*this.scale.laneWidth*0.8),
+      this.scale.laneWidth
+      );
+    
+
+    if(Math.floor(this.player.score/myConstants.pointsNeededToIncreaseScore)>this.speedUps) this.speedUp();
   }
 
   speedUp() {
