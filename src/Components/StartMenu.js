@@ -1,5 +1,8 @@
 import React from "react";
 import * as myConstants from "./Constants";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function StartMenu(props) {
   const [inputText, setInputText] = React.useState("3");
@@ -15,7 +18,7 @@ function StartMenu(props) {
 
   const clickStart = () => {
     let lanesNum = Number(inputText);
-    
+
     if (!lanesNum) {
       alert("lanes should be a number");
     } else if (lanesNum % 1 !== 0) {
@@ -30,19 +33,43 @@ function StartMenu(props) {
   };
 
   return (
-    <div>
+    <div class="container">
       <h1>Welcome to Run Kiro the Lizard.</h1>
-      <label>
-        Lanes:
-        <input onChange={handleInput} placeholder="3" />
-      </label>
-      <label>
-        Username:
-        <input onChange={handleUsernameInput} placeholder="Noname" />
-      </label>
-      <button onClick={clickStart}>Start</button>
+      <Form>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Lanes</Form.Label>
+        <Form.Control variant="dark" type="number" placeholder="Enter the number of lanes you want to play on" onChange={handleInput}/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="fromBasicUsername">
+        <Form.Label>Username</Form.Label>
+        <Form.Control variant="dark" type="text" placeholder="Enter your username" onChange={handleUsernameInput }/>
+      </Form.Group>
+      
+      <Button variant="dark" type="button" onClick={clickStart}>
+        Start
+      </Button>
+    </Form>
     </div>
   );
 }
 
 export default StartMenu;
+
+/*
+<div>
+          <div class="nameField">Lanes:</div>
+          <div class="inputField">
+            <input size="30" maxlength="2048"  onChange={handleInput} />
+          </div>
+        </div>
+        <div>
+          <div class="nameField">Username:</div>
+          <div class="inputField">
+            <input size="30" maxlength="2048"  onChange={handleUsernameInput} />
+          </div>
+        </div>
+      </div>
+      <div class="nameField"></div>
+      <button class="buttonStart" onClick={clickStart}>Start</button>
+      */
