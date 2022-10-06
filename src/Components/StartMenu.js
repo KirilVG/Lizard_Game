@@ -2,6 +2,13 @@ import React from "react";
 import * as myConstants from "./Constants";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {
+  MDBInput,
+  MDBCol,
+  MDBRow,
+  MDBCheckbox,
+  MDBBtn
+} from 'mdb-react-ui-kit';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function StartMenu(props) {
@@ -32,24 +39,23 @@ function StartMenu(props) {
     }
   };
 
+  const style = {
+    backgroundImage: `linear-gradient(0deg, black 2px, rgba(0, 150, 136, 0) 0),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.26) 1px, transparent 0)`
+  };
+  
+
   return (
     <div class="container">
       <h1>Welcome to Run Kiro the Lizard.</h1>
-      <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Lanes</Form.Label>
-        <Form.Control variant="dark" type="number" placeholder="Enter the number of lanes you want to play on" onChange={handleInput}/>
-      </Form.Group>
+      <form>
+      <MDBInput className='mb-4' type='number' id='form5Example1' label='Number of lanes' />
+      <MDBInput className='mb-4' type='text' style={style} id='form5Example2' label='Username' />
 
-      <Form.Group className="mb-3" controlId="fromBasicUsername">
-        <Form.Label>Username</Form.Label>
-        <Form.Control variant="dark" type="text" placeholder="Enter your username" onChange={handleUsernameInput }/>
-      </Form.Group>
-      
-      <Button variant="dark" type="button" onClick={clickStart}>
-        Start
-      </Button>
-    </Form>
+      <MDBBtn type='button' block>
+        Play
+      </MDBBtn>
+      </form>
     </div>
   );
 }
