@@ -30,6 +30,8 @@ class Canvas extends React.Component {
 
     this.speedUps = 0;
 
+    this.dayNightCycles = 0;
+
     this.obstacleSpawnTime =
       myConstants.initialObstacleSpawnTime / this.props.lanesNum;
 
@@ -89,6 +91,10 @@ class Canvas extends React.Component {
       () => this.createConsumableObject(),
       this.consumableSpawnTime
     );
+
+    myConstants.setDiscoModeRemainder(0);
+
+    myConstants.setDayNightCycle();
 
     this.animate();
 
@@ -161,6 +167,16 @@ class Canvas extends React.Component {
         ) > this.speedUps
       )
         this.speedUp();
+
+        if (
+          Math.floor(
+            this.player.score / myConstants.pointsNeededToChangeDayNightCycle
+          ) > this.dayNightCycles
+        )
+          {
+            this.dayNightCycles++;
+            myConstants.switchDayNightCycle();
+          }
 
       this.gameIsOver = this.player.isDead;
     } else {
@@ -273,7 +289,12 @@ class Canvas extends React.Component {
   }
 
   render() {
-    return <canvas ref={(node) => (this.canvas = node)} />;
+
+    return (
+      <div>
+        <canvas ref={(node) => (this.canvas = node)} />
+      </div>
+    );
   }
 }
 

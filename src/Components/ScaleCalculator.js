@@ -14,7 +14,12 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
   function consumeFunStuff(player,canvas) {
     this.collided = true;
     player.fuel = myConstants.maxFuel;
-    myConstants.setDiscoModeRemainder(myConstants.discoModeDuration);
+    let res = Math.floor(Math.random() * 100);
+    if(res<=myConstants.discoConsumableDeathChance) {
+      player.handleDeath(this.info.deathMessage);
+    } else {
+      myConstants.setDiscoModeRemainder(myConstants.discoModeDuration);
+    }
   }
 
   let widthScale = lanes;

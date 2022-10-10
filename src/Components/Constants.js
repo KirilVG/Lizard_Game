@@ -38,6 +38,7 @@ export const discoConsumableIMGWidthScale = 0.8;
 export const discoConsumableSpeedMultiplier = 1;
 export const discoConsumablePathHeight = 12600;
 export const discoConsumablePathWidth = 12600;
+export const discoConsumableDeathChance = 5;
 //bird
 export const birdHitBoxHeightScale = 1.2;
 export const birdHitBoxWidthScale = 2.7;
@@ -88,7 +89,7 @@ export const directions = {
 };
 //disco handlers
 export const discoModeScoreM=2;
-export const discoModeDuration = 750;
+export const discoModeDuration = 900;
 export let useDiscoMode = false;
 export function setDiscoMode(value) {
   useDiscoMode = value;
@@ -104,8 +105,19 @@ export function setDiscoModeRemainder(value) {
     setDiscoMode(true);
   }
 }
+//day/night cycle
+export const pointsNeededToChangeDayNightCycle = 500;
+export function setDayNightCycle() {
+  primaryColor = "white";
+  secondaryColor = "black";
+}
+export function switchDayNightCycle() {
+  let temp=primaryColor;
+  primaryColor=secondaryColor;
+  secondaryColor=temp;
+}
 //settings
-export const displayHitBoxes = true;
+export const displayHitBoxes = false;
 export const maximumNumberOfScores = 10;
 export const hitBoxOpacity = 0.5;
 export const minLanesNum = 3;
@@ -121,8 +133,8 @@ export const colors = [
   "orange",
   "violet",
 ];
-export const primaryColor = "white";
-export const secondaryColor = "black";
+export let primaryColor = "white";
+export let secondaryColor = "black";
 //paths
 export const playerPath = `M0.705,270.191
 c0.668-2.699,2.87-4.689,4.807-6.684c1.275-1.312,2.51-2.841,3.14-4.52c-4.316-5.865-6.144-13.627-6.139-21.036
