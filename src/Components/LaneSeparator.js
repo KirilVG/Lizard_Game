@@ -17,7 +17,7 @@ class LaneSeparator {
       let ind = Math.round(Math.random() * myConstants.colors.length);
       c.strokeStyle = myConstants.colors[ind];
     } else {
-      c.fillStyle = "black";
+      c.strokeStyle = myConstants.primaryColor;
     }
     
     c.beginPath();

@@ -27,7 +27,7 @@ class ApproachingObject {
       let ind = Math.round(Math.random() * myConstants.colors.length);
       c.fillStyle = myConstants.colors[ind];
     } else {
-      c.fillStyle = "black";
+      c.fillStyle = myConstants.primaryColor;
     }
 
     const scaleX = this.info.IMGWidth / this.info.pathWidth;

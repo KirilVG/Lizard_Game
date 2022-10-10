@@ -14,7 +14,7 @@ class Lane {
       let ind = Math.round(Math.random() * myConstants.colors.length);
       c.fillStyle = myConstants.colors[ind];
     } else {
-      c.fillStyle = "white";
+      c.fillStyle = myConstants.secondaryColor;
     }
     
     c.fillRect(this.position.x, this.position.y, this.width, this.height);

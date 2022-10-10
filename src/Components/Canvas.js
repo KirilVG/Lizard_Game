@@ -131,7 +131,7 @@ class Canvas extends React.Component {
       }
 
       //clear canvas
-      this.DiscoFill("white");
+      this.DiscoFill(myConstants.secondaryColor);
 
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
@@ -169,7 +169,7 @@ class Canvas extends React.Component {
 
   displayScoreAndFuel() {
     //set the background
-    this.DiscoFill("black");
+    this.DiscoFill(myConstants.primaryColor);
 
     this.ctx.fillRect(
       this.scale.laneOriginX,
@@ -179,7 +179,7 @@ class Canvas extends React.Component {
     );
 
     //set the score
-    this.DiscoFill("white");
+    this.DiscoFill(myConstants.secondaryColor);
     let fontSize = this.scale.laneWidth * myConstants.fontScale;
     this.ctx.font = `${fontSize}px serif`;
     this.ctx.fillText(
@@ -189,7 +189,7 @@ class Canvas extends React.Component {
     );
 
     //set the fuel bar
-    this.DiscoFill("white");
+    this.DiscoFill(myConstants.secondaryColor);
     this.ctx.fillRect(
       this.scale.laneOriginX + 0.1 * this.props.lanesNum * this.scale.laneWidth,
       this.scale.laneOriginY + 0.9 * this.scale.laneWidth,

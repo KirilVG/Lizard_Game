@@ -101,6 +101,7 @@ function StartMenu(props) {
                             <TextField
                               sx={{
                                 "& .MuiInputLabel-root": { color: "white" },
+                                input: { color: "white" }
                               }}
                               style={{ borderColor: "transparent" }}
                               id="outlined-basic"
@@ -111,6 +112,7 @@ function StartMenu(props) {
                             <TextField
                               sx={{
                                 "& .MuiInputLabel-root": { color: "white" },
+                                input: { color: "white" }
                               }}
                               id="outlined-basic"
                               label="Username"

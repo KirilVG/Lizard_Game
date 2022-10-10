@@ -96,6 +96,8 @@ export const colors = [
   "orange",
   "violet",
 ];
+export const primaryColor = "white";
+export const secondaryColor = "black";
 //paths
 export const playerPath = `M0.705,270.191
 c0.668-2.699,2.87-4.689,4.807-6.684c1.275-1.312,2.51-2.841,3.14-4.52c-4.316-5.865-6.144-13.627-6.139-21.036

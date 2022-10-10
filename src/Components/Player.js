@@ -59,7 +59,7 @@ class Player {
       let ind = Math.round(Math.random() * myConstants.colors.length);
       c.fillStyle = myConstants.colors[ind];
     } else {
-      c.fillStyle = "black";
+      c.fillStyle = myConstants.primaryColor;
     }
 
     let p = this.getPath();
@@ -116,9 +116,9 @@ class Player {
       this.hitBoxWidth,
       this.hitBoxHeight
     ); //displays the hitBox
-    
+
     c.globalAlpha = 1;
-    c.fillStyle = "black";
+    c.fillStyle = myConstants.primaryColor;
   }
 
   draw(c) {
