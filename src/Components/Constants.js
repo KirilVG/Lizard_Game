@@ -320,3 +320,6 @@ export const wormPath = `M1340 12585 c-274 -43 -451 -199 -521 -462 -26 -98 -38 -
 124 546 407 268 175 406 294 512 443 138 195 176 380 137 671 -59 449 -219
 1067 -471 1824 -69 206 -132 413 -140 460 -33 193 -110 373 -208 492 -163 197
 -387 269 -686 223z`;
+//imageURL
+export const startMenuBackgroundIMGUrl="https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg";
+export const gameOverMenuBackgroundIMGUrl="https://images.unsplash.com/photo-1573595015625-ac674ed1d155?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80";

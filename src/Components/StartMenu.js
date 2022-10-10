@@ -2,19 +2,9 @@ import React from "react";
 import * as myConstants from "./Constants";
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack'
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import {
-  MDBInput,
-  MDBCol,
-  MDBRow,
-  MDBCheckbox,
-  MDBBtn
-} from 'mdb-react-ui-kit';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from "@mui/material";
-import { green, purple } from '@mui/material/colors';
 
 
 
@@ -66,7 +56,7 @@ function StartMenu(props) {
       <div
         className="bg-immage d-flex justify-content-center align-items-center"
         style={{
-          backgroundImage: `url("https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg")`,
+          backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat-y",
           height: `100vh`,
@@ -91,7 +81,7 @@ function StartMenu(props) {
                     <div class="card-body p-5 text-white">
                       <div class="my-4">
                         <h2 class="text-center mb-5">
-                          Wellcome to Kiro the lizard!
+                          Welcome to Kiro the lizard!
                         </h2>
                         <form>
                           <ThemeProvider theme={theme} >
@@ -137,21 +127,3 @@ function StartMenu(props) {
 }
 
 export default StartMenu;
-
-/*
-<div>
-          <div class="nameField">Lanes:</div>
-          <div class="inputField">
-            <input size="30" maxlength="2048"  onChange={handleInput} />
-          </div>
-        </div>
-        <div>
-          <div class="nameField">Username:</div>
-          <div class="inputField">
-            <input size="30" maxlength="2048"  onChange={handleUsernameInput} />
-          </div>
-        </div>
-      </div>
-      <div class="nameField"></div>
-      <button class="buttonStart" onClick={clickStart}>Start</button>
-      */
