@@ -11,6 +11,12 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
     player.fuel = myConstants.maxFuel;
   }
 
+  function consumeFunStuff(player,canvas) {
+    this.collided = true;
+    player.fuel = myConstants.maxFuel;
+    myConstants.setDiscoModeRemainder(myConstants.discoModeDuration);
+  }
+
   let widthScale = lanes;
 
   let hUnit = cHeight / myConstants.laneHeightScale;
@@ -52,6 +58,11 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
   let wormHitBoxWidth = Math.floor(myConstants.wormHitBoxWidthScale * unit);
   let wormIMGHeight = Math.floor(myConstants.wormIMGHeightScale * unit);
   let wormIMGWidth = Math.floor(myConstants.wormIMGWidthScale * unit);
+
+  let discoConsumableHitBoxHeight = Math.floor(myConstants.discoConsumableHitBoxHeightScale * unit);
+  let discoConsumableHitBoxWidth = Math.floor(myConstants.discoConsumableHitBoxWidthScale * unit);
+  let discoConsumableIMGHeight = Math.floor(myConstants.discoConsumableIMGHeightScale * unit);
+  let discoConsumableIMGWidth = Math.floor(myConstants.discoConsumableIMGWidthScale * unit);
 
   let birdHitBoxHeight = Math.floor(myConstants.birdHitBoxHeightScale * unit);
   let birdHitBoxWidth = Math.floor(myConstants.birdHitBoxWidthScale * unit);
@@ -136,6 +147,20 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
       occupiedLevels: [myConstants.levelGround],
       deathMessage: "ate a worm",
       collisionHandler: restorePlayerFuel,
+    },
+    discoConsumable: {
+      hitBoxHeight: discoConsumableHitBoxHeight,
+      hitBoxWidth: discoConsumableHitBoxWidth,
+      IMGHeight: discoConsumableIMGHeight,
+      IMGWidth: discoConsumableIMGWidth,
+      pathAsString: myConstants.discoConsumablePath,
+      speedMultiplier: myConstants.discoConsumableSpeedMultiplier,
+      pathWidth: myConstants.discoConsumablePathWidth,
+      pathHeight: myConstants.discoConsumablePathHeight,
+      occupiedLanes: [0],
+      occupiedLevels: [myConstants.levelGround],
+      deathMessage: "Overdosed",
+      collisionHandler: consumeFunStuff,
     },
     playerHitBoxHeight: playerHitBoxHeight,
     playerHitBoxWidth: playerHitBoxWidth,

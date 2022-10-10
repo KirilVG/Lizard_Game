@@ -52,10 +52,10 @@ function GameOverMenu(props) {
 
     for (let i = 0; i < scoreboard[lanesAsString].length; i++) {
       arr.push(
-        <li key={i} style={{padding:"0.5vh"}}>
+        <li key={i} >
             <div style={{backgroundColor: "white", borderRadius:"1vh"}}>
                 <h1 style={{color: "black",fontSize:"2vh"}}>{`${scoreboard[lanesAsString][i].username}`}</h1>
-                <p style={{color: "black",fontSize:"1vh"}}>
+                <p style={{color: "black",fontSize:"1.5vh", padding:"0.5vh" }}>
                     {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
                 </p>
             </div>

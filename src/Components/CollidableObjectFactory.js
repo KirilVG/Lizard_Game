@@ -39,6 +39,25 @@ const CollidableObjectFactory = {
     return worm;
   },
 
+  createDiscoConsumable: function (scale, lanesNum) {
+    let col = Math.floor(Math.random() * lanesNum);
+
+    let originX =
+      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+
+    let originY = scale.laneOriginY;
+
+    let discoConsumable = new ApproachingObject(
+      originX,
+      originY,
+      scale.discoConsumable,
+      col,
+      scale.laneHeight
+    );
+
+    return discoConsumable;
+  },
+
   createCactus: function (scale, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 

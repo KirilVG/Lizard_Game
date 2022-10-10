@@ -125,6 +125,8 @@ class Canvas extends React.Component {
     if (!this.gameIsOver) {
       requestAnimationFrame(() => this.animate());
 
+      myConstants.setDiscoModeRemainder(myConstants.discoModeRemainder-1*this.player.valueMultiplier);
+
       //check if fuel has ended
       if (this.player.fuel <= 0) {
         this.player.handleDeath("Fuel ended");
@@ -257,9 +259,17 @@ class Canvas extends React.Component {
   }
 
   createConsumableObject() {
-    this.consumableObjects.push(
-      CollidableObjectFactory.createWorm(this.scale, this.props.lanesNum)
-    );
+    let consumable;
+
+    let res = Math.floor(Math.random() * 100);
+
+    if(res<=33) {
+      consumable=CollidableObjectFactory.createDiscoConsumable(this.scale, this.props.lanesNum)
+    } else {
+      consumable=CollidableObjectFactory.createWorm(this.scale, this.props.lanesNum)
+    }
+
+    this.consumableObjects.push(consumable);
   }
 
   render() {
