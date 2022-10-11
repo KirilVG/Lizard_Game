@@ -40,7 +40,7 @@ function StartMenu(props) {
     backgroundImage: `linear-gradient(0deg, black 2px, rgba(0, 150, 136, 0) 0),
       linear-gradient(0deg, rgba(0, 0, 0, 0.26) 1px, transparent 0)`
   };
-  
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -85,31 +85,31 @@ function StartMenu(props) {
                         </h2>
                         <form>
                           <ThemeProvider theme={theme} >
-                          <Stack spacing={5} style={{display: "flex", alignItems: "center"}}>
-  
+                            <Stack spacing={5} style={{ display: "flex", alignItems: "center" }}>
 
-                            <TextField
-                              sx={{
-                                "& .MuiInputLabel-root": { color: "white" },
-                                input: { color: "white" }
-                              }}
-                              style={{ borderColor: "transparent" }}
-                              id="outlined-basic"
-                              label="Number of lanes"
-                              variant="outlined"
-                              onChange={handleUsernameInput}
-                            />
-                            <TextField
-                              sx={{
-                                "& .MuiInputLabel-root": { color: "white" },
-                                input: { color: "white" }
-                              }}
-                              id="outlined-basic"
-                              label="Username"
-                              variant="outlined"
-                              onChange={handleUsernameInput}
-                            />
-                            <button type="button" class="btn btn-light" style={{ height: `7vh`, width:'20vh', fontSize:"4vh" }} onClick={clickStart}>Play</button>
+
+                              <TextField
+                                sx={{
+                                  "& .MuiInputLabel-root": { color: "white" },
+                                  input: { color: "white" }
+                                }}
+                                style={{ borderColor: "transparent" }}
+                                id="outlined-basic"
+                                label="Number of lanes"
+                                variant="outlined"
+                                onChange={handleInput}
+                              />
+                              <TextField
+                                sx={{
+                                  "& .MuiInputLabel-root": { color: "white" },
+                                  input: { color: "white" }
+                                }}
+                                id="outlined-basic"
+                                label="Username"
+                                variant="outlined"
+                                onChange={handleUsernameInput}
+                              />
+                              <button type="button" class="btn btn-light" style={{ height: `7vh`, width: '20vh', fontSize: "4vh" }} onClick={clickStart}>Play</button>
                             </Stack>
                           </ThemeProvider>
                         </form>

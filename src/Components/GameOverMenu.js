@@ -46,19 +46,26 @@ function GameOverMenu(props) {
     let lanesAsString = String(props.end.lanesNum);
     let scoreboard = JSON.parse(localStorage.getItem("scoreboard"));
 
-    if (!scoreboard[lanesAsString]) return <li>no current scores</li>;
+    if (!scoreboard[lanesAsString]) {
+      return (
+        <div>
+          <h1>No current scores!</h1>
+          <p>be the first</p>
+        </div>
+      );
+    }
 
     let arr = [];
 
     for (let i = 0; i < scoreboard[lanesAsString].length; i++) {
       arr.push(
         <li key={i} >
-            <div style={{backgroundColor: "white", borderRadius:"1vh"}}>
-                <h1 style={{color: "black",fontSize:"2vh"}}>{`${scoreboard[lanesAsString][i].username}`}</h1>
-                <p style={{color: "black",fontSize:"1.5vh", padding:"0.5vh" }}>
-                    {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
-                </p>
-            </div>
+          <div style={{ backgroundColor: "white", borderRadius: "1vh" }}>
+            <h1 style={{ color: "black", fontSize: "2vh" }}>{`${scoreboard[lanesAsString][i].username}`}</h1>
+            <p style={{ color: "black", fontSize: "1.5vh", padding: "0.5vh" }}>
+              {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
+            </p>
+          </div>
         </li>
       );
     }
@@ -110,25 +117,25 @@ function GameOverMenu(props) {
                         <form>
                           <ThemeProvider theme={theme}>
                             <Stack spacing={3} style={{ alignItems: "center" }} >
-                                <div style={{paddingBottom:"3vh"}}>
+                              <div style={{ paddingBottom: "3vh" }}>
                                 <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
-                                </div>
+                              </div>
 
                               {!gameScoreSaved ? (
-                                <div style={{paddingBottom:"3vh"}}>
-                                <button
-                                type="button"
-                                class="btn btn-light"
-                                style={{
-                                  height: `7vh`,
-                                  width: "20vh",
-                                  fontSize: "2vh",
-                                }}
-                                onClick={saveScore}
-                              >
-                                save Score
-                              </button>
-                              </div>
+                                <div style={{ paddingBottom: "3vh" }}>
+                                  <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    style={{
+                                      height: `7vh`,
+                                      width: "20vh",
+                                      fontSize: "2vh",
+                                    }}
+                                    onClick={saveScore}
+                                  >
+                                    save Score
+                                  </button>
+                                </div>
                               ) : null}
                               <button
                                 type="button"
