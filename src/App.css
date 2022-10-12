@@ -81,3 +81,18 @@ input {
   font-size: 16px;
   border-radius: 5%;
 }
+
+.playButton{
+  height: 7vh;
+  width: 20vh;
+  font-Size: 4vh;
+}
+
+.glassCard{
+  backdrop-filter: blur(15px);
+  background-Color: rgba(255,255,255,.2) !important;
+  border-radius: 3em;
+  border: 2px solid rgba(255,255,255,.1);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
