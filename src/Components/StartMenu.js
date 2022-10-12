@@ -36,11 +36,6 @@ function StartMenu(props) {
     }
   };
 
-  const style = {
-    backgroundImage: `linear-gradient(0deg, black 2px, rgba(0, 150, 136, 0) 0),
-      linear-gradient(0deg, rgba(0, 0, 0, 0.26) 1px, transparent 0)`
-  };
-
   const theme = createTheme({
     palette: {
       primary: {
@@ -68,14 +63,14 @@ function StartMenu(props) {
               <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-7 col-xl-6">
                   <div
-                    class="card"
+                    class="card glassCard"
                     style={{
-                      backdropFilter: "blur(15px)",
-                      backgroundColor: "rgba(255,255,255,.2)",
-                      borderRadius: "3em",
-                      border: "2px solid rgba(255,255,255,.1)",
-                      backgroundClip: "padding-box",
-                      boxShadow: "10px 10px 10px rgba(46, 54, 68, 0.03)",
+                      //backdropFilter: "blur(15px)",
+                      //backgroundColor: "rgba(255,255,255,.2)",
+                      //borderRadius: "3em",
+                      //border: "2px solid rgba(255,255,255,.1)",
+                      //backgroundClip: "padding-box",
+                      //boxShadow: "10px 10px 10px rgba(46, 54, 68, 0.03)",
                     }}
                   >
                     <div class="card-body p-5 text-white">
@@ -109,7 +104,7 @@ function StartMenu(props) {
                                 variant="outlined"
                                 onChange={handleUsernameInput}
                               />
-                              <button type="button" class="btn btn-light" style={{ height: `7vh`, width: '20vh', fontSize: "4vh" }} onClick={clickStart}>Play</button>
+                              <button type="button" class="btn btn-light playButton" /*style={{ height: `7vh`, width: '20vh', fontSize: "4vh" }}*/ onClick={clickStart}>Play</button>
                             </Stack>
                           </ThemeProvider>
                         </form>
