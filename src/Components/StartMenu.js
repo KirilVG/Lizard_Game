@@ -9,8 +9,8 @@ import { ThemeProvider } from "@mui/material";
 
 
 function StartMenu(props) {
-  const [inputText, setInputText] = React.useState("3");
-  const [inputUsername, setInputUsername] = React.useState("Noname");
+  const [inputText, setInputText] = React.useState(myConstants.minLanesNum);
+  const [inputUsername, setInputUsername] = React.useState(myConstants.defaultName);
 
   const handleInput = (event) => {
     setInputText(event.target.value);
