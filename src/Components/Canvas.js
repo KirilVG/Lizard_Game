@@ -2,7 +2,7 @@ import React from "react";
 import Player from "./Player";
 import LaneSeparator from "./LaneSeparator";
 import * as myConstants from "./Constants";
-import ScaleCalculator from "./ScaleCalculator";
+import VariableContainer from "./VariableContainer";
 import CollidableObjectFactory from "./CollidableObjectFactory";
 import Lane from "./Lane";
 
@@ -20,13 +20,13 @@ class Canvas extends React.Component {
 
     this.ctx = this.canvas.getContext("2d");
 
-    this.scale = ScaleCalculator(
+    this.info = VariableContainer(
       this.canvas.width,
       this.canvas.height,
       this.props.lanesNum
     );
 
-    this.speed = this.scale.initialSpeed;
+    this.speed = this.info.initialSpeed;
 
     this.speedUps = 0;
 
@@ -47,15 +47,15 @@ class Canvas extends React.Component {
     this.consumableObjects = [];
 
     this.player = new Player(
-      this.scale.playerOriginX,
-      this.scale.playerOriginY,
-      this.scale.playerIMGWidth,
-      this.scale.playerIMGHeight,
-      this.scale.playerHitBoxWidth,
-      this.scale.playerHitBoxHeight,
-      this.scale.playerStartingLane,
+      this.info.playerOriginX,
+      this.info.playerOriginY,
+      this.info.playerIMGWidth,
+      this.info.playerIMGHeight,
+      this.info.playerHitBoxWidth,
+      this.info.playerHitBoxHeight,
+      this.info.playerStartingLane,
       this.props.lanesNum,
-      this.scale.laneWidth,
+      this.info.laneWidth,
       myConstants.undergroundAnimationTime,
       myConstants.inAirAnimationTime,
       myConstants.jumpHeightScale,
@@ -64,19 +64,19 @@ class Canvas extends React.Component {
 
     for (let i = 0; i < this.props.lanesNum; i++) {
       let lane = new Lane(
-        this.scale.laneOriginX + i * this.scale.laneWidth,
-        this.scale.laneOriginY,
-        this.scale.laneWidth,
-        this.scale.laneHeight
+        this.info.laneOriginX + i * this.info.laneWidth,
+        this.info.laneOriginY,
+        this.info.laneWidth,
+        this.info.laneHeight
       );
       this.backgroundObjects.push(lane);
     }
 
     for (let i = 0; i <= this.props.lanesNum; i++) {
       let laneSep = new LaneSeparator(
-        this.scale.laneOriginX + i * this.scale.laneWidth,
-        this.scale.laneOriginY,
-        this.scale.laneHeight
+        this.info.laneOriginX + i * this.info.laneWidth,
+        this.info.laneOriginY,
+        this.info.laneHeight
       );
       this.backgroundObjects.push(laneSep);
     }
@@ -190,30 +190,30 @@ class Canvas extends React.Component {
     this.DiscoFill(myConstants.primaryColor);
 
     this.ctx.fillRect(
-      this.scale.laneOriginX,
-      this.scale.laneOriginY,
-      this.props.lanesNum * this.scale.laneWidth,
-      this.scale.laneWidth * 2
+      this.info.laneOriginX,
+      this.info.laneOriginY,
+      this.props.lanesNum * this.info.laneWidth,
+      this.info.laneWidth * 2
     );
 
     //set the score
     this.DiscoFill(myConstants.secondaryColor);
-    let fontSize = this.scale.laneWidth * myConstants.fontScale;
+    let fontSize = this.info.laneWidth * myConstants.fontScale;
     this.ctx.font = `${fontSize}px serif`;
     this.ctx.fillText(
       `score:${Math.round(this.player.score)}`,
-      this.scale.laneOriginX,
-      this.scale.laneOriginY + fontSize
+      this.info.laneOriginX,
+      this.info.laneOriginY + fontSize
     );
 
     //set the fuel bar
     this.DiscoFill(myConstants.secondaryColor);
     this.ctx.fillRect(
-      this.scale.laneOriginX + 0.1 * this.props.lanesNum * this.scale.laneWidth,
-      this.scale.laneOriginY + 0.9 * this.scale.laneWidth,
+      this.info.laneOriginX + 0.1 * this.props.lanesNum * this.info.laneWidth,
+      this.info.laneOriginY + 0.9 * this.info.laneWidth,
       (this.player.fuel / myConstants.maxFuel) *
-        (this.props.lanesNum * this.scale.laneWidth * 0.8),
-      this.scale.laneWidth
+        (this.props.lanesNum * this.info.laneWidth * 0.8),
+      this.info.laneWidth
     );
   }
 
@@ -253,18 +253,18 @@ class Canvas extends React.Component {
     switch (res) {
       case 0:
         this.aerialObstacleObjects.push(
-          CollidableObjectFactory.createBird(this.scale, this.props.lanesNum)
+          CollidableObjectFactory.createBird(this.info, this.props.lanesNum)
         );
         break;
       case 1:
         this.groundObstacleObjects.push(
-          CollidableObjectFactory.createCactus(this.scale, this.props.lanesNum)
+          CollidableObjectFactory.createCactus(this.info, this.props.lanesNum)
         );
         break;
       case 2:
         this.groundObstacleObjects.push(
           CollidableObjectFactory.createSmallCactus(
-            this.scale,
+            this.info,
             this.props.lanesNum
           )
         );
@@ -280,9 +280,9 @@ class Canvas extends React.Component {
     let res = Math.floor(Math.random() * 100);
 
     if(res<=33) {
-      consumable=CollidableObjectFactory.createDiscoConsumable(this.scale, this.props.lanesNum)
+      consumable=CollidableObjectFactory.createDiscoConsumable(this.info, this.props.lanesNum)
     } else {
-      consumable=CollidableObjectFactory.createWorm(this.scale, this.props.lanesNum)
+      consumable=CollidableObjectFactory.createWorm(this.info, this.props.lanesNum)
     }
 
     this.consumableObjects.push(consumable);

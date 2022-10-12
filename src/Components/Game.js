@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Game = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [lanesNum, setLanesNum] = useState(3);
+  const [lanesNum, setLanesNum] = useState(0);
   const [username, setUsername] = useState("Noname");
   const [inGameOverScreen, setInGameOverScreen] = useState(false);
   const [gameOverInf, setGameOverInf] = useState({

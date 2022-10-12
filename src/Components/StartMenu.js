@@ -5,11 +5,11 @@ import Stack from '@mui/material/Stack'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from "@mui/material";
-
+import FormControl from '@mui/material/FormControl';
 
 
 function StartMenu(props) {
-  const [inputText, setInputText] = React.useState(myConstants.minLanesNum);
+  const [inputText, setInputText] = React.useState("");
   const [inputUsername, setInputUsername] = React.useState(myConstants.defaultName);
   const [lanesValidation, setLanesValidation] = React.useState({valid:true,msg:""});
   const [usernameValidation, setUsernameValidation] = React.useState({valid:true,msg:""});
@@ -25,7 +25,9 @@ function StartMenu(props) {
   const clickStart = () => {
     let lanesNum = Number(inputText);
 
-    if (!lanesNum) {
+    if(inputText=="") {
+      setLanesValidation({ valid: false, msg: "input should not be empty" });
+    } else if (!lanesNum) {
       setLanesValidation({ valid: false, msg: "lanes should be a number" });
     } else if (lanesNum % 1 !== 0) {
       setLanesValidation({
@@ -79,7 +81,7 @@ function StartMenu(props) {
                         <h2 class="text-center mb-5">
                           Welcome to Kiro the lizard!
                         </h2>
-                        <form>
+                        <FormControl>
                           <ThemeProvider theme={theme}>
                             <Stack
                               spacing={5}
@@ -120,7 +122,7 @@ function StartMenu(props) {
                               </button>
                             </Stack>
                           </ThemeProvider>
-                        </form>
+                        </FormControl>
                       </div>
                     </div>
                   </div>

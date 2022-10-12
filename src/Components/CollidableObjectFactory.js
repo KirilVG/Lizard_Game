@@ -1,96 +1,96 @@
 import ApproachingObject from "./ApproachingObject";
 
 const CollidableObjectFactory = {
-  createBird: (scale, lanesNum) => {
+  createBird: (info, lanesNum) => {
     let col = Math.floor(Math.random() * (lanesNum - 2)) + 1;
 
     let originX =
-      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
-    let originY = scale.laneOriginY;
+    let originY = info.laneOriginY;
 
     let bird = new ApproachingObject(
       originX,
       originY,
-      scale.bird,
+      info.bird,
       col,
-      scale.laneHeight
+      info.laneHeight
     );
 
     return bird;
   },
 
-  createWorm: function (scale, lanesNum) {
+  createWorm: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
     let originX =
-      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
-    let originY = scale.laneOriginY;
+    let originY = info.laneOriginY;
 
     let worm = new ApproachingObject(
       originX,
       originY,
-      scale.worm,
+      info.worm,
       col,
-      scale.laneHeight
+      info.laneHeight
     );
 
     return worm;
   },
 
-  createDiscoConsumable: function (scale, lanesNum) {
+  createDiscoConsumable: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
     let originX =
-      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
-    let originY = scale.laneOriginY;
+    let originY = info.laneOriginY;
 
     let discoConsumable = new ApproachingObject(
       originX,
       originY,
-      scale.discoConsumable,
+      info.discoConsumable,
       col,
-      scale.laneHeight
+      info.laneHeight
     );
 
     return discoConsumable;
   },
 
-  createCactus: function (scale, lanesNum) {
+  createCactus: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
     let originX =
-      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
-    let originY = scale.laneOriginY;
+    let originY = info.laneOriginY;
 
     let cactus = new ApproachingObject(
       originX,
       originY,
-      scale.cactus,
+      info.cactus,
       col,
-      scale.laneHeight
+      info.laneHeight
     );
 
     return cactus;
   },
 
-  createSmallCactus: function (scale, lanesNum) {
+  createSmallCactus: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
     let originX =
-      scale.laneOriginX + col * scale.laneWidth + scale.laneWidth / 2;
+      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
-    let originY = scale.laneOriginY;
+    let originY = info.laneOriginY;
 
     let smallCactus = new ApproachingObject(
       originX,
       originY,
-      scale.smallCactus,
+      info.smallCactus,
       col,
-      scale.laneHeight
+      info.laneHeight
     );
 
     return smallCactus;

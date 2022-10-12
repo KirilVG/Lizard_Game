@@ -1,21 +1,26 @@
 import * as myConstants from "./Constants";
 
-function ScaleCalculator(cWidth, cHeight, lanes) {
+function VariableContainer(cWidth, cHeight, lanes) {
   function killPlayer(player) {
     this.collided = true;
+
     player.handleDeath(this.info.deathMessage);
   }
 
   function restorePlayerFuel(player) {
     this.collided = true;
+
     player.fuel = myConstants.maxFuel;
   }
 
-  function consumeFunStuff(player,canvas) {
+  function consumeFunStuff(player, canvas) {
     this.collided = true;
+
     player.fuel = myConstants.maxFuel;
+
     let res = Math.floor(Math.random() * 100);
-    if(res<=myConstants.discoConsumableDeathChance) {
+
+    if (res <= myConstants.discoConsumableDeathChance) {
       player.handleDeath(this.info.deathMessage);
     } else {
       myConstants.setDiscoModeRemainder(myConstants.discoModeDuration);
@@ -64,10 +69,18 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
   let wormIMGHeight = Math.floor(myConstants.wormIMGHeightScale * unit);
   let wormIMGWidth = Math.floor(myConstants.wormIMGWidthScale * unit);
 
-  let discoConsumableHitBoxHeight = Math.floor(myConstants.discoConsumableHitBoxHeightScale * unit);
-  let discoConsumableHitBoxWidth = Math.floor(myConstants.discoConsumableHitBoxWidthScale * unit);
-  let discoConsumableIMGHeight = Math.floor(myConstants.discoConsumableIMGHeightScale * unit);
-  let discoConsumableIMGWidth = Math.floor(myConstants.discoConsumableIMGWidthScale * unit);
+  let discoConsumableHitBoxHeight = Math.floor(
+    myConstants.discoConsumableHitBoxHeightScale * unit
+  );
+  let discoConsumableHitBoxWidth = Math.floor(
+    myConstants.discoConsumableHitBoxWidthScale * unit
+  );
+  let discoConsumableIMGHeight = Math.floor(
+    myConstants.discoConsumableIMGHeightScale * unit
+  );
+  let discoConsumableIMGWidth = Math.floor(
+    myConstants.discoConsumableIMGWidthScale * unit
+  );
 
   let birdHitBoxHeight = Math.floor(myConstants.birdHitBoxHeightScale * unit);
   let birdHitBoxWidth = Math.floor(myConstants.birdHitBoxWidthScale * unit);
@@ -183,4 +196,4 @@ function ScaleCalculator(cWidth, cHeight, lanes) {
   };
 }
 
-export default ScaleCalculator;
+export default VariableContainer;
