@@ -60,110 +60,96 @@ function StartMenu(props) {
         msg: `lanes should not be more than ${myConstants.maxLanesNum}`,
       });
     }
+    else {
+      setLanesValidation({
+        valid: true,
+        msg: "",
+      });
+    }
 
     return res;
   };
 
-  const validateUsernameInput=()=>{
+  const validateUsernameInput = () => {
     let username = inputUsername;
 
     let res = { valid: true, val: username };
 
-    (!username && (username = myConstants.defaultName))
+    !username && (username = myConstants.defaultName);
 
     return res;
   };
 
   const clickStart = () => {
-    let validLanesInput=validateLanesNum();
+    let validLanesInput = validateLanesNum();
 
-    let validUsernameInput=validateUsernameInput();
+    let validUsernameInput = validateUsernameInput();
 
-    (validLanesInput.valid && validUsernameInput.valid && props.onClick({ lanesNum: validLanesInput.val, username: validUsernameInput.val }));
-    
+    validLanesInput.valid &&
+      validUsernameInput.valid &&
+      props.onClick({
+        lanesNum: validLanesInput.val,
+        username: validUsernameInput.val,
+      });
   };
 
   return (
-    <div>
       <div
-        className="bg-immage d-flex justify-content-center align-items-center"
+        className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
         style={{
           backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat-y",
-          height: `100vh`,
         }}
       >
-        <div class="mask" style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}>
-          <div class="d-flex justify-content-center align-items-center h-100">
-            <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-                  <div class="card glassCard">
-                    <div class="card-body p-5 text-white">
-                      <div class="my-4">
-                        <h2 class="text-center mb-5">
-                          Welcome to Kiro the lizard!
-                        </h2>
-                        <FormControl>
-                          <Stack
-                            spacing={5}
-                            style={{ display: "flex", alignItems: "center" }}
-                          >
-                            <TextField
-                              sx={{
-                                "& .MuiInputLabel-root": { color: "white" },
-                                input: { color: "white" },
-                              }}
-                              error={!lanesValidation.valid}
-                              helperText={
-                                !lanesValidation.valid && lanesValidation.msg
-                              }
-                              defaultValue={props.lanesNum}
-                              id="outlined-basic"
-                              label="Number of lanes"
-                              variant="outlined"
-                              onChange={handleInput}
-                            />
+        <div class="mask darkMask d-flex justify-content-center align-items-center h-100">
+          <div class="container row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+              <FormControl class="card glassCard card-body inputForm">
+                <h2 class="text-center mb-5 formItem">
+                  Welcome to run Kiro the lizard!
+                </h2>
 
-                            <TextField
-                              sx={{
-                                "& .MuiInputLabel-root": { color: "white" },
-                                input: { color: "white" },
-                              }}
-                              error={!usernameValidation.valid}
-                              helperText={
-                                !usernameValidation.valid &&
-                                usernameValidation.msg
-                              }
-                              defaultValue={props.username}
-                              id="outlined-basic"
-                              label="Username"
-                              variant="outlined"
-                              onChange={handleUsernameInput}
-                            />
-
-                            <button
-                              type="button"
-                              class="btn btn-light playButton"
-                              onClick={clickStart}
-                            >
-                              Play
-                            </button>
-                          </Stack>
-                        </FormControl>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                <Stack
+                  spacing={5}
+                  class="formStack"
+                >
+                  <TextField
+                    sx={{
+                      "& .MuiInputLabel-root": { color: "white" },
+                      input: { color: "white" },
+                    }}
+                    error={!lanesValidation.valid}
+                    helperText={lanesValidation.msg}
+                    id="outlined-basic"
+                    label="Number of lanes"
+                    variant="outlined"
+                    onChange={handleInput}
+                  />
+                  <TextField
+                    sx={{
+                      "& .MuiInputLabel-root": { color: "white" },
+                      input: { color: "white" },
+                    }}
+                    id="outlined-basic"
+                    label="Username"
+                    variant="outlined"
+                    onChange={handleUsernameInput}
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-light playButton"
+                    onClick={
+                      clickStart
+                    }
+                  >
+                    Play
+                  </button>
+                </Stack>
+              </FormControl>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
-
 }
 
 export default StartMenu;

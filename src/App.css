@@ -88,6 +88,16 @@ input {
   font-Size: 4vh;
 }
 
+.backgroundIMG{
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.darkMask{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 .glassCard{
   backdrop-filter: blur(15px);
   background-Color: rgba(255,255,255,.2) !important;
@@ -95,4 +105,18 @@ input {
   border: 2px solid rgba(255,255,255,.1);
   background-clip: padding-box;
   box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+
+.inputForm {
+  align-items: center;
+}
+
+.formStack{
+  display: flex;
+  align-items: center; 
+}
+
+.formItem{
+  color: white;
+  padding: 2vh;
 }
