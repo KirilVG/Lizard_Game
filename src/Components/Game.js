@@ -3,11 +3,13 @@ import StartMenu from "./StartMenu";
 import Canvas from "./Canvas";
 import GameOverMenu from "./GameOverMenu";
 import { useState } from "react";
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from "@mui/material";
 
 const Game = () => {
   const [gameStarted, setGameStarted] = useState(false);
-  const [lanesNum, setLanesNum] = useState(0);
-  const [username, setUsername] = useState("Noname");
+  const [lanesNum, setLanesNum] = useState();
+  const [username, setUsername] = useState();
   const [inGameOverScreen, setInGameOverScreen] = useState(false);
   const [gameOverInf, setGameOverInf] = useState({
     message: "no cause",
@@ -37,19 +39,30 @@ const Game = () => {
     setInGameOverScreen(false);
 
     setGameStarted(false);
-
-    setLanesNum(3);
   };
+
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#ffffff",
+      },
+      secondary: {
+        main: "#000000",
+      },
+    },
+  });
 
   return (
     <div>
-      {inGameOverScreen ? (
-        <GameOverMenu onClick={resetGame} end={gameOverInf} />
-      ) : gameStarted ? (
-        <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd} />
-      ) : (
-        <StartMenu onClick={handleStart} />
-      )}
+      <ThemeProvider theme={theme}>
+        {inGameOverScreen ? (
+          <GameOverMenu onClick={resetGame} end={gameOverInf} />
+        ) : gameStarted ? (
+          <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd} />
+        ) : (
+          <StartMenu onClick={handleStart} lanesNum={lanesNum} username={username}/>
+        )}
+      </ThemeProvider>
     </div>
   );
 };

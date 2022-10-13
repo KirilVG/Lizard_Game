@@ -43,34 +43,42 @@ function GameOverMenu(props) {
   };
 
   const displayScores = () => {
+    let displayValue;
     let lanesAsString = String(props.end.lanesNum);
+
     let scoreboard = JSON.parse(localStorage.getItem("scoreboard"));
 
     if (!scoreboard[lanesAsString]) {
-      return (
+      displayValue = (
         <div>
           <h1>No current scores!</h1>
           <p>be the first</p>
         </div>
       );
+    } else {
+      displayValue = [];
+
+      for (let i = 0; i < scoreboard[lanesAsString].length; i++) {
+        displayValue.push(
+          <li key={i}>
+            <div style={{ backgroundColor: "white", borderRadius: "1vh" }}>
+              <h1
+                style={{ color: "black", fontSize: "2vh" }}
+              >{`${scoreboard[lanesAsString][i].username}`}</h1>
+              <p
+                style={{ color: "black", fontSize: "1.5vh", padding: "0.5vh" }}
+              >
+                {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
+              </p>
+            </div>
+          </li>
+        );
+      }
     }
 
-    let arr = [];
-
-    for (let i = 0; i < scoreboard[lanesAsString].length; i++) {
-      arr.push(
-        <li key={i} >
-          <div style={{ backgroundColor: "white", borderRadius: "1vh" }}>
-            <h1 style={{ color: "black", fontSize: "2vh" }}>{`${scoreboard[lanesAsString][i].username}`}</h1>
-            <p style={{ color: "black", fontSize: "1.5vh", padding: "0.5vh" }}>
-              {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
-            </p>
-          </div>
-        </li>
-      );
-    }
-    return arr;
+    return displayValue;
   };
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -115,7 +123,7 @@ function GameOverMenu(props) {
                           Game Over!
                         </h2>
                         <form>
-                          <ThemeProvider theme={theme}>
+                          
                             <Stack spacing={3} style={{ alignItems: "center" }} >
                               <div style={{ paddingBottom: "3vh" }}>
                                 <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
@@ -150,7 +158,6 @@ function GameOverMenu(props) {
                                 Play Again
                               </button>
                             </Stack>
-                          </ThemeProvider>
                         </form>
                       </div>
                     </div>
@@ -171,13 +178,11 @@ function GameOverMenu(props) {
                     <div class="card-body p-1 text-white">
                       <div class="my-4">
                         <h2 class="text-center mb-5">Scores</h2>
-                        <ThemeProvider theme={theme}>
                           <Stack spacing={5} style={{ display: "flex", alignItems: "center" }} >
 
                             <ol>{displayScores()}</ol>
 
                           </Stack>
-                        </ThemeProvider>
                       </div>
                     </div>
                   </div>
@@ -192,17 +197,3 @@ function GameOverMenu(props) {
 }
 
 export default GameOverMenu;
-/*
-<div>
-      <h1>Game over</h1>
-      <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
-      <div>
-        {!gameScoreSaved ? (
-          <button onClick={saveScore}>Save Score</button>
-        ) : null}
-        <button onClick={clickContinue}>PLay Again</button>
-      </div>
-      <div>
-        <ol>{displayScores()}</ol>
-      </div>
-    </div>*/

@@ -132,7 +132,7 @@ class Player {
   update(c) {
     let scoreIncrement=1 * myConstants.scoreMultiplier * this.valueMultiplier;
     
-    if(myConstants.useDiscoMode)scoreIncrement*=myConstants.discoModeScoreM;
+    myConstants.useDiscoMode && (scoreIncrement=scoreIncrement*myConstants.discoModeScoreM);
 
     this.score += scoreIncrement;
 

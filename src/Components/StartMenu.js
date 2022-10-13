@@ -1,18 +1,21 @@
 import React from "react";
 import * as myConstants from "./Constants";
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { createTheme } from '@mui/material/styles';
-import { ThemeProvider } from "@mui/material";
-import FormControl from '@mui/material/FormControl';
-
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import "bootstrap/dist/css/bootstrap.min.css";
+import FormControl from "@mui/material/FormControl";
 
 function StartMenu(props) {
-  const [inputText, setInputText] = React.useState("");
-  const [inputUsername, setInputUsername] = React.useState(myConstants.defaultName);
-  const [lanesValidation, setLanesValidation] = React.useState({valid:true,msg:""});
-  const [usernameValidation, setUsernameValidation] = React.useState({valid:true,msg:""});
+  const [inputText, setInputText] = React.useState(props.lanesNum);
+  const [inputUsername, setInputUsername] = React.useState(props.username);
+  const [lanesValidation, setLanesValidation] = React.useState({
+    valid: true,
+    msg: "",
+  });
+  const [usernameValidation, setUsernameValidation] = React.useState({
+    valid: true,
+    msg: "",
+  });
 
   const handleInput = (event) => {
     setInputText(event.target.value);
@@ -22,43 +25,64 @@ function StartMenu(props) {
     setInputUsername(event.target.value);
   };
 
-  const clickStart = () => {
+  const validateLanesNum = () => {
     let lanesNum = Number(inputText);
 
-    if(inputText=="") {
+    let res = { valid: true, val: lanesNum };
+
+    if (!inputText) {
+      res.valid = false;
+
       setLanesValidation({ valid: false, msg: "input should not be empty" });
     } else if (!lanesNum) {
+      res.valid = false;
+
       setLanesValidation({ valid: false, msg: "lanes should be a number" });
     } else if (lanesNum % 1 !== 0) {
+      res.valid = false;
+
       setLanesValidation({
         valid: false,
         msg: "lanes should be a whole number",
       });
     } else if (lanesNum < myConstants.minLanesNum) {
+      res.valid = false;
+
       setLanesValidation({
         valid: false,
         msg: `lanes should not be less than ${myConstants.minLanesNum}`,
       });
     } else if (lanesNum > myConstants.maxLanesNum) {
+      res.valid = false;
+
       setLanesValidation({
         valid: false,
         msg: `lanes should not be more than ${myConstants.maxLanesNum}`,
       });
-    } else {
-      props.onClick({ lanesNum: lanesNum, username: inputUsername });
     }
+
+    return res;
   };
 
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#ffffff',
-      },
-      secondary: {
-        main: '#000000',
-      },
-    },
-  });
+  const validateUsernameInput=()=>{
+    let username = inputUsername;
+
+    let res = { valid: true, val: username };
+
+    (!username && (username = myConstants.defaultName))
+
+    return res;
+  };
+
+  const clickStart = () => {
+    let validLanesInput=validateLanesNum();
+
+    let validUsernameInput=validateUsernameInput();
+
+    (validLanesInput.valid && validUsernameInput.valid && props.onClick({ lanesNum: validLanesInput.val, username: validUsernameInput.val }));
+    
+  };
+
   return (
     <div>
       <div
@@ -82,46 +106,51 @@ function StartMenu(props) {
                           Welcome to Kiro the lizard!
                         </h2>
                         <FormControl>
-                          <ThemeProvider theme={theme}>
-                            <Stack
-                              spacing={5}
-                              style={{ display: "flex", alignItems: "center" }}
+                          <Stack
+                            spacing={5}
+                            style={{ display: "flex", alignItems: "center" }}
+                          >
+                            <TextField
+                              sx={{
+                                "& .MuiInputLabel-root": { color: "white" },
+                                input: { color: "white" },
+                              }}
+                              error={!lanesValidation.valid}
+                              helperText={
+                                !lanesValidation.valid && lanesValidation.msg
+                              }
+                              defaultValue={props.lanesNum}
+                              id="outlined-basic"
+                              label="Number of lanes"
+                              variant="outlined"
+                              onChange={handleInput}
+                            />
+
+                            <TextField
+                              sx={{
+                                "& .MuiInputLabel-root": { color: "white" },
+                                input: { color: "white" },
+                              }}
+                              error={!usernameValidation.valid}
+                              helperText={
+                                !usernameValidation.valid &&
+                                usernameValidation.msg
+                              }
+                              defaultValue={props.username}
+                              id="outlined-basic"
+                              label="Username"
+                              variant="outlined"
+                              onChange={handleUsernameInput}
+                            />
+
+                            <button
+                              type="button"
+                              class="btn btn-light playButton"
+                              onClick={clickStart}
                             >
-                              <TextField
-                                sx={{
-                                  "& .MuiInputLabel-root": { color: "white" },
-                                  input: { color: "white" },
-                                }}
-                                error={!lanesValidation.valid}
-                                helperText={!lanesValidation.valid && lanesValidation.msg}
-                                id="outlined-basic"
-                                label="Number of lanes"
-                                variant="outlined"
-                                onChange={handleInput}
-                              />
-
-                              <TextField
-                                sx={{
-                                  "& .MuiInputLabel-root": { color: "white" },
-                                  input: { color: "white" },
-                                }}
-                                error={!usernameValidation.valid}
-                                helperText={!usernameValidation.valid && usernameValidation.msg}
-                                id="outlined-basic"
-                                label="Username"
-                                variant="outlined"
-                                onChange={handleUsernameInput}
-                              />
-
-                              <button
-                                type="button"
-                                class="btn btn-light playButton"
-                                onClick={clickStart}
-                              >
-                                Play
-                              </button>
-                            </Stack>
-                          </ThemeProvider>
+                              Play
+                            </button>
+                          </Stack>
                         </FormControl>
                       </div>
                     </div>
@@ -134,6 +163,7 @@ function StartMenu(props) {
       </div>
     </div>
   );
+
 }
 
 export default StartMenu;
