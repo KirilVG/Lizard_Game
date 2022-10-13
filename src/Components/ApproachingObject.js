@@ -77,7 +77,7 @@ class ApproachingObject {
       this.draw(c);
     }
 
-    if (this.distanceToTravel <= 0) return true;
+    return this.distanceToTravel <= 0;
   }
 
   handleCollision(player) {

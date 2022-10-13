@@ -58,7 +58,7 @@ function GameOverMenu(props) {
     } else {
       displayValue = [];
 
-      for (let i = 0; i < scoreboard[lanesAsString].length; i++) {
+      for (let i = 0; i < scoreboard[lanesAsString].length && i<myConstants.maximumNumberOfScores; i++) {
         displayValue.push(
           <li key={i}>
             <div style={{ backgroundColor: "white", borderRadius: "1vh" }}>
@@ -78,17 +78,6 @@ function GameOverMenu(props) {
 
     return displayValue;
   };
-
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: '#ffffff',
-      },
-      secondary: {
-        main: '#000000',
-      },
-    },
-  });
 
   return (
     <div>

@@ -75,7 +75,7 @@ function StartMenu(props) {
 
     let res = { valid: true, val: username };
 
-    !username && (username = myConstants.defaultName);
+    !username && (res.val = myConstants.defaultName);
 
     return res;
   };
@@ -122,6 +122,7 @@ function StartMenu(props) {
                     id="outlined-basic"
                     label="Number of lanes"
                     variant="outlined"
+                    defaultValue={props.lanesNum}
                     onChange={handleInput}
                   />
                   <TextField
@@ -129,9 +130,12 @@ function StartMenu(props) {
                       "& .MuiInputLabel-root": { color: "white" },
                       input: { color: "white" },
                     }}
+                    error={!usernameValidation.valid}
+                    helperText={usernameValidation.msg}
                     id="outlined-basic"
                     label="Username"
                     variant="outlined"
+                    defaultValue={props.username}
                     onChange={handleUsernameInput}
                   />
                   <button
