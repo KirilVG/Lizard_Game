@@ -13,7 +13,7 @@ function VariableContainer(cWidth, cHeight, lanes) {
     player.fuel = myConstants.maxFuel;
   }
 
-  function consumeFunStuff(player, canvas) {
+  function consumeFunStuff(player) {
     this.collided = true;
 
     player.fuel = myConstants.maxFuel;

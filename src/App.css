@@ -82,12 +82,6 @@ input {
   border-radius: 5%;
 }
 
-.playButton{
-  height: 7vh;
-  width: 20vh;
-  font-Size: 4vh;
-}
-
 .backgroundIMG{
   background-size: cover;
   background-repeat: no-repeat;
@@ -105,6 +99,7 @@ input {
   border: 2px solid rgba(255,255,255,.1);
   background-clip: padding-box;
   box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+  color: white;
 }
 
 .inputForm {
@@ -114,9 +109,36 @@ input {
 .formStack{
   display: flex;
   align-items: center; 
+  justify-content: center;
 }
 
 .formItem{
   color: white;
   padding: 2vh;
+}
+
+.playButton{
+  height: 7vh;
+  width: 20vh;
+  font-Size: 2vh;
+  margin: 2vh;
+}
+
+.scoreArea{
+  margin-right: 2vh;
+}
+.scoreItem{
+  background-color: white;
+  border-radius: 1vh;
+}
+
+.scoreItemHeader{
+  color: black;
+  font-size: 2vh; 
+}
+
+.scoreItemP{
+  color: black;
+  font-size: 1.5vh;
+  padding: "0.5vh"
 }

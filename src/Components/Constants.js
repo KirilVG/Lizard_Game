@@ -38,7 +38,7 @@ export const discoConsumableIMGWidthScale = 0.8;
 export const discoConsumableSpeedMultiplier = 1;
 export const discoConsumablePathHeight = 12600;
 export const discoConsumablePathWidth = 12600;
-export const discoConsumableDeathChance = 5;
+export const discoConsumableDeathChance = 2;
 //bird
 export const birdHitBoxHeightScale = 1.2;
 export const birdHitBoxWidthScale = 2.7;

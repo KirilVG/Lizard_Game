@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from "@mui/material";
 import { Stack } from "react-bootstrap";
+import FormControl from "@mui/material/FormControl";
 
 function GameOverMenu(props) {
   const [gameScoreSaved, setGameScoreSaved] = useState(false);
@@ -58,15 +59,20 @@ function GameOverMenu(props) {
     } else {
       displayValue = [];
 
-      for (let i = 0; i < scoreboard[lanesAsString].length && i<myConstants.maximumNumberOfScores; i++) {
+      for (
+        let i = 0;
+        i < scoreboard[lanesAsString].length &&
+        i < myConstants.maximumNumberOfScores;
+        i++
+      ) {
         displayValue.push(
           <li key={i}>
-            <div style={{ backgroundColor: "white", borderRadius: "1vh" }}>
+            <div class="scoreItem">
               <h1
-                style={{ color: "black", fontSize: "2vh" }}
+                class="scoreItemHeader"
               >{`${scoreboard[lanesAsString][i].username}`}</h1>
               <p
-                style={{ color: "black", fontSize: "1.5vh", padding: "0.5vh" }}
+                class="scoreItemP"
               >
                 {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
               </p>
@@ -80,7 +86,63 @@ function GameOverMenu(props) {
   };
 
   return (
-    <div>
+    <div
+      className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+      style={{
+        backgroundImage: `url("${myConstants.gameOverMenuBackgroundIMGUrl}")`,
+      }}
+    >
+      <div class="mask darkMask">
+        <div class="justify-content-center align-items-center h-100 container">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+              <div class="card glassCard card-body p-3 text-white my-4">
+                <h2 class="text-center mb-5">Game Over!</h2>
+                <Stack spacing={3} class="formStack">
+                  <div>
+                    <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
+                  </div>
+                  {!gameScoreSaved ? (
+                    <div>
+                      <button
+                        type="button"
+                        class="btn btn-light playButton"
+                        onClick={saveScore}
+                      >
+                        save Score
+                      </button>
+                    </div>
+                  ) : null}
+                  <div>
+                    <button
+                      type="button"
+                      class="btn btn-light playButton"
+                      onClick={clickContinue}
+                    >
+                      Play Again
+                    </button>
+                  </div>
+                </Stack>
+              </div>
+            </div>
+            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+              <div class="card glassCard card-body p-1 text-white my-4">
+                <h2 class="text-center mb-5">Scores</h2>
+                <Stack spacing={5} class="formStack">
+                  <ol class="scoreArea">{displayScores()}</ol>
+                </Stack>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default GameOverMenu;
+/*
+<div>
       <div
         className="bg-immage d-flex justify-content-center align-items-center"
         style={{
@@ -182,7 +244,4 @@ function GameOverMenu(props) {
         </div>
       </div>
     </div>
-  );
-}
-
-export default GameOverMenu;
+  */
