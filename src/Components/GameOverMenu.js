@@ -94,7 +94,7 @@ function GameOverMenu(props) {
     >
       <div class="mask darkMask">
         <div class="justify-content-center align-items-center h-100 container">
-          <div class="row d-flex justify-content-center">
+          <div class="row d-flex justify-content-center cardHolder">
             <div class="col-12 col-md-10 col-lg-7 col-xl-6">
               <div class="card glassCard card-body p-3 text-white my-4">
                 <h2 class="text-center mb-5">Game Over!</h2>
