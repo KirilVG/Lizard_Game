@@ -36,3 +36,109 @@
     transform: rotate(360deg);
   }
 }
+
+input {
+  align-self: center;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 2px solid black;
+}
+
+.content{
+  border: 1px solid gray;
+  margin-top:180px;
+  margin-left:380px;
+  background-color: #464749;
+  width:333px;
+  height: 352px;
+  padding: 58px 76px 0 76px;
+  font: 12px Arial, Helvetica, sans-serif;
+}
+
+.nameField{
+  display:inline-block;
+  width:80px;
+  text-align: right;
+  padding: 14px 10px 0 0;
+  margin:0 0 7px 0;
+}
+.inputField{
+  display:inline-block;
+  width:130px;
+  margin:0;
+  margin:0 0 7px 0;
+}
+.buttonStart{
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5%;
+}
+
+.backgroundIMG{
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.darkMask{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.glassCard{
+  backdrop-filter: blur(15px);
+  background-Color: rgba(255,255,255,.2) !important;
+  border-radius: 3em !important;
+  border: 2px solid rgba(255,255,255,.1);
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+  color: white;
+}
+
+.inputForm {
+  align-items: center;
+}
+
+.formStack{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+}
+
+.formItem{
+  color: white;
+  padding: 2vh;
+}
+
+.playButton{
+  height: 7vh;
+  width: 20vh;
+  font-Size: 2vh;
+  margin: 2vh;
+}
+
+.scoreArea{
+  margin-right: 2vh;
+}
+.scoreItem{
+  background-color: white;
+  border-radius: 1vh;
+}
+
+.scoreItemHeader{
+  color: black;
+  font-size: 2vh; 
+}
+
+.scoreItemP{
+  color: black;
+  font-size: 1.5vh;
+  padding: "0.5vh"
+}
