@@ -100,17 +100,17 @@ function StartMenu(props) {
           backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
         }}
       >
-        <div class="mask darkMask d-flex justify-content-center align-items-center h-100">
-          <div class="container row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-              <FormControl class="card glassCard card-body inputForm">
-                <h2 class="text-center mb-5 formItem">
+        <div className="mask darkMask d-flex justify-content-center align-items-center h-100">
+          <div className="container row justify-content-center">
+            <div className="col-12 col-md-10 col-lg-7 col-xl-6">
+              <FormControl className="card glassCard card-body inputForm">
+                <h2 className="text-center mb-5 formItem">
                   Welcome to run Kiro the lizard!
                 </h2>
 
                 <Stack
                   spacing={5}
-                  class="formStack"
+                  className="formStack"
                 >
                   <TextField
                     sx={{
@@ -140,7 +140,7 @@ function StartMenu(props) {
                   />
                   <button
                     type="button"
-                    class="btn btn-light playButton"
+                    className="btn btn-light playButton"
                     onClick={
                       clickStart
                     }
