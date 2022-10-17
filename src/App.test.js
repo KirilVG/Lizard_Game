@@ -1,5 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import renderer from 'react-test-renderer';
 import App from './App';
+import StartMenu from './Components/StartMenu';
+import GameOverMenu from './Components/GameOverMenu';
 
 test('renders title element', () => {
   render(<App />);
@@ -89,6 +92,30 @@ test('username should change', () => {
   fireEvent.change(usernameInput,{target:{value:testValue}});
 
   expect(usernameInput.value).toBe(testValue);
+});
+
+it('game start renders correctly', () => {
+  const lanesNum=null;
+  const username=null;
+  const onClick = () => {};
+  const tree = renderer
+    .create(<StartMenu onClick={onClick} lanesNum={lanesNum} username={username} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it('game end renders correctly', () => {
+  const gameOverInf={
+    score: 100,
+    cause: "killed by sth",
+    username: "Person",
+    lanesNum: 3,
+  };
+  const onClick = () => {};
+  const tree = renderer
+    .create(<GameOverMenu onClick={onClick} end={gameOverInf}  />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
 
 

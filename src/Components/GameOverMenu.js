@@ -49,7 +49,7 @@ function GameOverMenu(props) {
 
     let scoreboard = JSON.parse(localStorage.getItem("scoreboard"));
 
-    if (!scoreboard[lanesAsString]) {
+    if (!scoreboard || !scoreboard[lanesAsString]) {
       displayValue = (
         <div>
           <h1>No current scores!</h1>
@@ -67,12 +67,12 @@ function GameOverMenu(props) {
       ) {
         displayValue.push(
           <li key={i}>
-            <div class="scoreItem">
+            <div className="scoreItem">
               <h1
-                class="scoreItemHeader"
+                className="scoreItemHeader"
               >{`${scoreboard[lanesAsString][i].username}`}</h1>
               <p
-                class="scoreItemP"
+                className="scoreItemP"
               >
                 {`score: ${scoreboard[lanesAsString][i].score}, cause of death:${scoreboard[lanesAsString][i].causeOfDeath}`}
               </p>
@@ -92,12 +92,12 @@ function GameOverMenu(props) {
         backgroundImage: `url("${myConstants.gameOverMenuBackgroundIMGUrl}")`,
       }}
     >
-      <div class="mask darkMask">
-        <div class="justify-content-center align-items-center h-100 container">
-          <div class="row d-flex justify-content-center cardHolder">
-            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-              <div class="card glassCard card-body p-3 text-white my-4">
-                <h2 class="text-center mb-5">Game Over!</h2>
+      <div className="mask darkMask">
+        <div className="justify-content-center align-items-center h-100 container">
+          <div className="row d-flex justify-content-center cardHolder">
+            <div className="col-12 col-md-10 col-lg-7 col-xl-6">
+              <div className="card glassCard card-body p-3 text-white my-4">
+                <h2 className="text-center mb-5">Game Over!</h2>
                 <Stack spacing={3} class="formStack">
                   <div>
                     <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
@@ -106,7 +106,7 @@ function GameOverMenu(props) {
                     <div>
                       <button
                         type="button"
-                        class="btn btn-light playButton"
+                        className="btn btn-light playButton"
                         onClick={saveScore}
                       >
                         save Score
@@ -116,7 +116,7 @@ function GameOverMenu(props) {
                   <div>
                     <button
                       type="button"
-                      class="btn btn-light playButton"
+                      className="btn btn-light playButton"
                       onClick={clickContinue}
                     >
                       Play Again
@@ -125,11 +125,11 @@ function GameOverMenu(props) {
                 </Stack>
               </div>
             </div>
-            <div class="col-12 col-md-10 col-lg-7 col-xl-6">
-              <div class="card glassCard card-body p-1 text-white my-4">
-                <h2 class="text-center mb-5">Scores</h2>
-                <Stack spacing={5} class="formStack">
-                  <ol class="scoreArea">{displayScores()}</ol>
+            <div className="col-12 col-md-10 col-lg-7 col-xl-6">
+              <div className="card glassCard card-body p-1 text-white my-4">
+                <h2 className="text-center mb-5">Scores</h2>
+                <Stack spacing={5} className="formStack">
+                  <ol className="scoreArea">{displayScores()}</ol>
                 </Stack>
               </div>
             </div>

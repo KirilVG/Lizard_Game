@@ -135,6 +135,8 @@ input {
 .scoreItem{
   background-color: white;
   border-radius: 1vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
 }
 
 .scoreItemHeader{

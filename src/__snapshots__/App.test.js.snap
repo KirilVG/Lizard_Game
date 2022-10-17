@@ -1,0 +1,227 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`game end renders correctly 1`] = `
+<div
+  className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+  style={
+    Object {
+      "backgroundImage": "url(\\"https://images.unsplash.com/photo-1573595015625-ac674ed1d155?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80\\")",
+    }
+  }
+>
+  <div
+    className="mask darkMask"
+  >
+    <div
+      className="justify-content-center align-items-center h-100 container"
+    >
+      <div
+        className="row d-flex justify-content-center cardHolder"
+      >
+        <div
+          className="col-12 col-md-10 col-lg-7 col-xl-6"
+        >
+          <div
+            className="card glassCard card-body p-3 text-white my-4"
+          >
+            <h2
+              className="text-center mb-5"
+            >
+              Game Over!
+            </h2>
+            <div
+              class="formStack"
+              className="vstack minBreakpoint-xs"
+              spacing={3}
+            >
+              <div>
+                <label>
+                  Username:Person, cause of death:undefined, score: 100
+                </label>
+              </div>
+              <div>
+                <button
+                  className="btn btn-light playButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  save Score
+                </button>
+              </div>
+              <div>
+                <button
+                  className="btn btn-light playButton"
+                  onClick={[Function]}
+                  type="button"
+                >
+                  Play Again
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="col-12 col-md-10 col-lg-7 col-xl-6"
+        >
+          <div
+            className="card glassCard card-body p-1 text-white my-4"
+          >
+            <h2
+              className="text-center mb-5"
+            >
+              Scores
+            </h2>
+            <div
+              className="formStack vstack minBreakpoint-xs"
+              spacing={5}
+            >
+              <ol
+                className="scoreArea"
+              >
+                <div>
+                  <h1>
+                    No current scores!
+                  </h1>
+                  <p>
+                    be the first
+                  </p>
+                </div>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`game start renders correctly 1`] = `
+<div
+  className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+  style={
+    Object {
+      "backgroundImage": "url(\\"https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg\\")",
+    }
+  }
+>
+  <div
+    className="mask darkMask d-flex justify-content-center align-items-center h-100"
+  >
+    <div
+      className="container row justify-content-center"
+    >
+      <div
+        className="col-12 col-md-10 col-lg-7 col-xl-6"
+      >
+        <div
+          className="MuiFormControl-root card glassCard card-body inputForm css-1nrlq1o-MuiFormControl-root"
+        >
+          <h2
+            className="text-center mb-5 formItem"
+          >
+            Welcome to run Kiro the lizard!
+          </h2>
+          <div
+            className="formStack css-pnq1z9-MuiStack-root"
+          >
+            <div
+              className="MuiFormControl-root MuiTextField-root css-19lnug-MuiFormControl-root-MuiTextField-root"
+            >
+              <label
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink={false}
+                htmlFor="outlined-basic"
+                id="outlined-basic-label"
+              >
+                Number of lanes
+              </label>
+              <div
+                className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                  defaultValue={null}
+                  disabled={false}
+                  id="outlined-basic"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                />
+                <fieldset
+                  aria-hidden={true}
+                  className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    className="css-yjsfm1"
+                  >
+                    <span>
+                      Number of lanes
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <div
+              className="MuiFormControl-root MuiTextField-root css-19lnug-MuiFormControl-root-MuiTextField-root"
+            >
+              <label
+                className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink={false}
+                htmlFor="outlined-basic"
+                id="outlined-basic-label"
+              >
+                Username
+              </label>
+              <div
+                className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                onClick={[Function]}
+              >
+                <input
+                  aria-invalid={false}
+                  autoFocus={false}
+                  className="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                  defaultValue={null}
+                  disabled={false}
+                  id="outlined-basic"
+                  onAnimationStart={[Function]}
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  onFocus={[Function]}
+                  required={false}
+                  type="text"
+                />
+                <fieldset
+                  aria-hidden={true}
+                  className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    className="css-yjsfm1"
+                  >
+                    <span>
+                      Username
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <button
+              className="btn btn-light playButton"
+              onClick={[Function]}
+              type="button"
+            >
+              Play
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
