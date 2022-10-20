@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import App from './App';
 import StartMenu from './Components/StartMenu';
+import Canvas from './Components/Canvas';
 import GameOverMenu from './Components/GameOverMenu';
 
 test('renders title element', () => {
@@ -118,4 +119,10 @@ it('game end renders correctly', () => {
   expect(tree).toMatchSnapshot();
 });
 
+it('should render canvas', () => {
+  const lanesNum=3;
+  const handleGameEnd=()=>{};
+  const comp = render(<Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd} />);
+  expect(comp.toJSON()).toMatchSnapshot();
+});
 
