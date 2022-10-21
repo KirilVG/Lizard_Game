@@ -6,20 +6,22 @@ import Lane from "./Lane";
 import * as myConstants from "./Constants";
 
 class GameLogic{
-    constructor(canvas,lanesNum,gameEndHandler){
+    constructor(width, height, lanesNum, renderer, gameEndHandler){
+        this.width = width;
+
+        this.height = height;
+
         this.gameIsOver = false;
 
-        this.canvas=canvas;
+        this.renderer = renderer;
 
-        this.lanesNum=lanesNum;
+        this.lanesNum = lanesNum;
 
         this.valueM = myConstants.initialValueMultiplier;
 
-        this.ctx = canvas.getContext("2d");
-
         this.info = VariableContainer(
-            canvas.width,
-            canvas.height,
+            this.width,
+            this.height,
             this.lanesNum
         );
 
@@ -56,7 +58,7 @@ class GameLogic{
             myConstants.undergroundAnimationTime,
             myConstants.inAirAnimationTime,
             myConstants.jumpHeightScale,
-            gameEndHandler
+            gameEndHandler,
         );
 
         for (let i = 0; i < this.lanesNum; i++) {
@@ -101,19 +103,10 @@ class GameLogic{
     WindowKeyDown(e) {
         this.player.handleMovement(myConstants.directions[e.code]);
     }
-      
-    DiscoFill(color) {
-        if (myConstants.useDiscoMode) {
-            let ind = Math.round(Math.random() * myConstants.colors.length);
-            this.ctx.fillStyle = myConstants.colors[ind];
-        } else {
-            this.ctx.fillStyle = color;
-        }
-    }
 
     handleGameObjectsChanges(gameObjectsArr) {
         for (let i = 0; i < gameObjectsArr.length; i++) {
-            gameObjectsArr[i].update(this.ctx, this.speed);
+            gameObjectsArr[i].update(this.renderer, this.speed);
     
             gameObjectsArr[i].handleCollision(this.player);
     
@@ -136,26 +129,24 @@ class GameLogic{
           }
     
           //clear canvas
-          this.DiscoFill(myConstants.secondaryColor);
-    
-          this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+          this.renderer.clearScreen(this.width,this.height);
     
           //display background objects
           for (let i = 0; i < this.backgroundObjects.length; i++) {
-            this.backgroundObjects[i].update(this.ctx);
+            this.backgroundObjects[i].update(this.renderer);
           }
     
           //display game objects
           this.handleGameObjectsChanges(this.groundObstacleObjects);
     
-          this.player.update(this.ctx);
+          this.player.update(this.renderer);
     
           this.handleGameObjectsChanges(this.consumableObjects);
     
           this.handleGameObjectsChanges(this.aerialObstacleObjects);
     
           //display score
-          this.displayScoreAndFuel();
+          this.renderer.displayScoreAndFuel(this.info.laneOriginX,this.info.laneOriginY,this.info.laneWidth,this.lanesNum,this.player.score,this.player.fuel)
     
           //handle speed increase
           if (
@@ -182,37 +173,7 @@ class GameLogic{
         }
       }
 
-      displayScoreAndFuel() {
-        //set the background
-        this.DiscoFill(myConstants.primaryColor);
     
-        this.ctx.fillRect(
-          this.info.laneOriginX,
-          this.info.laneOriginY,
-          this.lanesNum * this.info.laneWidth,
-          this.info.laneWidth * 2
-        );
-
-        //set the score
-    this.DiscoFill(myConstants.secondaryColor);
-    let fontSize = this.info.laneWidth * myConstants.fontScale;
-    this.ctx.font = `${fontSize}px serif`;
-    this.ctx.fillText(
-      `score:${Math.round(this.player.score)}`,
-      this.info.laneOriginX,
-      this.info.laneOriginY + fontSize
-    );
-
-    //set the fuel bar
-    this.DiscoFill(myConstants.secondaryColor);
-    this.ctx.fillRect(
-      this.info.laneOriginX + 0.1 * this.lanesNum * this.info.laneWidth,
-      this.info.laneOriginY + 0.9 * this.info.laneWidth,
-      (this.player.fuel / myConstants.maxFuel) *
-        (this.lanesNum * this.info.laneWidth * 0.8),
-      this.info.laneWidth
-    );
-  }
   speedUp() {
     let prevSpeed = this.speed;
     this.speed *= myConstants.valueMultiplier;
@@ -286,3 +247,34 @@ class GameLogic{
 }
 
 export default GameLogic;
+/* displayScoreAndFuel() {
+        //set the background
+        this.DiscoFill(myConstants.primaryColor);
+    
+        this.ctx.fillRect(
+          this.info.laneOriginX,
+          this.info.laneOriginY,
+          this.lanesNum * this.info.laneWidth,
+          this.info.laneWidth * 2
+        );
+
+        //set the score
+    this.DiscoFill(myConstants.secondaryColor);
+    let fontSize = this.info.laneWidth * myConstants.fontScale;
+    this.ctx.font = `${fontSize}px serif`;
+    this.ctx.fillText(
+      `score:${Math.round(this.player.score)}`,
+      this.info.laneOriginX,
+      this.info.laneOriginY + fontSize
+    );
+
+    //set the fuel bar
+    this.DiscoFill(myConstants.secondaryColor);
+    this.ctx.fillRect(
+      this.info.laneOriginX + 0.1 * this.lanesNum * this.info.laneWidth,
+      this.info.laneOriginY + 0.9 * this.info.laneWidth,
+      (this.player.fuel / myConstants.maxFuel) *
+        (this.lanesNum * this.info.laneWidth * 0.8),
+      this.info.laneWidth
+    );
+  }*/

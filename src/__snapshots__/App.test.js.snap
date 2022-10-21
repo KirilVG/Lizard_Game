@@ -225,3 +225,21 @@ exports[`game start renders correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`should render canvas 1`] = `
+<canvas
+  height={760.3199999999999}
+  id="demoId"
+  width={1024}
+/>
+`;
+
+exports[`should render game wrapper 1`] = `
+<div>
+  <canvas
+    height={760.3199999999999}
+    id="demoId"
+    width={1024}
+  />
+</div>
+`;

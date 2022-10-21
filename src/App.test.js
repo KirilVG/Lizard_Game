@@ -4,6 +4,9 @@ import App from './App';
 import StartMenu from './Components/StartMenu';
 import Canvas from './Components/Canvas';
 import GameOverMenu from './Components/GameOverMenu';
+import GameWrapper from './Components/GameWrapper';
+import GameLogic from './Components/GameLogic';
+import 'jest-canvas-mock';
 
 test('renders title element', () => {
   render(<App />);
@@ -85,7 +88,7 @@ test('lanes input should set error prop to true when play button is pressed and 
   expect(linkElement).toBeInTheDocument();
 });
 
-test('username should change', () => {
+test('username input should change', () => {
   render(<App />);
   const usernameInput = screen.getByLabelText(/Username/i);
   const testValue="User";
@@ -120,9 +123,36 @@ it('game end renders correctly', () => {
 });
 
 it('should render canvas', () => {
-  const lanesNum=3;
-  const handleGameEnd=()=>{};
-  const comp = render(<Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd} />);
-  expect(comp.toJSON()).toMatchSnapshot();
+  const demoId="demoId";
+  const tree = renderer
+    .create(<Canvas canvasID={demoId} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
 });
+
+it('should render game wrapper', () => {
+  const demoId = "demoId";
+  const lanesNum = 3;
+  const handleGameEnd=()=>{};
+  const tree = renderer
+    .create(<GameWrapper id={demoId} lanesNum={lanesNum} gameEndHandler={handleGameEnd} />)
+    .toJSON();
+  expect(tree).toMatchSnapshot();
+});
+
+it("game logic executes", () => {
+  const demoWidth = 1000;
+  const demoHeight = 1000;
+  const demoId = "demoId";
+  const lanesNum = 3;
+  const handleGameEnd = () => {};
+  const canvas = document.createElement("canvas");
+
+  //const gameLogic = new GameLogic(canvas,lanesNum,handleGameEnd);
+
+  expect(canvas.getContext("2d")).not.toBe(undefined);
+});
+
+
+
 

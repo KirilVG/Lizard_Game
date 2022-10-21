@@ -59,7 +59,7 @@ const Game = () => {
         {inGameOverScreen ? (
           <GameOverMenu onClick={resetGame} end={gameOverInf} />
         ) : gameStarted ? (
-          <GameWrapper id={"canvasdId"} lanesNum={lanesNum} gameEndHandler={handleGameEnd} />
+          <GameWrapper id={"canvasId"} lanesNum={lanesNum} gameEndHandler={handleGameEnd} />
         ) : (
           <StartMenu onClick={handleStart} lanesNum={lanesNum} username={username}/>
         )}

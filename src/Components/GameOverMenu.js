@@ -87,7 +87,7 @@ function GameOverMenu(props) {
 
   return (
     <div
-      className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+      className="bg-image d-flex justify-content-center align-items-center backgroundIMG"
       style={{
         backgroundImage: `url("${myConstants.gameOverMenuBackgroundIMGUrl}")`,
       }}
@@ -144,7 +144,7 @@ export default GameOverMenu;
 /*
 <div>
       <div
-        className="bg-immage d-flex justify-content-center align-items-center"
+        className="bg-image d-flex justify-content-center align-items-center"
         style={{
           backgroundImage: `url("${myConstants.gameOverMenuBackgroundIMGUrl}")`,
           backgroundSize: "cover",
