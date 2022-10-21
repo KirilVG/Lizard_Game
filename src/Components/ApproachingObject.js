@@ -10,60 +10,7 @@ class ApproachingObject {
     this.currentLane = currentLane;
     this.distanceToTravel = distanceToTravel;
     this.collided = false;
-    this.path = this.getPath();
     this.collisionHandler = info.collisionHandler;
-  }
-
-  draw(c) {
-    this.drawIcon(c);
-
-    if (myConstants.displayHitBoxes) {
-      this.drawHitBox(c);
-    }
-  }
-
-  drawIcon(c) {
-    if (myConstants.useDiscoMode) {
-      let ind = Math.round(Math.random() * myConstants.colors.length);
-      c.fillStyle = myConstants.colors[ind];
-    } else {
-      c.fillStyle = myConstants.primaryColor;
-    }
-
-    const scaleX = this.info.IMGWidth / this.info.pathWidth;
-    const scaleY = this.info.IMGHeight / this.info.pathHeight;
-
-    const translateX = this.position.x + this.info.IMGWidth / 2;
-    const translateY = this.position.y + this.info.IMGHeight;
-
-    const angle = Math.PI;
-
-    const matrix = new DOMMatrix([
-      Math.cos(angle) * scaleX,
-      Math.sin(angle) * scaleX,
-      -Math.sin(angle) * scaleY,
-      Math.cos(angle) * scaleY,
-      translateX,
-      translateY,
-    ]);
-
-    c.setTransform(matrix);
-    c.fill(this.path);
-    c.resetTransform();
-  }
-
-  drawHitBox(c) {
-    c.globalAlpha = myConstants.hitBoxOpacity;
-    c.fillStyle = "red";
-
-    c.fillRect(
-      this.position.x - this.info.hitBoxWidth / 2,
-      this.position.y + (this.info.IMGHeight - this.info.hitBoxHeight),
-      this.info.hitBoxWidth,
-      this.info.hitBoxHeight
-    );
-
-    c.globalAlpha = 1;
   }
 
   update(c, currentSpeed) {
@@ -74,7 +21,7 @@ class ApproachingObject {
 
       this.distanceToTravel -= calculatedSpeed;
 
-      this.draw(c);
+      c.renderApproachingObject(this);
     }
 
     return this.distanceToTravel <= 0;
@@ -94,11 +41,6 @@ class ApproachingObject {
 
   terminate() {
     return this.distanceToTravel <= 0 || this.collided == true;
-  }
-
-  getPath() {
-    let path = new Path2D(this.info.pathAsString);
-    return path;
   }
 }
 

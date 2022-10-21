@@ -13,18 +13,7 @@ class LaneSeparator {
   }
 
   draw(c) {
-    if (myConstants.useDiscoMode) {
-      let ind = Math.round(Math.random() * myConstants.colors.length);
-      c.strokeStyle = myConstants.colors[ind];
-    } else {
-      c.strokeStyle = myConstants.primaryColor;
-    }
-    
-    c.beginPath();
-    c.lineWidth = this.width;
-    c.moveTo(this.position.x1, this.position.y1);
-    c.lineTo(this.position.x2, this.position.y2);
-    c.stroke();
+    c.renderLaneSeparator(this);
   }
 
   update(c) {

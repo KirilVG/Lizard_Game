@@ -11,15 +11,7 @@ class Lane {
   }
 
   draw(c) {
-    if (myConstants.useDiscoMode) {
-      let ind = Math.round(Math.random() * myConstants.colors.length);
-
-      c.fillStyle = myConstants.colors[ind];
-    } else {
-      c.fillStyle = myConstants.secondaryColor;
-    }
-
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    c.renderLane(this);
   }
 
   update(c) {

@@ -2,8 +2,9 @@ import React from "react";
 import StartMenu from "./StartMenu";
 import Canvas from "./Canvas";
 import GameOverMenu from "./GameOverMenu";
+import GameWrapper from "./GameWrapper";
 import { useState } from "react";
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
 
 const Game = () => {
@@ -58,9 +59,17 @@ const Game = () => {
         {inGameOverScreen ? (
           <GameOverMenu onClick={resetGame} end={gameOverInf} />
         ) : gameStarted ? (
-          <Canvas lanesNum={lanesNum} gameEndHandler={handleGameEnd} />
+          <GameWrapper
+            id={"canvasId"}
+            lanesNum={lanesNum}
+            gameEndHandler={handleGameEnd}
+          />
         ) : (
-          <StartMenu onClick={handleStart} lanesNum={lanesNum} username={username}/>
+          <StartMenu
+            onClick={handleStart}
+            lanesNum={lanesNum}
+            username={username}
+          />
         )}
       </ThemeProvider>
     </div>

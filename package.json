@@ -2,6 +2,20 @@
   "name": "canva-app",
   "version": "0.1.0",
   "private": true,
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest: current file",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["${fileBasenameNoExtension}", "--config", "jest.config.js"],
+      "console": "integratedTerminal",
+      "disableOptimisticBPs": true,
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest"
+      }
+    }
+  ],
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.10.4",
@@ -17,6 +31,7 @@
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-scripts": "^5.0.1",
+    "react-test-renderer": "^18.2.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
@@ -43,5 +58,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jest": "^27.5.1",
+    "jest-canvas-mock": "^2.4.0"
   }
 }

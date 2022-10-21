@@ -88,19 +88,18 @@ export const directions = {
   ArrowRight: dirRight,
 };
 //disco handlers
-export const discoModeScoreM=2;
+export const discoModeScoreM = 2;
 export const discoModeDuration = 900;
 export let useDiscoMode = false;
 export function setDiscoMode(value) {
   useDiscoMode = value;
 }
-export let discoModeRemainder=0;
+export let discoModeRemainder = 0;
 export function setDiscoModeRemainder(value) {
-  if(value<0) {
-    discoModeRemainder=0;
+  if (value < 0) {
+    discoModeRemainder = 0;
     setDiscoMode(false);
-  } 
-  else {
+  } else {
     discoModeRemainder = value;
     setDiscoMode(true);
   }
@@ -112,12 +111,12 @@ export function setDayNightCycle() {
   secondaryColor = "black";
 }
 export function switchDayNightCycle() {
-  let temp=primaryColor;
-  primaryColor=secondaryColor;
-  secondaryColor=temp;
+  let temp = primaryColor;
+  primaryColor = secondaryColor;
+  secondaryColor = temp;
 }
 //settings
-export const displayHitBoxes = false;
+export const displayHitBoxes = true;
 export const maximumNumberOfScores = 10;
 export const hitBoxOpacity = 0.5;
 export const minLanesNum = 3;
@@ -507,5 +506,7 @@ l6 44 26 -54 c25 -52 176 -219 199 -219 13 0 23 34 23 78 0 17 1 32 3 32 2 0
 93 -42 91 -102 32 l-54 -54 -8 69 c-21 203 -122 727 -194 1013 -64 252 -137
 460 -161 460 -5 0 -20 -24 -33 -52z`;
 //imageURL
-export const startMenuBackgroundIMGUrl="https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg";
-export const gameOverMenuBackgroundIMGUrl="https://images.unsplash.com/photo-1573595015625-ac674ed1d155?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80";
+export const startMenuBackgroundIMGUrl =
+  "https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg";
+export const gameOverMenuBackgroundIMGUrl =
+  "https://images.unsplash.com/photo-1573595015625-ac674ed1d155?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80";
