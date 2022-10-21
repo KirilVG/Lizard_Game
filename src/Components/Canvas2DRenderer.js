@@ -47,6 +47,7 @@ class Canvas2DRenderer {
 
   drawApproachingObjectIcon(approachingObject) {
     this.DiscoFill(myConstants.primaryColor);
+    const path = this.getApproachingObjectPath(approachingObject);
 
     const scaleX =
       approachingObject.info.IMGWidth / approachingObject.info.pathWidth;
@@ -70,7 +71,7 @@ class Canvas2DRenderer {
     ]);
 
     this.ctx.setTransform(matrix);
-    this.ctx.fill(approachingObject.path);
+    this.ctx.fill(path);
     this.ctx.resetTransform();
   }
 
@@ -93,7 +94,7 @@ class Canvas2DRenderer {
   drawPlayerIcon(player) {
     this.DiscoFill(myConstants.primaryColor);
 
-    let p = player.getPath();
+    let p = this.getPlayerPath();
 
     let scaleX = player.IMGWidth / myConstants.playerPathWidth;
     let scaleY = player.IMGHeight / myConstants.playerPathHeight;
@@ -152,16 +153,11 @@ class Canvas2DRenderer {
     this.ctx.fillStyle = myConstants.primaryColor;
   }
 
-  displayScoreAndFuel(originX,originY,scaleUnit,lanesNum,score,fuel) {
+  displayScoreAndFuel(originX, originY, scaleUnit, lanesNum, score, fuel) {
     //set the background
     this.DiscoFill(myConstants.primaryColor);
 
-    this.ctx.fillRect(
-      originX,
-      originY,
-      lanesNum * scaleUnit,
-      scaleUnit * 2
-    );
+    this.ctx.fillRect(originX, originY, lanesNum * scaleUnit, scaleUnit * 2);
 
     //set the score
     this.DiscoFill(myConstants.secondaryColor);
@@ -179,26 +175,40 @@ class Canvas2DRenderer {
     this.ctx.fillRect(
       originX + 0.1 * lanesNum * scaleUnit,
       originY + 0.9 * scaleUnit,
-      (fuel / myConstants.maxFuel) *
-        (lanesNum * scaleUnit * 0.8),
-        scaleUnit
+      (fuel / myConstants.maxFuel) * (lanesNum * scaleUnit * 0.8),
+      scaleUnit
     );
   }
 
   renderLane(lane) {
     this.DiscoFill(myConstants.secondaryColor);
 
-    this.ctx.fillRect(lane.position.x, lane.position.y, lane.width, lane.height);
+    this.ctx.fillRect(
+      lane.position.x,
+      lane.position.y,
+      lane.width,
+      lane.height
+    );
   }
 
   renderLaneSeparator(lineSeparator) {
     this.DiscoStroke(myConstants.primaryColor);
-    
+
     this.ctx.beginPath();
     this.ctx.lineWidth = lineSeparator.width;
     this.ctx.moveTo(lineSeparator.position.x1, lineSeparator.position.y1);
     this.ctx.lineTo(lineSeparator.position.x2, lineSeparator.position.y2);
     this.ctx.stroke();
+  }
+
+  getApproachingObjectPath(approachingObject) {
+    let path = new Path2D(approachingObject.info.pathAsString);
+    return path;
+  }
+
+  getPlayerPath() {
+    let path = new Path2D(myConstants.playerPath);
+    return path;
   }
 }
 

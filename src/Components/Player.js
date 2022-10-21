@@ -15,7 +15,7 @@ class Player {
     underGroundAnimationTime,
     inAirAnimationTime,
     jumpHeightScale,
-    gameOverHook,
+    gameOverHook
   ) {
     this.position = {
       x: xPos,
@@ -56,9 +56,10 @@ class Player {
   }
 
   update(c) {
-    let scoreIncrement=1 * myConstants.scoreMultiplier * this.valueMultiplier;
-    
-    myConstants.useDiscoMode && (scoreIncrement=scoreIncrement*myConstants.discoModeScoreM);
+    let scoreIncrement = 1 * myConstants.scoreMultiplier * this.valueMultiplier;
+
+    myConstants.useDiscoMode &&
+      (scoreIncrement = scoreIncrement * myConstants.discoModeScoreM);
 
     this.score += scoreIncrement;
 
@@ -69,6 +70,7 @@ class Player {
 
   handleDeath(cause) {
     this.isDead = true;
+
     this.gameOverHook({ message: cause, score: Math.round(this.score) });
   }
 
@@ -77,6 +79,7 @@ class Player {
       case myConstants.dirUp:
         if (this.level == myConstants.levelGround) {
           this.level = myConstants.levelAir;
+
           setTimeout(
             () => (this.level = myConstants.levelGround),
             this.inAirAnimationTime
@@ -86,6 +89,7 @@ class Player {
       case myConstants.dirDown:
         if (this.level == myConstants.levelGround) {
           this.level = myConstants.levelUnder;
+
           setTimeout(
             () => (this.level = myConstants.levelGround),
             this.underGroundAnimationTime
@@ -95,6 +99,7 @@ class Player {
       case myConstants.dirLeft:
         if (this.currentLane > 0 && this.level != myConstants.levelAir) {
           this.position.x -= this.stepLength;
+          
           this.currentLane--;
         }
         break;
@@ -111,78 +116,6 @@ class Player {
         break;
     }
   }
-  getPath() {
-    let path = new Path2D(myConstants.playerPath);
-    return path;
-  }
 }
 
 export default Player;
-/*
-drawPlayerIcon(c) {
-    if (myConstants.useDiscoMode) {
-      let ind = Math.round(Math.random() * myConstants.colors.length);
-      c.fillStyle = myConstants.colors[ind];
-    } else {
-      c.fillStyle = myConstants.primaryColor;
-    }
-
-    let p = this.getPath();
-
-    let scaleX = this.IMGWidth / myConstants.playerPathWidth;
-    let scaleY = this.IMGHeight / myConstants.playerPathHeight;
-
-    let translateX = this.position.x - this.IMGWidth / 2;
-    let translateY = this.position.y;
-
-    const angle = 0;
-
-    if (this.level == myConstants.levelAir) {
-      let newIMGWidth = this.IMGWidth * this.jumpHeightScale;
-      let newIMGHeight = this.IMGHeight * this.jumpHeightScale;
-
-      scaleX = newIMGWidth / myConstants.playerPathWidth;
-      scaleY = newIMGHeight / myConstants.playerPathHeight;
-
-      translateX = this.position.x - newIMGWidth / 2;
-      translateY = this.position.y - newIMGWidth / 2;
-    }
-
-    if (this.level == myConstants.levelUnder) {
-      c.globalAlpha = myConstants.undergroundAnimationOpacity;
-    }
-
-    const matrix = new DOMMatrix([
-      Math.cos(angle) * scaleX,
-      Math.sin(angle) * scaleX,
-      -Math.sin(angle) * scaleY,
-      Math.cos(angle) * scaleY,
-      translateX,
-      translateY,
-    ]);
-
-    c.setTransform(matrix);
-    c.fill(p);
-    c.resetTransform();
-
-    if (this.level == myConstants.levelUnder) {
-      c.globalAlpha = 1;
-    }
-  }
-
-  drawPlayerHitBox(c) {
-    c.fillStyle = "green";
-
-    c.globalAlpha = myConstants.hitBoxOpacity;
-
-    c.fillRect(
-      this.position.x - this.hitBoxWidth / 2,
-      this.position.y,
-      this.hitBoxWidth,
-      this.hitBoxHeight
-    ); //displays the hitBox
-
-    c.globalAlpha = 1;
-    c.fillStyle = myConstants.primaryColor;
-  }
- */

@@ -2,7 +2,7 @@
 
 exports[`game end renders correctly 1`] = `
 <div
-  className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+  className="bg-image d-flex justify-content-center align-items-center backgroundIMG"
   style={
     Object {
       "backgroundImage": "url(\\"https://images.unsplash.com/photo-1573595015625-ac674ed1d155?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80\\")",
@@ -96,7 +96,25 @@ exports[`game end renders correctly 1`] = `
 </div>
 `;
 
-exports[`game start renders correctly 1`] = `
+exports[`should render canvas 1`] = `
+<canvas
+  height={760.3199999999999}
+  id="demoId"
+  width={1024}
+/>
+`;
+
+exports[`should render game wrapper 1`] = `
+<div>
+  <canvas
+    height={760.3199999999999}
+    id="demoId"
+    width={1024}
+  />
+</div>
+`;
+
+exports[`start menu renders correctly 1`] = `
 <div
   className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
   style={
@@ -223,23 +241,5 @@ exports[`game start renders correctly 1`] = `
       </div>
     </div>
   </div>
-</div>
-`;
-
-exports[`should render canvas 1`] = `
-<canvas
-  height={760.3199999999999}
-  id="demoId"
-  width={1024}
-/>
-`;
-
-exports[`should render game wrapper 1`] = `
-<div>
-  <canvas
-    height={760.3199999999999}
-    id="demoId"
-    width={1024}
-  />
 </div>
 `;

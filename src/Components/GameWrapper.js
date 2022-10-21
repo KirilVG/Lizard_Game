@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
-import Canvas from './Canvas';
-import GameLogic from './GameLogic';
-import Canvas2DRenderer from './Canvas2DRenderer';
+import React, { useEffect } from "react";
+import Canvas from "./Canvas";
+import GameLogic from "./GameLogic";
+import Canvas2DRenderer from "./Canvas2DRenderer";
 
 const GameWrapper = (props) => {
+  const { id } = props;
 
-    const { id } = props;
-
-	useEffect(() => {
+  useEffect(() => {
     const gameCanvas = document.getElementById(id);
 
     const canvas2dRenderer = new Canvas2DRenderer(gameCanvas);
@@ -21,11 +20,11 @@ const GameWrapper = (props) => {
     );
   }, []);
 
-    return (
-      <div>
-        <Canvas canvasID={id} ></Canvas>
-      </div>
-    );
+  return (
+    <div>
+      <Canvas canvasID={id}></Canvas>
+    </div>
+  );
 };
 
 export default GameWrapper;

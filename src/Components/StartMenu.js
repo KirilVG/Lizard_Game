@@ -59,8 +59,7 @@ function StartMenu(props) {
         valid: false,
         msg: `lanes should not be more than ${myConstants.maxLanesNum}`,
       });
-    }
-    else {
+    } else {
       setLanesValidation({
         valid: true,
         msg: "",
@@ -94,65 +93,60 @@ function StartMenu(props) {
   };
 
   return (
-      <div
-        className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
-        style={{
-          backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
-        }}
-      >
-        <div className="mask darkMask d-flex justify-content-center align-items-center h-100">
-          <div className="container row justify-content-center">
-            <div className="col-12 col-md-10 col-lg-7 col-xl-6">
-              <FormControl className="card glassCard card-body inputForm">
-                <h2 className="text-center mb-5 formItem">
-                  Welcome to run Kiro the lizard!
-                </h2>
+    <div
+      className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+      style={{
+        backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
+      }}
+    >
+      <div className="mask darkMask d-flex justify-content-center align-items-center h-100">
+        <div className="container row justify-content-center">
+          <div className="col-12 col-md-10 col-lg-7 col-xl-6">
+            <FormControl className="card glassCard card-body inputForm">
+              <h2 className="text-center mb-5 formItem">
+                Welcome to run Kiro the lizard!
+              </h2>
 
-                <Stack
-                  spacing={5}
-                  className="formStack"
+              <Stack spacing={5} className="formStack">
+                <TextField
+                  sx={{
+                    "& .MuiInputLabel-root": { color: "white" },
+                    input: { color: "white" },
+                  }}
+                  error={!lanesValidation.valid}
+                  helperText={lanesValidation.msg}
+                  id="outlined-basic"
+                  label="Number of lanes"
+                  variant="outlined"
+                  defaultValue={props.lanesNum}
+                  onChange={handleInput}
+                />
+                <TextField
+                  sx={{
+                    "& .MuiInputLabel-root": { color: "white" },
+                    input: { color: "white" },
+                  }}
+                  error={!usernameValidation.valid}
+                  helperText={usernameValidation.msg}
+                  id="outlined-basic"
+                  label="Username"
+                  variant="outlined"
+                  defaultValue={props.username}
+                  onChange={handleUsernameInput}
+                />
+                <button
+                  type="button"
+                  className="btn btn-light playButton"
+                  onClick={clickStart}
                 >
-                  <TextField
-                    sx={{
-                      "& .MuiInputLabel-root": { color: "white" },
-                      input: { color: "white" },
-                    }}
-                    error={!lanesValidation.valid}
-                    helperText={lanesValidation.msg}
-                    id="outlined-basic"
-                    label="Number of lanes"
-                    variant="outlined"
-                    defaultValue={props.lanesNum}
-                    onChange={handleInput}
-                  />
-                  <TextField
-                    sx={{
-                      "& .MuiInputLabel-root": { color: "white" },
-                      input: { color: "white" },
-                    }}
-                    error={!usernameValidation.valid}
-                    helperText={usernameValidation.msg}
-                    id="outlined-basic"
-                    label="Username"
-                    variant="outlined"
-                    defaultValue={props.username}
-                    onChange={handleUsernameInput}
-                  />
-                  <button
-                    type="button"
-                    className="btn btn-light playButton"
-                    onClick={
-                      clickStart
-                    }
-                  >
-                    Play
-                  </button>
-                </Stack>
-              </FormControl>
-            </div>
+                  Play
+                </button>
+              </Stack>
+            </FormControl>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 

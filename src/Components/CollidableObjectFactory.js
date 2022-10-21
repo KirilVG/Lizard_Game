@@ -4,8 +4,7 @@ const CollidableObjectFactory = {
   createBird: (info, lanesNum) => {
     let col = Math.floor(Math.random() * (lanesNum - 2)) + 1;
 
-    let originX =
-      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
+    let originX = info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
     let originY = info.laneOriginY;
 
@@ -23,8 +22,7 @@ const CollidableObjectFactory = {
   createWorm: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
-    let originX =
-      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
+    let originX = info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
     let originY = info.laneOriginY;
 
@@ -42,8 +40,7 @@ const CollidableObjectFactory = {
   createDiscoConsumable: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
-    let originX =
-      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
+    let originX = info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
     let originY = info.laneOriginY;
 
@@ -61,8 +58,7 @@ const CollidableObjectFactory = {
   createCactus: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
-    let originX =
-      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
+    let originX = info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
     let originY = info.laneOriginY;
 
@@ -80,8 +76,7 @@ const CollidableObjectFactory = {
   createSmallCactus: function (info, lanesNum) {
     let col = Math.floor(Math.random() * lanesNum);
 
-    let originX =
-      info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
+    let originX = info.laneOriginX + col * info.laneWidth + info.laneWidth / 2;
 
     let originY = info.laneOriginY;
 
