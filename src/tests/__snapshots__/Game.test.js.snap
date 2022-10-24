@@ -1,0 +1,131 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`game renders correctly 1`] = `
+<div>
+  <div
+    className="d-flex justify-content-center align-items-center backgroundIMG"
+    style={
+      Object {
+        "backgroundImage": "url(\\"https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg\\")",
+      }
+    }
+  >
+    <div
+      className="mask darkMask d-flex justify-content-center align-items-center h-100"
+    >
+      <div
+        className="container row justify-content-center"
+      >
+        <div
+          className="col-12 col-md-10 col-lg-7 col-xl-6"
+        >
+          <div
+            className="MuiFormControl-root card glassCard card-body inputForm css-1nrlq1o-MuiFormControl-root"
+          >
+            <h2
+              className="text-center mb-5 formItem"
+            >
+              Welcome to run Kiro the lizard!
+            </h2>
+            <div
+              className="formStack css-pnq1z9-MuiStack-root"
+            >
+              <div
+                className="MuiFormControl-root MuiTextField-root css-19lnug-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-1occrge-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink={false}
+                  htmlFor="outlined-basic"
+                  id="outlined-basic-label"
+                >
+                  Number of lanes
+                </label>
+                <div
+                  className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-x6vx7i-MuiInputBase-root-MuiOutlinedInput-root"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    disabled={false}
+                    id="outlined-basic"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                  <fieldset
+                    aria-hidden={true}
+                    className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      className="css-yjsfm1"
+                    >
+                      <span>
+                        Number of lanes
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <div
+                className="MuiFormControl-root MuiTextField-root css-19lnug-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-1occrge-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink={false}
+                  htmlFor="outlined-basic"
+                  id="outlined-basic-label"
+                >
+                  Username
+                </label>
+                <div
+                  className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-x6vx7i-MuiInputBase-root-MuiOutlinedInput-root"
+                  onClick={[Function]}
+                >
+                  <input
+                    aria-invalid={false}
+                    autoFocus={false}
+                    className="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    disabled={false}
+                    id="outlined-basic"
+                    onAnimationStart={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    required={false}
+                    type="text"
+                  />
+                  <fieldset
+                    aria-hidden={true}
+                    className="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      className="css-yjsfm1"
+                    >
+                      <span>
+                        Username
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <button
+                className="btn btn-light playButton"
+                onClick={[Function]}
+                type="button"
+              >
+                Play
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

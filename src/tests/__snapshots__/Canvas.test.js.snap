@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`canvas should be rendered correctly 1`] = `
+<canvas
+  height={760.3199999999999}
+  id="Id"
+  width={1024}
+/>
+`;

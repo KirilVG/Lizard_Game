@@ -11,6 +11,7 @@ class ApproachingObject {
     this.distanceToTravel = distanceToTravel;
     this.collided = false;
     this.collisionHandler = info.collisionHandler;
+    this.type=info.type;
   }
 
   update(c, currentSpeed) {

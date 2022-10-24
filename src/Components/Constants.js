@@ -14,6 +14,7 @@ export const cactusIMGWidthScale = 0.6;
 export const cactusSpeedMultiplier = 1;
 export const cactusPathHeight = 12800;
 export const cactusPathWidth = 5800;
+export const cactusType = "cactus";
 //small cactus
 export const smallCactusHitBoxHeightScale = 0.6;
 export const smallCactusHitBoxWidthScale = 0.6;
@@ -22,6 +23,7 @@ export const smallCactusIMGWidthScale = 0.6;
 export const smallCactusSpeedMultiplier = 1;
 export const smallCactusPathHeight = 8900;
 export const smallCactusPathWidth = 12500;
+export const smallCactusType = "smallCactus";
 //worm
 export const wormHitBoxHeightScale = 0.8;
 export const wormHitBoxWidthScale = 0.8;
@@ -30,6 +32,7 @@ export const wormIMGWidthScale = 0.8;
 export const wormSpeedMultiplier = 1;
 export const wormPathHeight = 12900;
 export const wormPathWidth = 9600;
+export const wormType = "worm";
 //discoConsumable
 export const discoConsumableHitBoxHeightScale = 0.8;
 export const discoConsumableHitBoxWidthScale = 0.8;
@@ -39,6 +42,7 @@ export const discoConsumableSpeedMultiplier = 1;
 export const discoConsumablePathHeight = 12600;
 export const discoConsumablePathWidth = 12600;
 export const discoConsumableDeathChance = 2;
+export const discoConsumableType = "discoConsumable";
 //bird
 export const birdHitBoxHeightScale = 1.2;
 export const birdHitBoxWidthScale = 2.7;
@@ -47,6 +51,7 @@ export const birdIMGWidthScale = 2.7;
 export const birdSpeedMultiplier = 1.2;
 export const birdPathHeight = 7200;
 export const birdPathWidth = 12750;
+export const birdType = "bird";
 //lane
 export const laneHeightScale = 12;
 export const lineSepaRatorWidthScale = 0.05;

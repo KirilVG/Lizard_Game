@@ -85,7 +85,8 @@ const CollidableObjectFactory = {
       originY,
       info.smallCactus,
       col,
-      info.laneHeight
+      info.laneHeight,
+      
     );
 
     return smallCactus;

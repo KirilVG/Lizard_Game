@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`game wrapper should be rendered correctly 1`] = `
+<div>
+  <canvas
+    height={760.3199999999999}
+    id="Id"
+    width={1024}
+  />
+</div>
+`;
