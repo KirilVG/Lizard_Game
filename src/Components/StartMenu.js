@@ -94,7 +94,7 @@ function StartMenu(props) {
 
   return (
     <div
-      className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+      className="d-flex justify-content-center align-items-center backgroundIMG"
       style={{
         backgroundImage: `url("${myConstants.startMenuBackgroundIMGUrl}")`,
       }}

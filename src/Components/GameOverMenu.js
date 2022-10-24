@@ -94,7 +94,7 @@ function GameOverMenu(props) {
             <div className="col-12 col-md-10 col-lg-7 col-xl-6">
               <div className="card glassCard card-body p-3 text-white my-4">
                 <h2 className="text-center mb-5">Game Over!</h2>
-                <Stack spacing={3} class="formStack">
+                <Stack spacing={3} className="formStack">
                   <div>
                     <label>{`Username:${props.end.username}, cause of death:${props.end.message}, score: ${props.end.score}`}</label>
                   </div>

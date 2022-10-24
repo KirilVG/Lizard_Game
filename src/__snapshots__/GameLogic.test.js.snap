@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`canvas should be rendered correctly 1`] = `
+<canvas
+  height={760.3199999999999}
+  id="demoId"
+  width={1024}
+/>
+`;
+
 exports[`game end renders correctly 1`] = `
 <div
   className="bg-image d-flex justify-content-center align-items-center backgroundIMG"
@@ -30,8 +38,7 @@ exports[`game end renders correctly 1`] = `
               Game Over!
             </h2>
             <div
-              class="formStack"
-              className="vstack minBreakpoint-xs"
+              className="formStack vstack minBreakpoint-xs"
               spacing={3}
             >
               <div>
@@ -96,6 +103,16 @@ exports[`game end renders correctly 1`] = `
 </div>
 `;
 
+exports[`game wrapper should be rendered correctly 1`] = `
+<div>
+  <canvas
+    height={760.3199999999999}
+    id="demoId"
+    width={1024}
+  />
+</div>
+`;
+
 exports[`should render canvas 1`] = `
 <canvas
   height={760.3199999999999}
@@ -116,7 +133,7 @@ exports[`should render game wrapper 1`] = `
 
 exports[`start menu renders correctly 1`] = `
 <div
-  className="bg-immage d-flex justify-content-center align-items-center backgroundIMG"
+  className="d-flex justify-content-center align-items-center backgroundIMG"
   style={
     Object {
       "backgroundImage": "url(\\"https://live.staticflickr.com/65535/48701594348_e099758f0c_b.jpg\\")",
