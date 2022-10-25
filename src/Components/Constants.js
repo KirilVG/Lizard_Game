@@ -121,7 +121,7 @@ export function switchDayNightCycle() {
   secondaryColor = temp;
 }
 //settings
-export const displayHitBoxes = true;
+export const displayHitBoxes = false;
 export const maximumNumberOfScores = 10;
 export const hitBoxOpacity = 0.5;
 export const minLanesNum = 3;
