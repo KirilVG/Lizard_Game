@@ -124,9 +124,7 @@ class GameLogic {
       );
 
       //check if fuel has ended
-      if (this.player.fuel <= 0) {
-        this.player.handleDeath("Fuel ended");
-      }
+      
 
       //clear canvas
       this.renderer.clearScreen(this.width, this.height);
@@ -232,8 +230,6 @@ class GameLogic {
         this.groundObstacleObjects.push(
           CollidableObjectFactory.createSmallCactus(this.info, this.lanesNum)
         );
-        break;
-      default:
         break;
     }
   }

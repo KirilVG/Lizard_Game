@@ -211,3 +211,22 @@ it("player object should be created", () => {
 
   expect(playerObject).not.toBe(undefined);
 });
+
+it("game logic should create object at a certain time", () => {
+  jest.spyOn(global.Math, 'random').mockReturnValue(0.9);
+  jest.useFakeTimers();
+  const gameLogic = createNewGameLogic();
+  jest.advanceTimersByTime(2000);
+
+
+  expect(expect(gameLogic.aerialObstacleObjects.length + gameLogic.groundObstacleObjects.length).toBe(1));
+})
+
+it("game logic should create a consumable object at a certain time", () => {
+  jest.spyOn(global.Math, 'random').mockReturnValue(0.9);
+  jest.useFakeTimers();
+  const gameLogic = createNewGameLogic();
+  jest.advanceTimersByTime(4000);
+
+  expect(expect(gameLogic.consumableObjects.length).toBe(1));
+})

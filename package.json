@@ -39,6 +39,14 @@
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js, jsx, ts, tsx}",
+      "!src/Components/Canvas2DRenderer.js",
+      "!src/index.js",
+      "!src/reportWebVitals.js"
+    ]
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -55,7 +55,7 @@ class Player {
     this.valueMultiplier = myConstants.initialValueMultiplier;
   }
 
-  update(c) {
+  update(ctx) {
     let scoreIncrement = 1 * myConstants.scoreMultiplier * this.valueMultiplier;
 
     myConstants.useDiscoMode &&
@@ -63,9 +63,13 @@ class Player {
 
     this.score += scoreIncrement;
 
+    if (this.fuel <= 0) {
+      this.handleDeath("Fuel ended");
+    }
+
     this.fuel -= myConstants.fuelLos * this.valueMultiplier;
 
-    c.renderPlayer(this);
+    ctx.renderPlayer(this);
   }
 
   handleDeath(cause) {
@@ -111,8 +115,6 @@ class Player {
           this.position.x += this.stepLength;
           this.currentLane++;
         }
-        break;
-      default:
         break;
     }
   }
